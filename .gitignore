@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+WebservicePerso/App.config
 
 # Build results
 
