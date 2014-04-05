@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientBO.cs" />
-    <Compile Include="LocationBO.cs" />
+    <Compile Include="EmpruntBO.cs" />
     <Compile Include="PersonneBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

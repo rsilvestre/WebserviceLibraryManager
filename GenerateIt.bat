@@ -5,7 +5,7 @@ cd c:\Tmp
 svcutil C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsIFAC.dll /d:C:\Tmp
 svcutil C:\Tmp\WebsIFAC.ClientIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\ClientIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
-svcutil C:\Tmp\WebsIFAC.LocationIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\LocationIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
+svcutil C:\Tmp\WebsIFAC.EmpruntIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\EmpruntIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
 svcutil C:\Tmp\WebsIFAC.PersonneIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\PersonneIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 

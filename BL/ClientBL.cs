@@ -21,11 +21,11 @@ namespace WebsBL
 			return lstResult;
 		}
 
-		public static ClientBO SelectClientById(Int32 pId) {
+		public static ClientBO SelectById(Int32 pId) {
 			ClientBO result = null;
 			try {
 				using (ClientDAL clientDal = new ClientDAL(Util.GetConnection())) {
-					result = (ClientBO)clientDal.ClientBO_SelectClientById(pId);
+					result = (ClientBO)clientDal.ClientBO_SelectById(pId);
 				}
 			} catch (Exception Ex) { 
 				throw;  

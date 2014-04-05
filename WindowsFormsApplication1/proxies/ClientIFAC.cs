@@ -25,13 +25,13 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.ClientBO> EndSelectAll(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectionClientById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectionClientByIdResponse")]
-        WebsBO.ClientBO SelectionClientById(int pId);
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectByIdResponse")]
+        WebsBO.ClientBO SelectById(int pId);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectionClientById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectionClientByIdResponse")]
-        System.IAsyncResult BeginSelectionClientById(int pId, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectByIdResponse")]
+        System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState);
         
-        WebsBO.ClientBO EndSelectionClientById(System.IAsyncResult result);
+        WebsBO.ClientBO EndSelectById(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,19 +83,19 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public WebsBO.ClientBO SelectionClientById(int pId)
+        public WebsBO.ClientBO SelectById(int pId)
         {
-            return base.Channel.SelectionClientById(pId);
+            return base.Channel.SelectById(pId);
         }
         
-        public System.IAsyncResult BeginSelectionClientById(int pId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectionClientById(pId, callback, asyncState);
+            return base.Channel.BeginSelectById(pId, callback, asyncState);
         }
         
-        public WebsBO.ClientBO EndSelectionClientById(System.IAsyncResult result)
+        public WebsBO.ClientBO EndSelectById(System.IAsyncResult result)
         {
-            return base.Channel.EndSelectionClientById(result);
+            return base.Channel.EndSelectById(result);
         }
     }
 }

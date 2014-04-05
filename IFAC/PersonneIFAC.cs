@@ -14,7 +14,7 @@ namespace WebsIFAC {
 		List<PersonneBO> SelectAll();
 
 		[OperationContract]
-		PersonneBO SelectById(Int32 pId);
+		List<PersonneBO> SelectById(Int32 pId);
 
 		[OperationContract]
 		List<PersonneBO> SelectByName(String pName);

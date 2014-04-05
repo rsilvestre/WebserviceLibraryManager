@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HostingServerClient.cs" />
-    <Compile Include="HostingServerLocation.cs" />
+    <Compile Include="HostingServerEmprunt.cs" />
     <Compile Include="HostingServerPersonne.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

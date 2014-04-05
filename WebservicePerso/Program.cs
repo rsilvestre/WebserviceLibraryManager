@@ -8,7 +8,7 @@ namespace WebservicePerso {
 	class Program {
 		static void Main(string[] args) {
 			HostingServerClient clientServer = new HostingServerClient();
-			HostingServerLocation locationServer = new HostingServerLocation();
+			HostingServerEmprunt locationServer = new HostingServerEmprunt();
 			HostingServerPersonne personneServer = new HostingServerPersonne();
 			Console.WriteLine("Server Started");
 			clientServer.StartServer();

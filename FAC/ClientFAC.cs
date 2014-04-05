@@ -18,9 +18,9 @@ namespace WebsFAC
 			}
 		}
 
-		public ClientBO SelectionClientById(int pId) {
+		public ClientBO SelectById(Int32 pId) {
 			try {
-				return ClientBL.SelectClientById(pId);
+				return ClientBL.SelectById(pId);
 			} catch (Exception Ex) {
 				throw;
 			}

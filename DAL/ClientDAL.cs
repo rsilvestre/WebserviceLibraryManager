@@ -21,7 +21,7 @@ namespace WebsDAL {
 		}
 
 		[Function(Name = "[dbo].[Client.SelectClientById]")]
-		public ISingleResult<ClientBO> ClientBO_SelectClientById([Parameter(DbType="int")] int pId) {
+		public ISingleResult<ClientBO> ClientBO_SelectById([Parameter(DbType="int")] int pId) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pId);
 			return ((ISingleResult<ClientBO>)(result.ReturnValue));
 		}

@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientIFAC.cs" />
-    <Compile Include="LocationIFAC.cs" />
+    <Compile Include="EmpruntIFAC.cs" />
     <Compile Include="PersonneIFAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

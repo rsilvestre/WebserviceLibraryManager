@@ -13,6 +13,6 @@ namespace WebsIFAC {
 		List<ClientBO> SelectAll();
 
 		[OperationContract]
-		ClientBO SelectionClientById(int pId);
+		ClientBO SelectById(int pId);
     }
 }

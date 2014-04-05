@@ -20,11 +20,13 @@ namespace WebsDAL {
 			return ((ISingleResult<PersonneBO>)(result.ReturnValue));
 		}
 
+		[Function(Name = "[dbo].[Personne.SelectById]")]
 		public ISingleResult<PersonneBO> PersonneBO_SelectById([Parameter(DbType="int")] Int32 pId) {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pId);
 			return ((ISingleResult<PersonneBO>)(result.ReturnValue));
 		}
 
+		[Function(Name = "[dbo].[Personne.SelectByName]")]
 		public ISingleResult<PersonneBO> PersonneBO_SelectByName([Parameter(DbType="varchar(50)")] String pName) {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pName);
 			return ((ISingleResult<PersonneBO>)(result.ReturnValue));

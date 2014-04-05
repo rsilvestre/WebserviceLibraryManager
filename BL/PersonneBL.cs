@@ -21,16 +21,16 @@ namespace WebsBL {
 			return lstPersonne;
 		}
 
-		public static PersonneBO SelectById(Int32 pId) {
-			PersonneBO personne = null;
+		public static List<PersonneBO> SelectById(Int32 pId) {
+			List<PersonneBO> lstPersonne = null;
 			try {
 				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
-					personne = (PersonneBO)personneDal.PersonneBO_SelectById(pId);
+					lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return personne;
+			return lstPersonne;
 		}
 
 		public static List<PersonneBO> SelectByName(String pName) {

@@ -40,8 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientFAC.cs" />
-    <Compile Include="LoadCache.cs" />
-    <Compile Include="LocationFAC.cs" />
+    <Compile Include="EmpruntFAC.cs" />
     <Compile Include="PersonneFAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

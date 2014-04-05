@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebsBO;
 
 namespace WebsFAC {
 	public class PersonneFAC : PersonneIFAC {
-		public List<WebsBO.PersonneBO> SelectAll() {
+		public List<PersonneBO> SelectAll() {
 			try {
 				return PersonneBL.SelectAll();
 			} catch (Exception Ex) {
@@ -16,7 +17,7 @@ namespace WebsFAC {
 			}
 		}
 
-		public WebsBO.PersonneBO SelectById(int pId) {
+		public List<PersonneBO> SelectById(Int32 pId) {
 			try {
 				return PersonneBL.SelectById(pId);
 			} catch (Exception Ex) {
@@ -24,7 +25,7 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<WebsBO.PersonneBO> SelectByName(string pName) {
+		public List<PersonneBO> SelectByName(String pName) {
 			try {
 				return PersonneBL.SelectByName(pName);
 			} catch (Exception Ex) {

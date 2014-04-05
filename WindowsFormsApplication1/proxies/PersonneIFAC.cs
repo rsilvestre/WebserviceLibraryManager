@@ -26,12 +26,12 @@ namespace WCF.Proxies
         System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectById", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByIdResponse")]
-        WebsBO.PersonneBO SelectById(int pId);
+        System.Collections.Generic.List<WebsBO.PersonneBO> SelectById(int pId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectById", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByIdResponse")]
         System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState);
         
-        WebsBO.PersonneBO EndSelectById(System.IAsyncResult result);
+        System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectById(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByName", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByNameResponse")]
         System.Collections.Generic.List<WebsBO.PersonneBO> SelectByName(string pName);
@@ -91,7 +91,7 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public WebsBO.PersonneBO SelectById(int pId)
+        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectById(int pId)
         {
             return base.Channel.SelectById(pId);
         }
@@ -101,7 +101,7 @@ namespace WCF.Proxies
             return base.Channel.BeginSelectById(pId, callback, asyncState);
         }
         
-        public WebsBO.PersonneBO EndSelectById(System.IAsyncResult result)
+        public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectById(System.IAsyncResult result)
         {
             return base.Channel.EndSelectById(result);
         }

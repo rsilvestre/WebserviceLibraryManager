@@ -12,17 +12,17 @@ namespace WebsBO {
 
 		private String _personneMatricule;
 
-		private String _personneName;
+		private String _personneFirstName;
 
-		private String _personnaSurname;
+		private String _personneLastName;
 
 		public PersonneBO() { }
 
-		public PersonneBO(Int32 pPersonneId, String pPersonneMatricule, String pPersonneName, String pPersonneSurname ) {
+		public PersonneBO(Int32 pPersonneId, String pPersonneMatricule, String pPersonneFirstName, String pPersonneLastName ) {
 			PersonneId = pPersonneId;
 			PersonneMatricule = pPersonneMatricule;
-			PersonneName = pPersonneName;
-			PersonnaSurname = pPersonneSurname;
+			PersonneFirstName = pPersonneFirstName;
+			PersonneLastName = pPersonneLastName;
 		}
 
 		[DataMember(Name="PersonneId")]
@@ -37,16 +37,16 @@ namespace WebsBO {
 			set { _personneMatricule = value; }
 		}
 
-		[DataMember(Name="PersonneName")]
-		public String PersonneName {
-			get { return _personneName; }
-			set { _personneName = value; }
+		[DataMember(Name="PersonneLastName")]
+		public String PersonneFirstName {
+			get { return _personneFirstName; }
+			set { _personneFirstName = value; }
 		}
 
-		[DataMember(Name="PersonneSurname")]
-		public String PersonnaSurname {
-			get { return _personnaSurname; }
-			set { _personnaSurname = value; }
+		[DataMember(Name="PersonneFirstName")]
+		public String PersonneLastName {
+			get { return _personneLastName; }
+			set { _personneLastName = value; }
 		}
 
 
