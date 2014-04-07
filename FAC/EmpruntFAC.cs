@@ -17,7 +17,6 @@ namespace WebsFAC {
 			}
 		}
 
-
 		public EmpruntBO SelectEmpruntById(Int32 pId) {
 			try {
 				return EmpruntBL.SelectById(pId);

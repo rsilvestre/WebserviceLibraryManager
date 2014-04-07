@@ -9,6 +9,10 @@ svcutil C:\Tmp\WebsIFAC.EmpruntIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\EmpruntIFAC.cs 
 
 svcutil C:\Tmp\WebsIFAC.PersonneIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\PersonneIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
+svcutil C:\Tmp\WebsIFAC.RefLivreIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\RefLivreIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
+
+svcutil C:\Tmp\WebsIFAC.LivreIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\LivreIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
+
 Pause
 del C:\Tmp\*.wsdl
 del C:\Tmp\*.xsd

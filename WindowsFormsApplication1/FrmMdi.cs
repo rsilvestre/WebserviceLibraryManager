@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WCF.Proxies;
+using WebsBO;
+using WindowsFormsApplication1.RefLivre;
 
 namespace WindowsFormsApplication1 {
 	public partial class FrmMdi : Form {
@@ -59,6 +62,7 @@ namespace WindowsFormsApplication1 {
 					WindowState = FormWindowState.Maximized;
 				} else {
 					_splashScreen.Close();
+					Close();
 				}
 
 			} catch (Exception Ex) {
@@ -72,7 +76,7 @@ namespace WindowsFormsApplication1 {
 
 
 		private void ShowNewForm(object sender, EventArgs e) {
-			Form childForm = new Form();
+			Form childForm = new Form1();
 			childForm.MdiParent = this;
 			childForm.Text = "Window " + childFormNumber++;
 			childForm.Show();
@@ -130,6 +134,27 @@ namespace WindowsFormsApplication1 {
 			foreach (Form childForm in MdiChildren) {
 				childForm.Close();
 			}
+		}
+
+		private void searchToolStripMenuItem_Click(object sender, EventArgs e) {
+			AddBookFromAmazon addBookFromAmazon = new AddBookFromAmazon(this);
+			addBookFromAmazon.MdiParent = this;
+			addBookFromAmazon.Show();
+		}
+
+		internal Boolean InsertLivreFromAmazon(WebsBO.RefLivreBO objRefLivre) {
+			List<RefLivreBO> lstRefLivre;
+			try {
+				using (RefLivreIFACClient refLivreProxy = new RefLivreIFACClient()) {
+					lstRefLivre = refLivreProxy.InsertLivre(objRefLivre.ISBN, objRefLivre.Titre, objRefLivre.Description, objRefLivre.Auteur, objRefLivre.Langue, objRefLivre.Editeur, objRefLivre.Published, objRefLivre.ImageUrl);
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			if (lstRefLivre.Count() == 0) {
+				return true;
+			}
+			return CGlobalCache.ReloadRefLivreCache();
 		}
 	}
 }

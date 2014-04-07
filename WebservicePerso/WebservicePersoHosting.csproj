@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="HostingServerClient.cs" />
     <Compile Include="HostingServerEmprunt.cs" />
+    <Compile Include="HostingServerLivre.cs" />
     <Compile Include="HostingServerPersonne.cs" />
+    <Compile Include="HostingServerRefLivre.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

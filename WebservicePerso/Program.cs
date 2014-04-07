@@ -10,15 +10,21 @@ namespace WebservicePerso {
 			HostingServerClient clientServer = new HostingServerClient();
 			HostingServerEmprunt locationServer = new HostingServerEmprunt();
 			HostingServerPersonne personneServer = new HostingServerPersonne();
+			HostingServerRefLivre refLivreServer = new HostingServerRefLivre();
+			HostingServerLivre livreServer = new HostingServerLivre();
 			Console.WriteLine("Server Started");
 			clientServer.StartServer();
 			locationServer.StartServer();
 			personneServer.StartServer();
+			refLivreServer.StartServer();
+			livreServer.StartServer();
 			Console.WriteLine("Press a key to stop the Service");
 			Console.ReadKey();
 			clientServer.StopServer();
 			locationServer.StopServer();
 			personneServer.StopServer();
+			refLivreServer.StopServer();
+			livreServer.StopServer();
 			Console.WriteLine("Server Stopped");
 
 
