@@ -15,14 +15,38 @@ namespace WebsBO {
 		private String _personneFirstName;
 
 		private String _personneLastName;
+		private String _personneUsername;
+		private String _personneEmail;
+		private String _personnePassword;
 
 		public PersonneBO() { }
 
-		public PersonneBO(Int32 pPersonneId, String pPersonneMatricule, String pPersonneFirstName, String pPersonneLastName ) {
+		public PersonneBO(Int32 pPersonneId, String pPersonneMatricule, String pPersonneFirstName, String pPersonneLastName, String pPersonneUsername, String pPersonneEmail, String pPersonnePassword ) {
 			PersonneId = pPersonneId;
 			PersonneMatricule = pPersonneMatricule;
 			PersonneFirstName = pPersonneFirstName;
 			PersonneLastName = pPersonneLastName;
+			PersonneUsername = pPersonneUsername;
+			PersonneEmail = pPersonneEmail;
+			PersonnePassword = pPersonnePassword;
+		}
+
+		[DataMember(Name="PersonnePassword")]
+		public String PersonnePassword {
+			get { return _personnePassword; }
+			set { _personnePassword = value; }
+		}
+
+		[DataMember(Name="PersonneEmail")]
+		public String PersonneEmail {
+			get { return _personneEmail; }
+			set { _personneEmail = value; }
+		}
+
+		[DataMember(Name="PersonneUsername")]
+		public String PersonneUsername {
+			get { return _personneUsername; }
+			set { _personneUsername = value; }
 		}
 
 		[DataMember(Name="PersonneId")]

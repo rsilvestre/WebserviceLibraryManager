@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebsBO {
 	[DataContract(Namespace="urn:Webs.RefLivreBO")]
-	public class RefLivreBO {
+	public class RefLivreBO : ICloneable {
 		private Int32 _RefLivreId;
 		private String _ISBN;
 		private String _Titre;
@@ -94,6 +94,10 @@ namespace WebsBO {
 		public Int32 RefLivreId {
 			get { return _RefLivreId; }
 			set { _RefLivreId = value; }
+		}
+
+		public object Clone() {
+			return this.MemberwiseClone();
 		}
 	}
 }

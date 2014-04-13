@@ -34,5 +34,11 @@ namespace WebsDAL {
 				IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl);
 				return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
+
+		[Function(Name="[dbo].[RefLivre.SelectById]")]
+		public ISingleResult<RefLivreBO> RefLivreBO_SelectById([Parameter(DbType="int")]int refLivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this,(MethodInfo)MethodInfo.GetCurrentMethod(), refLivreId);
+			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
+		}
 	}
 }

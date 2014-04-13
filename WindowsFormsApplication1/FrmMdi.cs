@@ -156,5 +156,26 @@ namespace WindowsFormsApplication1 {
 			}
 			return CGlobalCache.ReloadRefLivreCache();
 		}
+
+		internal Boolean InsertLivre(WebsBO.LivreBO pObjLivre) {
+			LivreBO Livre;
+			try {
+				using (LivreIFACClient livreProxy = new LivreIFACClient()) {
+					Livre = livreProxy.InsertLivre(pObjLivre);
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			if (Livre == null) {
+				return true;
+			}
+			return CGlobalCache.ReloadLivreCache();
+		}
+
+		private void addBookToolStripMenuItem_Click(object sender, EventArgs e) {
+			Livre.CreateLivre frmCreateLivre = new Livre.CreateLivre(this);
+			frmCreateLivre.MdiParent = this;
+			frmCreateLivre.Show();
+		}
 	}
 }

@@ -17,5 +17,13 @@ namespace WebsFAC {
 				throw;
 			}
 		}
+
+		public LivreBO InsertLivre(LivreBO pObjLivre) {
+			try {
+				return LivreBL.InsertLivre(pObjLivre);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
 	}
 }

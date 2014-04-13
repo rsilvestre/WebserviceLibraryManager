@@ -42,11 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostingServerAdministrateur.cs" />
+    <Compile Include="HostingServerBibliotheque.cs" />
     <Compile Include="HostingServerClient.cs" />
+    <Compile Include="HostingServerDemandeAnnulation.cs" />
+    <Compile Include="HostingServerDemandeReservation.cs" />
     <Compile Include="HostingServerEmprunt.cs" />
     <Compile Include="HostingServerLivre.cs" />
     <Compile Include="HostingServerPersonne.cs" />
     <Compile Include="HostingServerRefLivre.cs" />
+    <Compile Include="HostingServerLivreStatus.cs" />
+    <Compile Include="HostingServerSession.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,7 +11,7 @@ using WebsBO;
 
 namespace WindowsFormsApplication1 {
 	public static class CGlobalCache {
-		public static Int32 _iLock = 6;
+		public static Int32 _iLock = 8;
 		static readonly AutoResetEvent AutoEvent = new AutoResetEvent(false);
 
 		private delegate List<PersonneBO> AsyncGuiPersonne();
@@ -20,6 +20,8 @@ namespace WindowsFormsApplication1 {
 		private delegate List<PersonneBO> AsyncGuiPersonneById(int pId);
 		private delegate List<RefLivreBO> AsyncGuiRefLivreSelectAll();
 		private delegate List<LivreBO> AsyncGuiLivreSelectAll();
+		private delegate List<LivreStatusBO> ASyncGuiLivreStatusSelectAll();
+		private delegate List<BibliothequeBO> ASyncGuiBibliothequeSelectAll();
 		//private delegate List<PersonneBO> AsyncGuiPersonneByName(String pName);
 
 		public static List<PersonneBO> LstPersonne { get; set; }
@@ -28,6 +30,8 @@ namespace WindowsFormsApplication1 {
 		public static List<PersonneBO> objPersonne { get; set; }
 		public static List<RefLivreBO> LstRefLivreSelectAll { get; set; }
 		public static List<LivreBO> LstLivreSelectAll { get; set; }
+		public static List<LivreStatusBO> LstLivreStatusSelectAll { get; set; }
+		public static List<BibliothequeBO> LstBibliothequeSelectAll { get; set; }
 		//public static List<PersonneBO> LstPersonneByName { get; set; }
 
 		private static FrmMdi ofrmMdi;
@@ -41,6 +45,8 @@ namespace WindowsFormsApplication1 {
 			PersonneIFACClient personneIFacById = null;
 			RefLivreIFACClient refLivreIFacSelectAll = null;
 			LivreIFACClient livreIFacSelectAll = null;
+			LivreStatusIFACClient livreStatusIFacSelectAll = null;
+			BibliothequeIFACClient bibliothequeIFacSelectAll = null;
 
 			try {
 				ofrmMdi = pFrmMdi;
@@ -72,6 +78,14 @@ namespace WindowsFormsApplication1 {
 				var selectGuiSampleLivreDelegate = new AsyncGuiLivreSelectAll(livreIFacSelectAll.SelectAll);
 				selectGuiSampleLivreDelegate.BeginInvoke(LivreSelectAllResult, null);
 
+				livreStatusIFacSelectAll = new LivreStatusIFACClient();
+				var selectGuiSampleLivreStatusDelegate = new ASyncGuiLivreStatusSelectAll(livreStatusIFacSelectAll.SelectAll);
+				selectGuiSampleLivreStatusDelegate.BeginInvoke(LivreStatusSelecAllResult, null);
+
+				bibliothequeIFacSelectAll = new BibliothequeIFACClient();
+				var selectGuiSampleBibliothequeDelegate = new ASyncGuiBibliothequeSelectAll(bibliothequeIFacSelectAll.SelectAll);
+				selectGuiSampleBibliothequeDelegate.BeginInvoke(BibliothequeSelectAllResult, null);
+
 				while (!AutoEvent.WaitOne(50, true)) {
 					Application.DoEvents();
 				}
@@ -96,6 +110,12 @@ namespace WindowsFormsApplication1 {
 				}
 				if (livreIFacSelectAll != null) {
 					livreIFacSelectAll.Close();
+				}
+				if (livreStatusIFacSelectAll != null) {
+					livreStatusIFacSelectAll.Close();
+				}
+				if (bibliothequeIFacSelectAll != null) {
+					bibliothequeIFacSelectAll.Close();
 				}
 				ofrmMdi.DecrementILockMDI();
 			}
@@ -147,7 +167,21 @@ namespace WindowsFormsApplication1 {
 		public static void LivreSelectAllResult(IAsyncResult result) {
 			var sampleLivreSelectAllDelegate = (AsyncGuiLivreSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstLivreSelectAll = sampleLivreSelectAllDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", "RefLivre"));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "Livre"));
+			DecrementILock();
+		}
+
+		public static void LivreStatusSelecAllResult(IAsyncResult result) {
+			var sampleLivreStatusSelectAllDelegate = (ASyncGuiLivreStatusSelectAll)((AsyncResult)result).AsyncDelegate;
+			LstLivreStatusSelectAll = sampleLivreStatusSelectAllDelegate.EndInvoke(result);
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "LivreStatus"));
+			DecrementILock();
+		}
+
+		public static void BibliothequeSelectAllResult(IAsyncResult result) {
+			var sampleBibliothequeSelectAllDelegate = (ASyncGuiBibliothequeSelectAll)((AsyncResult)result).AsyncDelegate;
+			LstBibliothequeSelectAll = sampleBibliothequeSelectAllDelegate.EndInvoke(result);
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "Bibliotheque"));
 			DecrementILock();
 		}
 

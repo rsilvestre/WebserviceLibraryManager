@@ -53,11 +53,19 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrateurBibliothequeDAL.cs" />
+    <Compile Include="AdministrateurClientDAL.cs" />
+    <Compile Include="AdministrateurDAL.cs" />
+    <Compile Include="BibliothequeDAL.cs" />
     <Compile Include="ClientDAL.cs" />
+    <Compile Include="DemandeAnnulationDAL.cs" />
+    <Compile Include="DemandeReservationDAL.cs" />
     <Compile Include="EmpruntDAL.cs" />
     <Compile Include="LivreDAL.cs" />
+    <Compile Include="LivreStatusDAL.cs" />
     <Compile Include="PersonneDAL.cs" />
     <Compile Include="RefLivreDAL.cs" />
+    <Compile Include="SessionDAL.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

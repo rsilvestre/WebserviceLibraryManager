@@ -7,12 +7,9 @@ using System.ServiceModel;
 using WebsBO;
 
 namespace WebsIFAC {
-	[ServiceContract(Namespace = "urn:WebsIFAC/LivreIFAC")]
-	public interface LivreIFAC {
+	[ServiceContract(Namespace="WebsIFAC/DemandeReservationIFAC")]
+	public interface DemandeReservationIFAC {
 		[OperationContract]
-		List<LivreBO> SelectAll();
-
-		[OperationContract]
-		LivreBO InsertLivre(LivreBO pObjLivre);
+		List<DemandeReservationBO> SelectById(Int32 pDemandeReservationId);
 	}
 }

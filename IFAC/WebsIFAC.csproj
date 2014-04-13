@@ -40,12 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrateurIFAC.cs" />
+    <Compile Include="BibliothequeIFAC.cs" />
     <Compile Include="ClientIFAC.cs" />
+    <Compile Include="DemandeAnnulationIFAC.cs" />
+    <Compile Include="DemandeReservationIFAC.cs" />
     <Compile Include="EmpruntIFAC.cs" />
     <Compile Include="LivreIFAC.cs" />
+    <Compile Include="LivreStatusIFAC.cs" />
     <Compile Include="PersonneIFAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefLivreIFAC.cs" />
+    <Compile Include="SessionIFAC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\WebsBO.csproj">

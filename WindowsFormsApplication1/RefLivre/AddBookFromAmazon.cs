@@ -13,17 +13,42 @@ using WebsBO;
 namespace WindowsFormsApplication1.RefLivre {
 	public partial class AddBookFromAmazon : Form {
 
-		private RefLivreBO _objRefLivre;
 		private FrmMdi _objFrmMDI;
+		private SearchRefLivre _searchRefLivre;
+		private Livre.CreateLivre _createLivre;
+		private RefLivreBO _ObjRefLivre;
 
-		public RefLivreBO ObjRefLivre {
-			get { return _objRefLivre; }
-			set { _objRefLivre = value; }
-		}
-		public AddBookFromAmazon(FrmMdi pFrmMDI) {
+		public AddBookFromAmazon() {
 			InitializeComponent();
-			_objFrmMDI = pFrmMDI;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+		}
+		public AddBookFromAmazon(FrmMdi pFrmMDI) : this() {
+			_objFrmMDI = pFrmMDI;
+		}
+
+		public AddBookFromAmazon(SearchRefLivre pSearchRefLivre) : this() {
+			_searchRefLivre = pSearchRefLivre;
+		}
+
+		public AddBookFromAmazon(Livre.CreateLivre pCreateLivre) : this() {
+			_createLivre = pCreateLivre;
+		}
+
+		public FrmMdi ObjFrmMDI {
+			get { return _objFrmMDI; }
+		}
+
+		public Livre.CreateLivre CreateLivre {
+			get { return _createLivre; }
+		}
+
+		public SearchRefLivre SearchRefLivre {
+			get { return _searchRefLivre; }
+		}
+
+		private RefLivreBO ObjRefLivre {
+			get { return _ObjRefLivre; }
+			set { _ObjRefLivre = value; }
 		}
 
 		private void FindBookByISBN(String txtSearch) {
@@ -66,9 +91,19 @@ namespace WindowsFormsApplication1.RefLivre {
 		}
 
 		private void btnAccept_Click(object sender, EventArgs e) {
-			if (_objFrmMDI.InsertLivreFromAmazon(ObjRefLivre)) {
-				this.Dispose();
-			}
+			_createLivre.fillForm((RefLivreBO)ObjRefLivre.Clone());
+			this.Dispose();
+			//InsertRefLivre(ObjRefLivre);
 		}
+
+		//private void InsertRefLivre(RefLivreBO ObjRefLivre) {
+		//	try {
+		//		if (_objFrmMDI.InsertLivreFromAmazon(ObjRefLivre)) {
+		//			this.Dispose();
+		//		}
+		//	} catch (Exception ex) {
+		//		throw;
+		//	}
+		//}
 	}
 }

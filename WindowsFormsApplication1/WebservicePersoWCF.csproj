@@ -64,18 +64,42 @@
     <Compile Include="FrmSplashScreen.Designer.cs">
       <DependentUpon>FrmSplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Livre\CreateLivre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Livre\CreateLivre.Designer.cs">
+      <DependentUpon>CreateLivre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Livre\LivreFormulaire.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Livre\LivreFormulaire.Designer.cs">
+      <DependentUpon>LivreFormulaire.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\AdministrateurIFAC.cs" />
+    <Compile Include="Proxies\BibliothequeIFAC.cs" />
     <Compile Include="Proxies\ClientIFAC.cs" />
+    <Compile Include="Proxies\DemandeAnnulationIFAC.cs" />
+    <Compile Include="Proxies\DemandeReservationIFAC.cs" />
     <Compile Include="Proxies\EmpruntIFAC.cs" />
     <Compile Include="Proxies\LivreIFAC.cs" />
+    <Compile Include="Proxies\LivreStatusIFAC.cs" />
     <Compile Include="Proxies\PersonneIFAC.cs" />
     <Compile Include="Proxies\RefLivreIFAC.cs" />
+    <Compile Include="Proxies\SessionIFAC.cs" />
     <Compile Include="RefLivre\AddBookFromAmazon.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RefLivre\AddBookFromAmazon.Designer.cs">
       <DependentUpon>AddBookFromAmazon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RefLivre\SearchRefLivre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RefLivre\SearchRefLivre.Designer.cs">
+      <DependentUpon>SearchRefLivre.cs</DependentUpon>
     </Compile>
     <Compile Include="RefLivre\ShowBook.cs">
       <SubType>UserControl</SubType>
@@ -92,6 +116,12 @@
     <EmbeddedResource Include="FrmSplashScreen.resx">
       <DependentUpon>FrmSplashScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Livre\CreateLivre.resx">
+      <DependentUpon>CreateLivre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Livre\LivreFormulaire.resx">
+      <DependentUpon>LivreFormulaire.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -103,6 +133,9 @@
     </Compile>
     <EmbeddedResource Include="RefLivre\AddBookFromAmazon.resx">
       <DependentUpon>AddBookFromAmazon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RefLivre\SearchRefLivre.resx">
+      <DependentUpon>SearchRefLivre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RefLivre\ShowBook.resx">
       <DependentUpon>ShowBook.cs</DependentUpon>
@@ -126,7 +159,9 @@
       <Name>WebsBO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Login\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

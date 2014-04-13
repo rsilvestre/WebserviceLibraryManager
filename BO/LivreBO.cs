@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WebsBO {
-	[DataContract(Namespace="uri:WebsBO.LivreBO")]
-	public class LivreBO {
-		private int _LivreId;
-		private int _BibliothequeId;
-		private int _RefLivreId;
+	[DataContract(Namespace="urn:WebsBO.LivreBO")]
+	public class LivreBO : ICloneable {
+		private Int32 _LivreId;
+		private Int32 _BibliothequeId;
+		private Int32 _RefLivreId;
 		private String _InternalReference;
 		private DateTime _CreatedAt;
+		private RefLivreBO _RefLivre;
+		private BibliothequeBO _Bibliotheque;
 
 		public LivreBO() { }
 
@@ -22,6 +24,28 @@ namespace WebsBO {
 			RefLivreId = pRefLivreId;
 			InternalReference = pInternalReference;
 			CreatedAt = pCreatedAt;
+		}
+
+		[DataMember(Name="Bibliotheque")]
+		public BibliothequeBO Bibliotheque {
+			get { return _Bibliotheque; }
+			set {
+				_Bibliotheque = value;
+				if (value != null && this.BibliothequeId == 0 && value.BibliothequeId != 0) {
+					this.BibliothequeId = value.BibliothequeId;
+				}
+			}
+		}
+
+		[DataMember(Name="RefLivre")]
+		public RefLivreBO RefLivre {
+			get { return _RefLivre; }
+			set {
+				_RefLivre = value;
+				if (value != null && this.RefLivreId == 0 && value.RefLivreId != 0) {
+					this.RefLivreId = value.RefLivreId;
+				}
+			}
 		}
 
 		[DataMember(Name="CreatedAt")]
@@ -37,21 +61,25 @@ namespace WebsBO {
 		}
 
 		[DataMember(Name="RefLivreId")]
-		public int RefLivreId {
+		public Int32 RefLivreId {
 			get { return _RefLivreId; }
 			set { _RefLivreId = value; }
 		}
 
 		[DataMember(Name="BibliothequeId")]
-		public int BibliothequeId {
+		public Int32 BibliothequeId {
 			get { return _BibliothequeId; }
 			set { _BibliothequeId = value; }
 		}
 
 		[DataMember(Name="LivreId")]
-		public int LivreId {
+		public Int32 LivreId {
 			get { return _LivreId; }
 			set { _LivreId = value; }
+		}
+
+		public object Clone() {
+			return this.MemberwiseClone();
 		}
 	}
 }

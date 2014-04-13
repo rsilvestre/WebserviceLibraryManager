@@ -19,5 +19,24 @@ namespace WebsDAL {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()));
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
+
+		[Function(Name="[dbo].[Livre.InsertLivre]")]
+		public ISingleResult<LivreBO> LivreBO_InsertLivre(
+			[Parameter(DbType = "int")]				Int32		BibliothequeId,
+			[Parameter(DbType = "int")]				Int32		RefLivreId,
+			[Parameter(DbType = "varchar(13)")]		String		ISBN,
+			[Parameter(DbType = "varchar(50)")]		String		Titre,
+			[Parameter(DbType = "nvarchar(MAX)")]	String		Description,
+			[Parameter(DbType = "varchar(50)")]		String		Auteur,
+			[Parameter(DbType = "varchar(50)")]		String		Langue,
+			[Parameter(DbType = "varchar(50)")]		String		Editeur,
+			[Parameter(DbType = "date")]			DateTime	Published,
+			[Parameter(DbType = "varchar(250)")]	String		ImageUrl
+			) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()),
+				BibliothequeId, RefLivreId, ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl
+				);
+			return ((ISingleResult<LivreBO>)result.ReturnValue);
+		}
 	}
 }

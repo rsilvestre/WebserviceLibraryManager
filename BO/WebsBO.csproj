@@ -40,12 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrateurBibliothequeBO.cs" />
+    <Compile Include="AdministrateurBO.cs" />
+    <Compile Include="AdministrateurClientBO.cs" />
+    <Compile Include="BibliothequeBO.cs" />
     <Compile Include="ClientBO.cs" />
+    <Compile Include="DemandeAnnulationBO.cs" />
+    <Compile Include="DemandeReservationBO.cs" />
     <Compile Include="EmpruntBO.cs" />
     <Compile Include="LivreBO.cs" />
+    <Compile Include="LivreStatusBO.cs" />
     <Compile Include="PersonneBO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefLivreBO.cs" />
+    <Compile Include="SessionBO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

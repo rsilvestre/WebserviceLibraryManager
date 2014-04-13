@@ -39,12 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrateurFAC.cs" />
+    <Compile Include="BibliothequeFAC.cs" />
     <Compile Include="ClientFAC.cs" />
+    <Compile Include="DemandeAnnulationFAC.cs" />
+    <Compile Include="DemandeReservationFAC.cs" />
     <Compile Include="EmpruntFAC.cs" />
     <Compile Include="LivreFAC.cs" />
+    <Compile Include="LivreStatusFAC.cs" />
     <Compile Include="PersonneFAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefLivreFAC.cs" />
+    <Compile Include="SessionFAC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BL\WebsBL.csproj">

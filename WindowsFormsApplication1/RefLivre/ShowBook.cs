@@ -19,8 +19,8 @@ namespace WindowsFormsApplication1.RefLivre {
 		public void setLivre(RefLivreBO pRefLivre) {
 			lblTitle.Text = pRefLivre.Titre;
 			lblAuthor.Text = String.Format( @"Author: {0}", pRefLivre.Auteur);
-			lblTimestamp.Text = String.Format(@"Published: {0}", pRefLivre.Published.ToShortDateString());
 			webDescription.DocumentText = pRefLivre.Description;
+			lblTimestamp.Text = String.Format(@"Published: {0}", pRefLivre.Published.ToShortDateString());
 
 			// Create a web request to the URL for the picture
 			System.Net.WebRequest webRequest = HttpWebRequest.Create(pRefLivre.ImageUrl);
