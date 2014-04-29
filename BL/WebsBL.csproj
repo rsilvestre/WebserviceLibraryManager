@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AdministrateurBibliothequeBL.cs" />
     <Compile Include="AdministrateurBL.cs" />
+    <Compile Include="Autorization.cs" />
     <Compile Include="BibliothequeBL.cs" />
     <Compile Include="ClientBL.cs" />
     <Compile Include="DemandeAnnulationBL.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="PersonneBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefLivreBL.cs" />
-    <Compile Include="SessionBL.cs" />
+    <Compile Include="SessionManagerBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\WebsBO.csproj">

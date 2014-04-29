@@ -9,7 +9,10 @@ using WebsDAL;
 namespace WebsBL {
 	public static class AdministrateurBL {
 
-		public static AdministrateurBO SelectById(Int32 pAdministrateurId) {
+		public static AdministrateurBO SelectById(String Token, Int32 pAdministrateurId) {
+			if (!Autorization.Validate(Token)) {
+				return new AdministrateurBO();
+			}
 			AdministrateurBO administrateurResult;
 			try {
 				using (AdministrateurDAL administrateurDal = new AdministrateurDAL(Util.GetConnection())) {

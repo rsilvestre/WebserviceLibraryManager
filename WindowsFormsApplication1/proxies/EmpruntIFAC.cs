@@ -18,18 +18,18 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectAll", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.EmpruntBO> SelectAll();
+        System.Collections.Generic.List<WebsBO.EmpruntBO> SelectAll(string Token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectAll", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.EmpruntBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectEmpruntById", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectEmpruntByIdResponse")]
-        WebsBO.EmpruntBO SelectEmpruntById(int pId);
+        WebsBO.EmpruntBO SelectEmpruntById(string Token, int pId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectEmpruntById", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/SelectEmpruntByIdResponse")]
-        System.IAsyncResult BeginSelectEmpruntById(int pId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectEmpruntById(string Token, int pId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.EmpruntBO EndSelectEmpruntById(System.IAsyncResult result);
     }
@@ -68,14 +68,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.EmpruntBO> SelectAll()
+        public System.Collections.Generic.List<WebsBO.EmpruntBO> SelectAll(string Token)
         {
-            return base.Channel.SelectAll();
+            return base.Channel.SelectAll(Token);
         }
         
-        public System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(callback, asyncState);
+            return base.Channel.BeginSelectAll(Token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.EmpruntBO> EndSelectAll(System.IAsyncResult result)
@@ -83,14 +83,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public WebsBO.EmpruntBO SelectEmpruntById(int pId)
+        public WebsBO.EmpruntBO SelectEmpruntById(string Token, int pId)
         {
-            return base.Channel.SelectEmpruntById(pId);
+            return base.Channel.SelectEmpruntById(Token, pId);
         }
         
-        public System.IAsyncResult BeginSelectEmpruntById(int pId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectEmpruntById(string Token, int pId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectEmpruntById(pId, callback, asyncState);
+            return base.Channel.BeginSelectEmpruntById(Token, pId, callback, asyncState);
         }
         
         public WebsBO.EmpruntBO EndSelectEmpruntById(System.IAsyncResult result)

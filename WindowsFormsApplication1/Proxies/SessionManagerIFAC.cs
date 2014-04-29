@@ -13,54 +13,54 @@ namespace WCF.Proxies
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="urn:WebsIFAC/SessionIFAC", ConfigurationName="WCF.Proxies.SessionIFAC")]
-    public interface SessionIFAC
+    [System.ServiceModel.ServiceContractAttribute(Namespace="urn:WebsIFAC/SessionManagerIFAC", ConfigurationName="WCF.Proxies.SessionManagerIFAC")]
+    public interface SessionManagerIFAC
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/SessionIFAC/SessionIFAC/OpenSession", ReplyAction="urn:WebsIFAC/SessionIFAC/SessionIFAC/OpenSessionResponse")]
-        WebsBO.SessionBO OpenSession(string pUsername, string pPassword);
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/SessionManagerIFAC/SessionManagerIFAC/OpenSession", ReplyAction="urn:WebsIFAC/SessionManagerIFAC/SessionManagerIFAC/OpenSessionResponse")]
+        WebsBO.SessionManagerBO OpenSession(string pUsername, string pPassword);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/SessionIFAC/SessionIFAC/OpenSession", ReplyAction="urn:WebsIFAC/SessionIFAC/SessionIFAC/OpenSessionResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/SessionManagerIFAC/SessionManagerIFAC/OpenSession", ReplyAction="urn:WebsIFAC/SessionManagerIFAC/SessionManagerIFAC/OpenSessionResponse")]
         System.IAsyncResult BeginOpenSession(string pUsername, string pPassword, System.AsyncCallback callback, object asyncState);
         
-        WebsBO.SessionBO EndOpenSession(System.IAsyncResult result);
+        WebsBO.SessionManagerBO EndOpenSession(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface SessionIFACChannel : WCF.Proxies.SessionIFAC, System.ServiceModel.IClientChannel
+    public interface SessionManagerIFACChannel : WCF.Proxies.SessionManagerIFAC, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SessionIFACClient : System.ServiceModel.ClientBase<WCF.Proxies.SessionIFAC>, WCF.Proxies.SessionIFAC
+    public partial class SessionManagerIFACClient : System.ServiceModel.ClientBase<WCF.Proxies.SessionManagerIFAC>, WCF.Proxies.SessionManagerIFAC
     {
         
-        public SessionIFACClient()
+        public SessionManagerIFACClient()
         {
         }
         
-        public SessionIFACClient(string endpointConfigurationName) : 
+        public SessionManagerIFACClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName)
         {
         }
         
-        public SessionIFACClient(string endpointConfigurationName, string remoteAddress) : 
+        public SessionManagerIFACClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress)
         {
         }
         
-        public SessionIFACClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SessionManagerIFACClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress)
         {
         }
         
-        public SessionIFACClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public SessionManagerIFACClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
         
-        public WebsBO.SessionBO OpenSession(string pUsername, string pPassword)
+        public WebsBO.SessionManagerBO OpenSession(string pUsername, string pPassword)
         {
             return base.Channel.OpenSession(pUsername, pPassword);
         }
@@ -70,7 +70,7 @@ namespace WCF.Proxies
             return base.Channel.BeginOpenSession(pUsername, pPassword, callback, asyncState);
         }
         
-        public WebsBO.SessionBO EndOpenSession(System.IAsyncResult result)
+        public WebsBO.SessionManagerBO EndOpenSession(System.IAsyncResult result)
         {
             return base.Channel.EndOpenSession(result);
         }

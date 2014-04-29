@@ -10,17 +10,17 @@ using WebsBL;
 namespace WebsFAC {
 	public class LivreFAC : LivreIFAC {
 
-		public List<LivreBO> SelectAll() {
+		public List<LivreBO> SelectAll(String Token) {
 			try {
-				return LivreBL.SelectAll();
+				return LivreBL.SelectAll(Token);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
-		public LivreBO InsertLivre(LivreBO pObjLivre) {
+		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
 			try {
-				return LivreBL.InsertLivre(pObjLivre);
+				return LivreBL.InsertLivre(Token, pObjLivre);
 			} catch (Exception ex) {
 				throw;
 			}

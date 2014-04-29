@@ -11,6 +11,6 @@ namespace WebsIFAC {
 	public interface DemandeAnnulationIFAC {
 		
 		[OperationContract]
-		List<DemandeAnnulationBO> SelectById(Int32 pDemandeAnnulationId);
+		List<DemandeAnnulationBO> SelectById(String Token, Int32 pDemandeAnnulationId);
 	}
 }

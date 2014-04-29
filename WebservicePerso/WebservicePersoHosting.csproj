@@ -52,7 +52,7 @@
     <Compile Include="HostingServerPersonne.cs" />
     <Compile Include="HostingServerRefLivre.cs" />
     <Compile Include="HostingServerLivreStatus.cs" />
-    <Compile Include="HostingServerSession.cs" />
+    <Compile Include="HostingServerSessionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

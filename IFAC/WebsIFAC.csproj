@@ -51,7 +51,7 @@
     <Compile Include="PersonneIFAC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefLivreIFAC.cs" />
-    <Compile Include="SessionIFAC.cs" />
+    <Compile Include="SessionManagerIFAC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BO\WebsBO.csproj">

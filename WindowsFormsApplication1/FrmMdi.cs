@@ -71,10 +71,6 @@ namespace WindowsFormsApplication1 {
 			}
 		}
 
-
-
-
-
 		private void ShowNewForm(object sender, EventArgs e) {
 			Form childForm = new Form1();
 			childForm.MdiParent = this;
@@ -146,7 +142,7 @@ namespace WindowsFormsApplication1 {
 			List<RefLivreBO> lstRefLivre;
 			try {
 				using (RefLivreIFACClient refLivreProxy = new RefLivreIFACClient()) {
-					lstRefLivre = refLivreProxy.InsertLivre(objRefLivre.ISBN, objRefLivre.Titre, objRefLivre.Description, objRefLivre.Auteur, objRefLivre.Langue, objRefLivre.Editeur, objRefLivre.Published, objRefLivre.ImageUrl);
+					lstRefLivre = refLivreProxy.InsertLivre(CGlobalCache.SessionManager.Token, objRefLivre.ISBN, objRefLivre.Titre, objRefLivre.Description, objRefLivre.Auteur, objRefLivre.Langue, objRefLivre.Editeur, objRefLivre.Published, objRefLivre.ImageUrl);
 				}
 			} catch (Exception ex) {
 				throw;
@@ -161,7 +157,7 @@ namespace WindowsFormsApplication1 {
 			LivreBO Livre;
 			try {
 				using (LivreIFACClient livreProxy = new LivreIFACClient()) {
-					Livre = livreProxy.InsertLivre(pObjLivre);
+					Livre = livreProxy.InsertLivre(CGlobalCache.SessionManager.Token, pObjLivre);
 				}
 			} catch (Exception ex) {
 				throw;

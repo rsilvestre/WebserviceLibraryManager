@@ -9,9 +9,9 @@ using WebsIFAC;
 
 namespace WebsFAC {
 	public class DemandeReservationFAC : DemandeReservationIFAC	{
-		public List<DemandeReservationBO> SelectById(int pDemandeReservationId) {
+		public List<DemandeReservationBO> SelectById(String Token, int pDemandeReservationId) {
 			try {
-				return DemandeReservationBL.SelectById(pDemandeReservationId);
+				return DemandeReservationBL.SelectById(Token, pDemandeReservationId);
 			} catch (Exception ex) {
 				throw;
 			}

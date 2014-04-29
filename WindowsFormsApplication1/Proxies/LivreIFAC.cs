@@ -18,18 +18,18 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.LivreBO> SelectAll();
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string Token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        WebsBO.LivreBO InsertLivre(WebsBO.LivreBO pObjLivre);
+        WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        System.IAsyncResult BeginInsertLivre(WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState);
         
         WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result);
     }
@@ -68,14 +68,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.LivreBO> SelectAll()
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string Token)
         {
-            return base.Channel.SelectAll();
+            return base.Channel.SelectAll(Token);
         }
         
-        public System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(callback, asyncState);
+            return base.Channel.BeginSelectAll(Token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result)
@@ -83,14 +83,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public WebsBO.LivreBO InsertLivre(WebsBO.LivreBO pObjLivre)
+        public WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre)
         {
-            return base.Channel.InsertLivre(pObjLivre);
+            return base.Channel.InsertLivre(Token, pObjLivre);
         }
         
-        public System.IAsyncResult BeginInsertLivre(WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginInsertLivre(pObjLivre, callback, asyncState);
+            return base.Channel.BeginInsertLivre(Token, pObjLivre, callback, asyncState);
         }
         
         public WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result)

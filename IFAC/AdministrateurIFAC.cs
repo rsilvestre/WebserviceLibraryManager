@@ -11,6 +11,6 @@ namespace WebsIFAC {
 	public interface AdministrateurIFAC {
 	
 		[OperationContract]
-		AdministrateurBO SelectById(Int32 pAdministrateurId);
+		AdministrateurBO SelectById(String Token, Int32 pAdministrateurId);
 	}
 }

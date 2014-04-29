@@ -11,12 +11,12 @@ namespace WebsIFAC {
 	public interface PersonneIFAC {
 
 		[OperationContract]
-		List<PersonneBO> SelectAll();
+		List<PersonneBO> SelectAll(String Token);
 
 		[OperationContract]
-		List<PersonneBO> SelectById(Int32 pId);
+		PersonneBO SelectById(String Token, Int32 pId);
 
 		[OperationContract]
-		List<PersonneBO> SelectByName(String pName);
+		List<PersonneBO> SelectByName(String Token, String pName);
 	}
 }

@@ -17,7 +17,7 @@ svcutil C:\Tmp\WebsIFAC.LivreStatusIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\LivreStatus
 
 svcutil C:\Tmp\WebsIFAC.BibliothequeIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\BibliothequeIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
-svcutil C:\Tmp\WebsIFAC.SessionIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\SessionIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
+svcutil C:\Tmp\WebsIFAC.SessionManagerIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\SessionManagerIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
 svcutil C:\Tmp\WebsIFAC.AdministrateurIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\AdministrateurIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 

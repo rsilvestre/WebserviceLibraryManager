@@ -9,7 +9,10 @@ using WebsBL;
 
 namespace WebsBL {
 	public static class DemandeReservationBL {
-		public static List<DemandeReservationBO> SelectById(Int32 pDemandeReservationId) {
+		public static List<DemandeReservationBO> SelectById(String Token, Int32 pDemandeReservationId) {
+			if (!Autorization.Validate(Token)) {
+				return new List<DemandeReservationBO>();
+			}
 			List<DemandeReservationBO> lstResult;
 
 			try {
@@ -21,6 +24,23 @@ namespace WebsBL {
 			}
 
 			return lstResult;
+		}
+
+		public static List<DemandeReservationBO> SelectByClientId(String Token, Int32 pClientId) {
+			if (!Autorization.Validate(Token)) {
+				return new List<DemandeReservationBO>();
+			}
+			List<DemandeReservationBO> lstDemandeReservation;
+
+			try {
+				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectByClientId(pClientId).ToList();
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return lstDemandeReservation;
 		}
 	}
 }

@@ -18,6 +18,10 @@ namespace WebsBO {
 		private String _personneUsername;
 		private String _personneEmail;
 		private String _personnePassword;
+		private ClientBO _Client;
+		private AdministrateurBO _Administrateur;
+		private SessionManagerBO _SessionManager;
+
 
 		public PersonneBO() { }
 
@@ -29,6 +33,24 @@ namespace WebsBO {
 			PersonneUsername = pPersonneUsername;
 			PersonneEmail = pPersonneEmail;
 			PersonnePassword = pPersonnePassword;
+		}
+
+		[DataMember(Name="SessionManager")]
+		public SessionManagerBO SessionManager {
+			get { return _SessionManager; }
+			set { _SessionManager = value; }
+		}
+
+		[DataMember(Name = "Administrateur")]
+		public AdministrateurBO Administrateur {
+			get { return _Administrateur; }
+			set { _Administrateur = value; }
+		}
+		
+		[DataMember(Name="Client")]
+		public ClientBO Client {
+			get { return _Client; }
+			set { _Client = value; }
 		}
 
 		[DataMember(Name="PersonnePassword")]

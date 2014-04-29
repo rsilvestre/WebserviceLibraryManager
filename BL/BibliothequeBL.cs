@@ -9,7 +9,11 @@ using WebsDAL;
 namespace WebsBL {
 	public static class BibliothequeBL {
 
-		public static List<BibliothequeBO> SelectAll() {
+		public static List<BibliothequeBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return new List<BibliothequeBO>();
+			}
+
 			List<BibliothequeBO> result;
 
 			try {

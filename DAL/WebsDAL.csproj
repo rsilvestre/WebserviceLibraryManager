@@ -65,7 +65,7 @@
     <Compile Include="LivreStatusDAL.cs" />
     <Compile Include="PersonneDAL.cs" />
     <Compile Include="RefLivreDAL.cs" />
-    <Compile Include="SessionDAL.cs" />
+    <Compile Include="SessionManagerDAL.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

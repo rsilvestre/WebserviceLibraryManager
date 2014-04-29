@@ -9,14 +9,14 @@ namespace WebsBO {
 	[DataContract(Namespace = "urn:WebsBO.EmpruntBO")]
 	public class EmpruntBO {
 		private Int32 _EmpruntId;
-		private String _ClientName;
+		private Int32 _ClientId;
 		private DateTime _EmpruntDate;
 
 		public EmpruntBO() { }
 
-		public EmpruntBO(Int32 pEmpruntId, String pClientName, DateTime pEmpruntDate) {
+		public EmpruntBO(Int32 pEmpruntId, Int32 pClientId, DateTime pEmpruntDate) {
 			EmpruntId = pEmpruntId;
-			ClientName = pClientName;
+			ClientId = pClientId;
 			EmpruntDate = pEmpruntDate;
 		}
 
@@ -26,10 +26,10 @@ namespace WebsBO {
 			set { _EmpruntId = value; }
 		}
 
-		[DataMember(Name="ClientName")]
-		public String ClientName {
-			get { return _ClientName; }
-			set { _ClientName = value; }
+		[DataMember(Name = "ClientId")]
+		public Int32 ClientId {
+			get { return _ClientId; }
+			set { _ClientId = value; }
 		}
 
 		[DataMember(Name="EmpruntDate")]

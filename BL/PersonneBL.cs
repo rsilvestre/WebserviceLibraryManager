@@ -9,7 +9,10 @@ using WebsDAL;
 namespace WebsBL {
 	public static class PersonneBL {
 
-		public static List<PersonneBO> SelectAll() {
+		public static List<PersonneBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return new List<PersonneBO>();
+			}
 			List<PersonneBO> lstPersonne = null;
 			try { 
 				using(PersonneDAL pesonneDal = new PersonneDAL(Util.GetConnection())) {
@@ -21,19 +24,32 @@ namespace WebsBL {
 			return lstPersonne;
 		}
 
-		public static List<PersonneBO> SelectById(Int32 pId) {
-			List<PersonneBO> lstPersonne = null;
+		public static PersonneBO SelectById(String Token, Int32 pId) {
+			if (!Autorization.Validate(Token)) {
+				return new PersonneBO();
+			}
+			PersonneBO objPersonne = null;
 			try {
 				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
-					lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
+					List<PersonneBO> lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
+					if (lstPersonne.Count() > 0) {
+						objPersonne = lstPersonne[0];
+						objPersonne.Client = ClientBL.SelectById(Token, objPersonne.PersonneId);
+						objPersonne.Administrateur = AdministrateurBL.SelectById(Token, objPersonne.PersonneId);
+					} else {
+						objPersonne = new PersonneBO();
+					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return lstPersonne;
+			return objPersonne;
 		}
 
-		public static List<PersonneBO> SelectByName(String pName) {
+		public static List<PersonneBO> SelectByName(String Token, String pName) {
+			if (!Autorization.Validate(Token)) {
+				return new List<PersonneBO>();
+			}
 			List<PersonneBO> lstPersonne;
 			try {
 				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {

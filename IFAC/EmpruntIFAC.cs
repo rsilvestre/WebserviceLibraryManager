@@ -10,10 +10,10 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace = "urn:WebsIFAC/EmpruntIFAC")]
 	public interface EmpruntIFAC {
 		[OperationContract]
-		List<EmpruntBO> SelectAll();
+		List<EmpruntBO> SelectAll(String Token);
 
 		[OperationContract]
-		EmpruntBO SelectEmpruntById(int pId);
+		EmpruntBO SelectEmpruntById(String Token, int pId);
 	}
 
 }

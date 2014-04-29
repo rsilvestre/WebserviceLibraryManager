@@ -9,7 +9,10 @@ using WebsBL;
 
 namespace WebsBL {
 	public static class DemandeAnnulationBL {
-		public static List<DemandeAnnulationBO> SelectById(Int32 pDemandeAnnulationId) {
+		public static List<DemandeAnnulationBO> SelectById(String Token, Int32 pDemandeAnnulationId) {
+			if (!Autorization.Validate(Token)) {
+				return new List<DemandeAnnulationBO>();
+			}
 			List<DemandeAnnulationBO> lstResult;
 
 			try {

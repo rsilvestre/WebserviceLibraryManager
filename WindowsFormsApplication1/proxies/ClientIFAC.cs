@@ -18,18 +18,18 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectAll", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.ClientBO> SelectAll();
+        System.Collections.Generic.List<WebsBO.ClientBO> SelectAll(string Token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectAll", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.ClientBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectByIdResponse")]
-        WebsBO.ClientBO SelectById(int pId);
+        WebsBO.ClientBO SelectById(string Token, int pId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectById", ReplyAction="urn:WebsIFAC/ClientIFAC/ClientIFAC/SelectByIdResponse")]
-        System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectById(string Token, int pId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.ClientBO EndSelectById(System.IAsyncResult result);
     }
@@ -68,14 +68,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.ClientBO> SelectAll()
+        public System.Collections.Generic.List<WebsBO.ClientBO> SelectAll(string Token)
         {
-            return base.Channel.SelectAll();
+            return base.Channel.SelectAll(Token);
         }
         
-        public System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(callback, asyncState);
+            return base.Channel.BeginSelectAll(Token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.ClientBO> EndSelectAll(System.IAsyncResult result)
@@ -83,14 +83,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public WebsBO.ClientBO SelectById(int pId)
+        public WebsBO.ClientBO SelectById(string Token, int pId)
         {
-            return base.Channel.SelectById(pId);
+            return base.Channel.SelectById(Token, pId);
         }
         
-        public System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(string Token, int pId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectById(pId, callback, asyncState);
+            return base.Channel.BeginSelectById(Token, pId, callback, asyncState);
         }
         
         public WebsBO.ClientBO EndSelectById(System.IAsyncResult result)

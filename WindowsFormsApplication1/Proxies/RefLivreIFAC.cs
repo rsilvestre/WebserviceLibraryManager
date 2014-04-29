@@ -18,34 +18,34 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByISBN", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByISBNResponse")]
-        System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByISBN(System.Collections.Generic.List<string> pISBNs);
+        System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByISBN(string Token, System.Collections.Generic.List<string> pISBNs);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByISBN", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByISBNResponse")]
-        System.IAsyncResult BeginFindAmazonRefByISBN(System.Collections.Generic.List<string> pISBNs, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginFindAmazonRefByISBN(string Token, System.Collections.Generic.List<string> pISBNs, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndFindAmazonRefByISBN(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByTitle", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByTitleResponse")]
-        System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByTitle(string pTitle);
+        System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByTitle(string Token, string pTitle);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByTitle", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/FindAmazonRefByTitleResponse")]
-        System.IAsyncResult BeginFindAmazonRefByTitle(string pTitle, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginFindAmazonRefByTitle(string Token, string pTitle, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndFindAmazonRefByTitle(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.RefLivreBO> SelectAll();
+        System.Collections.Generic.List<WebsBO.RefLivreBO> SelectAll(string Token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivreResponse")]
-        System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl);
+        System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivreResponse")]
-        System.IAsyncResult BeginInsertLivre(string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginInsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndInsertLivre(System.IAsyncResult result);
     }
@@ -84,14 +84,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByISBN(System.Collections.Generic.List<string> pISBNs)
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByISBN(string Token, System.Collections.Generic.List<string> pISBNs)
         {
-            return base.Channel.FindAmazonRefByISBN(pISBNs);
+            return base.Channel.FindAmazonRefByISBN(Token, pISBNs);
         }
         
-        public System.IAsyncResult BeginFindAmazonRefByISBN(System.Collections.Generic.List<string> pISBNs, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginFindAmazonRefByISBN(string Token, System.Collections.Generic.List<string> pISBNs, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginFindAmazonRefByISBN(pISBNs, callback, asyncState);
+            return base.Channel.BeginFindAmazonRefByISBN(Token, pISBNs, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndFindAmazonRefByISBN(System.IAsyncResult result)
@@ -99,14 +99,14 @@ namespace WCF.Proxies
             return base.Channel.EndFindAmazonRefByISBN(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByTitle(string pTitle)
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> FindAmazonRefByTitle(string Token, string pTitle)
         {
-            return base.Channel.FindAmazonRefByTitle(pTitle);
+            return base.Channel.FindAmazonRefByTitle(Token, pTitle);
         }
         
-        public System.IAsyncResult BeginFindAmazonRefByTitle(string pTitle, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginFindAmazonRefByTitle(string Token, string pTitle, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginFindAmazonRefByTitle(pTitle, callback, asyncState);
+            return base.Channel.BeginFindAmazonRefByTitle(Token, pTitle, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndFindAmazonRefByTitle(System.IAsyncResult result)
@@ -114,14 +114,14 @@ namespace WCF.Proxies
             return base.Channel.EndFindAmazonRefByTitle(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.RefLivreBO> SelectAll()
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> SelectAll(string Token)
         {
-            return base.Channel.SelectAll();
+            return base.Channel.SelectAll(Token);
         }
         
-        public System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(callback, asyncState);
+            return base.Channel.BeginSelectAll(Token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result)
@@ -129,14 +129,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl)
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl)
         {
-            return base.Channel.InsertLivre(pISBN, pTitre, pDescription, pAuteur, pLangue, pEditeur, pPublished, pImageUrl);
+            return base.Channel.InsertLivre(Token, pISBN, pTitre, pDescription, pAuteur, pLangue, pEditeur, pPublished, pImageUrl);
         }
         
-        public System.IAsyncResult BeginInsertLivre(string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginInsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginInsertLivre(pISBN, pTitre, pDescription, pAuteur, pLangue, pEditeur, pPublished, pImageUrl, callback, asyncState);
+            return base.Channel.BeginInsertLivre(Token, pISBN, pTitre, pDescription, pAuteur, pLangue, pEditeur, pPublished, pImageUrl, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndInsertLivre(System.IAsyncResult result)

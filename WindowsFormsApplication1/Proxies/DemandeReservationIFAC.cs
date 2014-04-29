@@ -18,10 +18,10 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
-        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectById(int pDemandeReservationId);
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectById(string Token, int pDemandeReservationId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
-        System.IAsyncResult BeginSelectById(int pDemandeReservationId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectById(string Token, int pDemandeReservationId, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectById(System.IAsyncResult result);
     }
@@ -60,14 +60,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectById(int pDemandeReservationId)
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectById(string Token, int pDemandeReservationId)
         {
-            return base.Channel.SelectById(pDemandeReservationId);
+            return base.Channel.SelectById(Token, pDemandeReservationId);
         }
         
-        public System.IAsyncResult BeginSelectById(int pDemandeReservationId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(string Token, int pDemandeReservationId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectById(pDemandeReservationId, callback, asyncState);
+            return base.Channel.BeginSelectById(Token, pDemandeReservationId, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectById(System.IAsyncResult result)

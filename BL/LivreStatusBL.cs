@@ -8,7 +8,10 @@ using WebsDAL;
 
 namespace WebsBL {
 	public static class LivreStatusBL {
-		public static List<LivreStatusBO> SelectAll() {
+		public static List<LivreStatusBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return new List<LivreStatusBO>();
+			}
 			List<LivreStatusBO> result;
 
 			try {

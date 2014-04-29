@@ -8,7 +8,10 @@ using WebsDAL;
 
 namespace WebsBL {
 	public static class AdministrateurBibliothequeBL {
-		public static List<AdministrateurBibliothequeBO> ByAdministrateur(AdministrateurBO pObjAdministrateur) {
+		public static List<AdministrateurBibliothequeBO> ByAdministrateur(String Token, AdministrateurBO pObjAdministrateur) {
+			if (!Autorization.Validate(Token)) {
+				return new List<AdministrateurBibliothequeBO>();
+			}
 			List<AdministrateurBibliothequeBO> administrateurBibliothequeResult;
 
 			try {
@@ -21,7 +24,10 @@ namespace WebsBL {
 
 			return administrateurBibliothequeResult;
 		}
-		public static List<AdministrateurBibliothequeBO> ByBibliotheque(BibliothequeBO pObjBibliotheque) {
+		public static List<AdministrateurBibliothequeBO> ByBibliotheque(String Token, BibliothequeBO pObjBibliotheque) {
+			if (!Autorization.Validate(Token)) {
+				return new List<AdministrateurBibliothequeBO>();
+			}
 			List<AdministrateurBibliothequeBO> administrateurBibliothequeResult;
 
 			try {

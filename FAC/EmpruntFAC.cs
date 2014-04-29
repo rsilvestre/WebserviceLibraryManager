@@ -9,17 +9,17 @@ using WebsIFAC;
 
 namespace WebsFAC {
 	public class EmpruntFAC : EmpruntIFAC {
-		public List<EmpruntBO> SelectAll() {
+		public List<EmpruntBO> SelectAll(String Token) {
 			try {
-				return EmpruntBL.SelectAll().ToList();
+				return EmpruntBL.SelectAll(Token);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
-		public EmpruntBO SelectEmpruntById(Int32 pId) {
+		public EmpruntBO SelectEmpruntById(String Token, Int32 pId) {
 			try {
-				return EmpruntBL.SelectById(pId);
+				return EmpruntBL.SelectById(Token, pId);
 			} catch (Exception Ex) {
 				throw;
 			}

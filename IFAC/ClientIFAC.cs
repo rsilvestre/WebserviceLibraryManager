@@ -10,9 +10,9 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace = "urn:WebsIFAC/ClientIFAC")]
     public interface ClientIFAC {
 		[OperationContract]
-		List<ClientBO> SelectAll();
+		List<ClientBO> SelectAll(String Token);
 
 		[OperationContract]
-		ClientBO SelectById(int pId);
+		ClientBO SelectById(String Token, int pId);
     }
 }

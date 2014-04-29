@@ -18,10 +18,10 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/AdministrateurIFAC/AdministrateurIFAC/SelectById", ReplyAction="urn:WebsIFAC/AdministrateurIFAC/AdministrateurIFAC/SelectByIdResponse")]
-        WebsBO.AdministrateurBO SelectById(int pAdministrateurId);
+        WebsBO.AdministrateurBO SelectById(string Token, int pAdministrateurId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/AdministrateurIFAC/AdministrateurIFAC/SelectById", ReplyAction="urn:WebsIFAC/AdministrateurIFAC/AdministrateurIFAC/SelectByIdResponse")]
-        System.IAsyncResult BeginSelectById(int pAdministrateurId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectById(string Token, int pAdministrateurId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.AdministrateurBO EndSelectById(System.IAsyncResult result);
     }
@@ -60,14 +60,14 @@ namespace WCF.Proxies
         {
         }
         
-        public WebsBO.AdministrateurBO SelectById(int pAdministrateurId)
+        public WebsBO.AdministrateurBO SelectById(string Token, int pAdministrateurId)
         {
-            return base.Channel.SelectById(pAdministrateurId);
+            return base.Channel.SelectById(Token, pAdministrateurId);
         }
         
-        public System.IAsyncResult BeginSelectById(int pAdministrateurId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(string Token, int pAdministrateurId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectById(pAdministrateurId, callback, asyncState);
+            return base.Channel.BeginSelectById(Token, pAdministrateurId, callback, asyncState);
         }
         
         public WebsBO.AdministrateurBO EndSelectById(System.IAsyncResult result)

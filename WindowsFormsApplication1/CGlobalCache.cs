@@ -14,24 +14,26 @@ namespace WindowsFormsApplication1 {
 		public static Int32 _iLock = 8;
 		static readonly AutoResetEvent AutoEvent = new AutoResetEvent(false);
 
-		private delegate List<PersonneBO> AsyncGuiPersonne();
-		private delegate List<EmpruntBO> AsyncGuiEmprunt();
-		private delegate List<ClientBO> AsyncGuiClient();
-		private delegate List<PersonneBO> AsyncGuiPersonneById(int pId);
-		private delegate List<RefLivreBO> AsyncGuiRefLivreSelectAll();
-		private delegate List<LivreBO> AsyncGuiLivreSelectAll();
-		private delegate List<LivreStatusBO> ASyncGuiLivreStatusSelectAll();
-		private delegate List<BibliothequeBO> ASyncGuiBibliothequeSelectAll();
+		private delegate List<PersonneBO> AsyncGuiPersonne(String Token);
+		private delegate List<EmpruntBO> AsyncGuiEmprunt(String Token);
+		private delegate List<ClientBO> AsyncGuiClient(String Token);
+		private delegate PersonneBO AsyncGuiPersonneById(String Token, int pId);
+		private delegate List<RefLivreBO> AsyncGuiRefLivreSelectAll(String Token);
+		private delegate List<LivreBO> AsyncGuiLivreSelectAll(String Token);
+		private delegate List<LivreStatusBO> ASyncGuiLivreStatusSelectAll(String Token);
+		private delegate List<BibliothequeBO> ASyncGuiBibliothequeSelectAll(String Token);
+		
 		//private delegate List<PersonneBO> AsyncGuiPersonneByName(String pName);
 
 		public static List<PersonneBO> LstPersonne { get; set; }
 		public static List<EmpruntBO> LstEmprunt { get; set; }
 		public static List<ClientBO> LstClient { get; set; }
-		public static List<PersonneBO> objPersonne { get; set; }
+		public static PersonneBO objPersonne { get; set; }
 		public static List<RefLivreBO> LstRefLivreSelectAll { get; set; }
 		public static List<LivreBO> LstLivreSelectAll { get; set; }
 		public static List<LivreStatusBO> LstLivreStatusSelectAll { get; set; }
 		public static List<BibliothequeBO> LstBibliothequeSelectAll { get; set; }
+		public static SessionManagerBO SessionManager { get; set; }
 		//public static List<PersonneBO> LstPersonneByName { get; set; }
 
 		private static FrmMdi ofrmMdi;
@@ -53,38 +55,38 @@ namespace WindowsFormsApplication1 {
 				personneIFac = new PersonneIFACClient();
 				//AsyncGuiPersonne selectGuiSamplePersonneDelegate = personneIFac.SelectAll;
 				var selectGuiSamplePersonneDelegate = new AsyncGuiPersonne(personneIFac.SelectAll);
-				selectGuiSamplePersonneDelegate.BeginInvoke(PersonneResults, null);
+				selectGuiSamplePersonneDelegate.BeginInvoke(SessionManager.Token, PersonneResults, null);
 
 				personneIFacById = new PersonneIFACClient();
 				var selectGuiSamplePersonneByIdDelegate = new AsyncGuiPersonneById(personneIFacById.SelectById);
-				selectGuiSamplePersonneByIdDelegate.BeginInvoke(1, PersonneByIdResult, null);
+				selectGuiSamplePersonneByIdDelegate.BeginInvoke(SessionManager.Token, 1, PersonneByIdResult, null);
 
 				//var selectGuiSamplePersonneByNameDelegate = new AsyncGuiPersonneByName(personneIFac.SelectByName);
 				//selectGuiSamplePersonneByNameDelegate.BeginInvoke("toto", PersonneByNameResult, null);
 
 				locationIFac = new EmpruntIFACClient();
 				var selectGuiSampleEmpruntDelegate = new AsyncGuiEmprunt(locationIFac.SelectAll);
-				selectGuiSampleEmpruntDelegate.BeginInvoke(EmpruntResults, null);
+				selectGuiSampleEmpruntDelegate.BeginInvoke(SessionManager.Token, EmpruntResults, null);
 
 				clientIFac = new ClientIFACClient();
 				var selectGuiSampleClientDelegate = new AsyncGuiClient(clientIFac.SelectAll);
-				selectGuiSampleClientDelegate.BeginInvoke(ClientResults, null);
+				selectGuiSampleClientDelegate.BeginInvoke(SessionManager.Token, ClientResults, null);
 
 				refLivreIFacSelectAll = new RefLivreIFACClient();
 				var selectGuiSampleRefLivreDelegate = new AsyncGuiRefLivreSelectAll(refLivreIFacSelectAll.SelectAll);
-				selectGuiSampleRefLivreDelegate.BeginInvoke(RefLivreSelectAllResult, null);
+				selectGuiSampleRefLivreDelegate.BeginInvoke(SessionManager.Token, RefLivreSelectAllResult, null);
 
 				livreIFacSelectAll = new LivreIFACClient();
 				var selectGuiSampleLivreDelegate = new AsyncGuiLivreSelectAll(livreIFacSelectAll.SelectAll);
-				selectGuiSampleLivreDelegate.BeginInvoke(LivreSelectAllResult, null);
+				selectGuiSampleLivreDelegate.BeginInvoke(SessionManager.Token, LivreSelectAllResult, null);
 
 				livreStatusIFacSelectAll = new LivreStatusIFACClient();
 				var selectGuiSampleLivreStatusDelegate = new ASyncGuiLivreStatusSelectAll(livreStatusIFacSelectAll.SelectAll);
-				selectGuiSampleLivreStatusDelegate.BeginInvoke(LivreStatusSelecAllResult, null);
+				selectGuiSampleLivreStatusDelegate.BeginInvoke(SessionManager.Token, LivreStatusSelecAllResult, null);
 
 				bibliothequeIFacSelectAll = new BibliothequeIFACClient();
 				var selectGuiSampleBibliothequeDelegate = new ASyncGuiBibliothequeSelectAll(bibliothequeIFacSelectAll.SelectAll);
-				selectGuiSampleBibliothequeDelegate.BeginInvoke(BibliothequeSelectAllResult, null);
+				selectGuiSampleBibliothequeDelegate.BeginInvoke(SessionManager.Token, BibliothequeSelectAllResult, null);
 
 				while (!AutoEvent.WaitOne(50, true)) {
 					Application.DoEvents();
@@ -150,7 +152,7 @@ namespace WindowsFormsApplication1 {
 			var samplePersByIdDelegate = (AsyncGuiPersonneById)((AsyncResult)result).AsyncDelegate;
 			//if (result.AsyncState != null) {
 			objPersonne = samplePersByIdDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", objPersonne[0].GetType().Name));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", objPersonne.GetType().Name));
 			//Console.WriteLine(@"{0}", objPersonne.GetType());
 			//}
 			//ofrmMdi.SetLoadingText(String.Format(@"{0}", _iLock));
@@ -211,7 +213,7 @@ namespace WindowsFormsApplication1 {
 			try {
 				refLivreIFacSelectAll = new RefLivreIFACClient();
 				var selectGuiSampleRefLivreDelegate = new AsyncGuiRefLivreSelectAll(refLivreIFacSelectAll.SelectAll);
-				selectGuiSampleRefLivreDelegate.BeginInvoke(RefLivreSelectAllResult, null);
+				selectGuiSampleRefLivreDelegate.BeginInvoke(SessionManager.Token, RefLivreSelectAllResult, null);
 
 				while (!AutoEvent.WaitOne(50, true)) {
 					Application.DoEvents();
@@ -234,7 +236,7 @@ namespace WindowsFormsApplication1 {
 			try {
 				LivreIFacSelectAll = new LivreIFACClient();
 				var selectGuiSampleRefLivreDelegate = new AsyncGuiLivreSelectAll(LivreIFacSelectAll.SelectAll);
-				selectGuiSampleRefLivreDelegate.BeginInvoke(RefLivreSelectAllResult, null);
+				selectGuiSampleRefLivreDelegate.BeginInvoke(SessionManager.Token, RefLivreSelectAllResult, null);
 
 				while (!AutoEvent.WaitOne(50, true)) {
 					Application.DoEvents();
@@ -247,6 +249,10 @@ namespace WindowsFormsApplication1 {
 				}
 			}
 			return bReturn;
+		}
+
+		internal static bool LoadCache(FrmSplashScreen frmSplashScreen) {
+			throw new NotImplementedException();
 		}
 	}
 }

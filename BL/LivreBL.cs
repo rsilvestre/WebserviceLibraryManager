@@ -8,7 +8,10 @@ using WebsDAL;
 
 namespace WebsBL {
 	public static class LivreBL {
-		public static List<LivreBO> SelectAll() {
+		public static List<LivreBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return new List<LivreBO>();
+			}
 			List<LivreBO> result;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
@@ -25,7 +28,10 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static LivreBO InsertLivre(LivreBO pObjLivre) {
+		public static LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
+			if (!Autorization.Validate(Token)) {
+				return new LivreBO();
+			}
 			LivreBO result;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {

@@ -10,32 +10,33 @@ using WebsBO;
 namespace WebsFAC {
 	public class RefLivreFAC : RefLivreIFAC {
 
-		public List<RefLivreBO> FindAmazonRefByISBN(string[] pISBNs) {
+		public List<RefLivreBO> FindAmazonRefByISBN(String Token, string[] pISBNs) {
 			try {
-				return RefLivreBL.FindAmazonRefByISBN(pISBNs);
+				return RefLivreBL.FindAmazonRefByISBN(Token, pISBNs);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
-		public List<RefLivreBO> FindAmazonRefByTitle(string pTitle) {
+		public List<RefLivreBO> FindAmazonRefByTitle(String Token, string pTitle) {
 			try {
-				return RefLivreBL.FindAmazonRefByTitle(pTitle);
+				return RefLivreBL.FindAmazonRefByTitle(Token, pTitle);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
 
-		public List<RefLivreBO> SelectAll() {
+		public List<RefLivreBO> SelectAll(String Token) {
 			try {
-				return RefLivreBL.SelectAll();
+				return RefLivreBL.SelectAll(Token);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 		public List<RefLivreBO> InsertLivre(
+			String Token,
 			String pISBN,
 			String pTitre,
 			String pDescription,
@@ -47,6 +48,7 @@ namespace WebsFAC {
 			) {
 			try {
 				return RefLivreBL.InsertLivre(
+					Token,
 					pISBN,
 					pTitre,
 					pDescription,

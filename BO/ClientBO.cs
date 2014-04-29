@@ -10,17 +10,20 @@ namespace WebsBO
 	[DataContract(Namespace = "urn:WebsBO.ClientBO")]
     public class ClientBO {
 		private Int32 _ClientId;
-		private String _ClientName;
-		private String _ClientSurname;
-		private String _ClientPhoneNumber;
+		private Int32 _BibliothequeId;
+		private List<DemandeReservationBO> _LstDemandeReservation;
 
 		public ClientBO() { }
 
-		public ClientBO(Int32 pClientId, String pClientName, String pClientSurname, String pClientPhoneNumber) {
+		public ClientBO(Int32 pClientId, Int32 pBibliothequeId) {
 			ClientId = pClientId;
-			ClientName = pClientName;
-			ClientSurname = pClientSurname;
-			ClientPhoneNumber = pClientPhoneNumber;
+			BibliothequeId = pBibliothequeId;
+		}
+
+		[DataMember(Name = "DemandeReservation")]
+		public List<DemandeReservationBO> LstDemandeReservation {
+			get { return _LstDemandeReservation; }
+			set { _LstDemandeReservation = value; }
 		}
 
 		[DataMember(Name="ClientId")]
@@ -29,22 +32,11 @@ namespace WebsBO
 			set { _ClientId = value; }
 		}
 
-		[DataMember(Name="ClientName")]
-		public String ClientName {
-			get { return _ClientName; }
-			set { _ClientName = value; }
-		}
+		[DataMember(Name = "BibliothequeId")]
 
-		[DataMember(Name="ClientSurname")]
-		public String ClientSurname {
-			get { return _ClientSurname; }
-			set { _ClientSurname = value; }
-		}
-
-		[DataMember(Name="ClientPhoneNumber")]
-		public String ClientPhoneNumber {
-			get { return _ClientPhoneNumber; }
-			set { _ClientPhoneNumber = value; }
+		public Int32 BibliothequeId {
+			get { return _BibliothequeId; }
+			set { _BibliothequeId = value; }
 		}
 
     }

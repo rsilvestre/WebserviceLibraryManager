@@ -10,7 +10,11 @@ using WebsDAL;
 namespace WebsBL {
 	public static class RefLivreBL {
 
-		public static List<RefLivreBO> FindAmazonRefByISBN(String[] pISBNs) {
+		public static List<RefLivreBO> FindAmazonRefByISBN(String Token, String[] pISBNs) {
+			if (!Autorization.Validate(Token)) {
+				return new List<RefLivreBO>();
+			}
+
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -23,7 +27,10 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> FindAmazonRefByTitle(String pTitle) {
+		public static List<RefLivreBO> FindAmazonRefByTitle(String Token, String pTitle) {
+			if (!Autorization.Validate(Token)) {
+				return new List<RefLivreBO>();
+			}
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -36,7 +43,10 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> SelectAll() {
+		public static List<RefLivreBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return new List<RefLivreBO>();
+			}
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -51,6 +61,7 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> InsertLivre(
+			String Token,
 			String pISBN,
 			String pTitre,
 			String pDescription,
@@ -60,6 +71,9 @@ namespace WebsBL {
 			DateTime pTimestamp,
 			String pImageUrl
 			) {
+			if (!Autorization.Validate(Token)) {
+				return new List<RefLivreBO>();
+			}
 				List<RefLivreBO> result;
 
 			try {

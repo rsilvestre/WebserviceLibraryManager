@@ -10,17 +10,17 @@ using WebsIFAC;
 namespace WebsFAC
 {
     public class ClientFAC : ClientIFAC {
-		public List<ClientBO> SelectAll() {
+		public List<ClientBO> SelectAll(String Token) {
 			try {
-				return ClientBL.SelectAll().ToList();
+				return ClientBL.SelectAll(Token);
 			} catch (Exception Ex) { 
 				throw; 
 			}
 		}
 
-		public ClientBO SelectById(Int32 pId) {
+		public ClientBO SelectById(String Token, Int32 pId) {
 			try {
-				return ClientBL.SelectById(pId);
+				return ClientBL.SelectById(Token, pId);
 			} catch (Exception Ex) {
 				throw;
 			}

@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1.RefLivre {
 			String[] txtSearchs = new String[] { txtSearch };
 			try {
 				using (RefLivreIFACClient refLivreProxy = new RefLivreIFACClient()) {
-					foreach (RefLivreBO oRefLivre in refLivreProxy.FindAmazonRefByISBN(txtSearchs.ToList())) {
+					foreach (RefLivreBO oRefLivre in refLivreProxy.FindAmazonRefByISBN(CGlobalCache.SessionManager.Token, txtSearchs.ToList())) {
 						showBook1.setLivre(oRefLivre);
 						ObjRefLivre = oRefLivre;
 						btnAccept.Enabled = true;

@@ -9,9 +9,9 @@ using WebsBL;
 
 namespace WebsFAC {
 	public class AdministrateurFAC : AdministrateurIFAC {
-		public AdministrateurBO SelectById(int pAdministrateurId) {
+		public AdministrateurBO SelectById(String Token, int pAdministrateurId) {
 			try {
-				return AdministrateurBL.SelectById(pAdministrateurId);
+				return AdministrateurBL.SelectById(Token, pAdministrateurId);
 			} catch (Exception ex) {
 				throw;
 			}

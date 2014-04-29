@@ -10,6 +10,6 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace="WebsIFAC/DemandeReservationIFAC")]
 	public interface DemandeReservationIFAC {
 		[OperationContract]
-		List<DemandeReservationBO> SelectById(Int32 pDemandeReservationId);
+		List<DemandeReservationBO> SelectById(String Token, Int32 pDemandeReservationId);
 	}
 }

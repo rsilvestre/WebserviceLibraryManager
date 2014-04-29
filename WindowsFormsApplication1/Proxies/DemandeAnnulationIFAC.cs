@@ -18,10 +18,10 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/SelectById", ReplyAction="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/SelectByIdResponse")]
-        System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> SelectById(int pDemandeAnnulationId);
+        System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> SelectById(string Token, int pDemandeAnnulationId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/SelectById", ReplyAction="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/SelectByIdResponse")]
-        System.IAsyncResult BeginSelectById(int pDemandeAnnulationId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectById(string Token, int pDemandeAnnulationId, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> EndSelectById(System.IAsyncResult result);
     }
@@ -60,14 +60,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> SelectById(int pDemandeAnnulationId)
+        public System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> SelectById(string Token, int pDemandeAnnulationId)
         {
-            return base.Channel.SelectById(pDemandeAnnulationId);
+            return base.Channel.SelectById(Token, pDemandeAnnulationId);
         }
         
-        public System.IAsyncResult BeginSelectById(int pDemandeAnnulationId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(string Token, int pDemandeAnnulationId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectById(pDemandeAnnulationId, callback, asyncState);
+            return base.Channel.BeginSelectById(Token, pDemandeAnnulationId, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> EndSelectById(System.IAsyncResult result)

@@ -14,7 +14,7 @@ namespace WebservicePerso {
 			HostingServerLivre livreServer = new HostingServerLivre();
 			HostingServerLivreStatus livreStatusServer = new HostingServerLivreStatus();
 			HostingServerBibliotheque bibliothequeServer = new HostingServerBibliotheque();
-			HostingServerSession sessionServer = new HostingServerSession();
+			HostingServerSessionManager sessionManagerServer = new HostingServerSessionManager();
 			HostingServerAdministrateur administrateurServer = new HostingServerAdministrateur();
 			Console.WriteLine("Server Started");
 			clientServer.StartServer();
@@ -24,7 +24,7 @@ namespace WebservicePerso {
 			livreServer.StartServer();
 			livreStatusServer.StartServer();
 			bibliothequeServer.StartServer();
-			sessionServer.StartServer();
+			sessionManagerServer.StartServer();
 			administrateurServer.StartServer();
 			Console.WriteLine("Press a key to stop the Service");
 			Console.ReadKey();
@@ -35,7 +35,7 @@ namespace WebservicePerso {
 			livreServer.StopServer();
 			livreStatusServer.StopServer();
 			bibliothequeServer.StopServer();
-			sessionServer.StopServer();
+			sessionManagerServer.StopServer();
 			administrateurServer.StopServer();
 			Console.WriteLine("Server Stopped");
 

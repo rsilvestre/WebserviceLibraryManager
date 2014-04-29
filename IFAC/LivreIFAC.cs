@@ -10,9 +10,9 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace = "urn:WebsIFAC/LivreIFAC")]
 	public interface LivreIFAC {
 		[OperationContract]
-		List<LivreBO> SelectAll();
+		List<LivreBO> SelectAll(String Token);
 
 		[OperationContract]
-		LivreBO InsertLivre(LivreBO pObjLivre);
+		LivreBO InsertLivre(String Token, LivreBO pObjLivre);
 	}
 }

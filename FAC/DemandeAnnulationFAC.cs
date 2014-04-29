@@ -9,9 +9,9 @@ using WebsIFAC;
 
 namespace WebsFAC {
 	public class DemandeAnnulationFAC : DemandeAnnulationIFAC {
-		public List<DemandeAnnulationBO> SelectById(int pDemandeAnnulationId) {
+		public List<DemandeAnnulationBO> SelectById(String Token, int pDemandeAnnulationId) {
 			try {
-				return DemandeAnnulationBL.SelectById(pDemandeAnnulationId);
+				return DemandeAnnulationBL.SelectById(Token, pDemandeAnnulationId);
 			} catch (Exception ex) {
 				throw;
 			}

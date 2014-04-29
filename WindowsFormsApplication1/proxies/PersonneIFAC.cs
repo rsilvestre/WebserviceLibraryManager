@@ -18,26 +18,26 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectAll", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.PersonneBO> SelectAll();
+        System.Collections.Generic.List<WebsBO.PersonneBO> SelectAll(string Token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectAll", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectById", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByIdResponse")]
-        System.Collections.Generic.List<WebsBO.PersonneBO> SelectById(int pId);
+        WebsBO.PersonneBO SelectById(string Token, int pId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectById", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByIdResponse")]
-        System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectById(string Token, int pId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectById(System.IAsyncResult result);
+        WebsBO.PersonneBO EndSelectById(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByName", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByNameResponse")]
-        System.Collections.Generic.List<WebsBO.PersonneBO> SelectByName(string pName);
+        System.Collections.Generic.List<WebsBO.PersonneBO> SelectByName(string Token, string pName);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByName", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByNameResponse")]
-        System.IAsyncResult BeginSelectByName(string pName, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectByName(string Token, string pName, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByName(System.IAsyncResult result);
     }
@@ -76,14 +76,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectAll()
+        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectAll(string Token)
         {
-            return base.Channel.SelectAll();
+            return base.Channel.SelectAll(Token);
         }
         
-        public System.IAsyncResult BeginSelectAll(System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(callback, asyncState);
+            return base.Channel.BeginSelectAll(Token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectAll(System.IAsyncResult result)
@@ -91,29 +91,29 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectById(int pId)
+        public WebsBO.PersonneBO SelectById(string Token, int pId)
         {
-            return base.Channel.SelectById(pId);
+            return base.Channel.SelectById(Token, pId);
         }
         
-        public System.IAsyncResult BeginSelectById(int pId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectById(string Token, int pId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectById(pId, callback, asyncState);
+            return base.Channel.BeginSelectById(Token, pId, callback, asyncState);
         }
         
-        public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectById(System.IAsyncResult result)
+        public WebsBO.PersonneBO EndSelectById(System.IAsyncResult result)
         {
             return base.Channel.EndSelectById(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectByName(string pName)
+        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectByName(string Token, string pName)
         {
-            return base.Channel.SelectByName(pName);
+            return base.Channel.SelectByName(Token, pName);
         }
         
-        public System.IAsyncResult BeginSelectByName(string pName, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectByName(string Token, string pName, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectByName(pName, callback, asyncState);
+            return base.Channel.BeginSelectByName(Token, pName, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByName(System.IAsyncResult result)
