@@ -23,22 +23,24 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.btnConnection = new System.Windows.Forms.Button();
+			this.btnConn = new System.Windows.Forms.Button();
 			this.txtUsername = new System.Windows.Forms.TextBox();
 			this.txtPassword = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// btnConnection
+			// btnConn
 			// 
-			this.btnConnection.Location = new System.Drawing.Point(14, 105);
-			this.btnConnection.Name = "btnConnection";
-			this.btnConnection.Size = new System.Drawing.Size(193, 23);
-			this.btnConnection.TabIndex = 0;
-			this.btnConnection.Text = "Connection";
-			this.btnConnection.UseVisualStyleBackColor = true;
-			this.btnConnection.Click += new System.EventHandler(this.btnConnection_Click);
+			this.btnConn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnConn.Location = new System.Drawing.Point(14, 105);
+			this.btnConn.Name = "btnConn";
+			this.btnConn.Size = new System.Drawing.Size(193, 23);
+			this.btnConn.TabIndex = 0;
+			this.btnConn.Text = "&Connection";
+			this.btnConn.UseVisualStyleBackColor = true;
+			this.btnConn.Click += new System.EventHandler(this.btnConnection_Click);
 			// 
 			// txtUsername
 			// 
@@ -46,6 +48,7 @@
 			this.txtUsername.Name = "txtUsername";
 			this.txtUsername.Size = new System.Drawing.Size(100, 20);
 			this.txtUsername.TabIndex = 1;
+			this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtGeneric_KeyDown);
 			// 
 			// txtPassword
 			// 
@@ -54,6 +57,7 @@
 			this.txtPassword.PasswordChar = '*';
 			this.txtPassword.Size = new System.Drawing.Size(100, 20);
 			this.txtPassword.TabIndex = 2;
+			this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtGeneric_KeyDown);
 			this.txtPassword.UseSystemPasswordChar = true;
 			// 
 			// label1
@@ -74,16 +78,27 @@
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Mot de passe";
 			// 
+			// btnCancel
+			// 
+			this.btnCancel.Location = new System.Drawing.Point(14, 134);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(193, 23);
+			this.btnCancel.TabIndex = 5;
+			this.btnCancel.Text = "&Annuller";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			// 
 			// LoginForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(224, 142);
+			this.ClientSize = new System.Drawing.Size(224, 174);
+			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.txtPassword);
 			this.Controls.Add(this.txtUsername);
-			this.Controls.Add(this.btnConnection);
+			this.Controls.Add(this.btnConn);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "LoginForm";
 			this.Text = "LoginForm";
@@ -94,10 +109,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button btnConnection;
+		private System.Windows.Forms.Button btnConn;
 		private System.Windows.Forms.TextBox txtUsername;
 		private System.Windows.Forms.TextBox txtPassword;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button btnCancel;
 	}
 }

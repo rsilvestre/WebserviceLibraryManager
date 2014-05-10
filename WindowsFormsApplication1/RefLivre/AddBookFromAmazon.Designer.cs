@@ -46,7 +46,7 @@
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(75, 23);
 			this.btnSearch.TabIndex = 1;
-			this.btnSearch.Text = "Search";
+			this.btnSearch.Text = "&Rerchercher";
 			this.btnSearch.UseVisualStyleBackColor = true;
 			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
 			// 
@@ -66,8 +66,9 @@
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 4;
-			this.btnCancel.Text = "&Cancel";
+			this.btnCancel.Text = "&Annuler";
 			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// btnAccept
 			// 
@@ -76,7 +77,7 @@
 			this.btnAccept.Name = "btnAccept";
 			this.btnAccept.Size = new System.Drawing.Size(75, 23);
 			this.btnAccept.TabIndex = 5;
-			this.btnAccept.Text = "&Add Book";
+			this.btnAccept.Text = "&Selectionner";
 			this.btnAccept.UseVisualStyleBackColor = true;
 			this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
 			// 

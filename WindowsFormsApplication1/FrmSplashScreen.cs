@@ -62,6 +62,7 @@ namespace WindowsFormsApplication1 {
 					_loginScreen.Close();
 				} else {
 					_loginScreen.Close();
+					Connect = false;
 					Close();
 				}
 

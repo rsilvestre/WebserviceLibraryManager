@@ -36,11 +36,20 @@ namespace WindowsFormsApplication1.Login {
 			set { _Connect = value; }
 		}
 
-		private void InitConnection(string pUsername, string pPassword) {
-			SessionManagerIFACClient objSessionIFac = new SessionManagerIFACClient();
-			//SessionBO objSessionBo = objSessionIFac.OpenSession(pUsername, pPassword);
-			var selectGuiSampleSessionDelegate = new ASyncGuiSessionOpenSession(objSessionIFac.OpenSession);
-			selectGuiSampleSessionDelegate.BeginInvoke(pUsername, pPassword, ConnectionResult, null);
+		private void InitConnection() {
+			String usernameStr = txtUsername.Text, passwordStr = txtPassword.Text;
+			if (usernameStr == "" || passwordStr == "") {
+				MessageBox.Show("Les champs Nom d'utilisateur et Mot de passe doivent etre remplis!");
+				return;
+			}
+			try {
+				SessionManagerIFACClient objSessionIFac = new SessionManagerIFACClient();
+				//SessionBO objSessionBo = objSessionIFac.OpenSession(pUsername, pPassword);
+				ASyncGuiSessionOpenSession selectGuiSampleSessionDelegate = objSessionIFac.OpenSession;
+				selectGuiSampleSessionDelegate.BeginInvoke(usernameStr, passwordStr, ConnectionResult, null);
+			} catch (Exception ex) {
+				throw;
+			}
 		}
 
 		private void ConnectionResult(IAsyncResult result) {
@@ -48,6 +57,7 @@ namespace WindowsFormsApplication1.Login {
 			SessionManagerBO objSessionBo = sampleSessionDelegate.EndInvoke(result);
 			if (objSessionBo.Token == null) {
 				MessageBox.Show("Mauvais nom d'utilisateur ou de mot de passe");
+				return;
 			}
 			CGlobalCache.SessionManager = objSessionBo;
 			Connect = true;
@@ -56,13 +66,24 @@ namespace WindowsFormsApplication1.Login {
 
 		private void btnConnection_Click(object sender, EventArgs e) {
 			if (txtUsername.Text == "" || txtPassword.Text == "") {
-				MessageBox.Show("Les champs de login doivent etre rempli");
+				MessageBox.Show("Les champs Nom d'utilisateur et Mot de passe doivent etre remplis!");
 				return;
 			}
 			try {
-				InitConnection(txtUsername.Text, txtPassword.Text);
+				InitConnection();
 			} catch (Exception ex) {
 				throw;
+			}
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e) {
+			Connect = false;
+			_frmSplashScreen.DecrementILockSplash();
+		}
+
+		private void txtGeneric_KeyDown(object sender, KeyEventArgs e) {
+			if (e.KeyCode == Keys.Enter) {
+				InitConnection();
 			}
 		}
 

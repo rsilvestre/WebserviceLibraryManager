@@ -96,6 +96,10 @@ namespace WindowsFormsApplication1.RefLivre {
 			//InsertRefLivre(ObjRefLivre);
 		}
 
+		private void btnCancel_Click(object sender, EventArgs e) {
+			this.Dispose();
+		}
+
 		//private void InsertRefLivre(RefLivreBO ObjRefLivre) {
 		//	try {
 		//		if (_objFrmMDI.InsertLivreFromAmazon(ObjRefLivre)) {
