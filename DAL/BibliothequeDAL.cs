@@ -20,5 +20,17 @@ namespace WebsDAL {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()));
 			return ((ISingleResult<BibliothequeBO>)result.ReturnValue);
 		}
+		
+		[Function(Name="[dbo].[Bibliotheque.SelectByAdministrateurId]")]
+		public ISingleResult<BibliothequeBO> BibliothequeDAL_SelectByAdministrateurId([Parameter(DbType="int")]Int32 AdministrateurId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), AdministrateurId);
+			return ((ISingleResult<BibliothequeBO>)result.ReturnValue);
+		}
+		
+		[Function(Name="[dbo].[Bibliotheque.SelectById]")]
+		public ISingleResult<BibliothequeBO> BibliothequeDAL_SelectById([Parameter(DbType="int")]Int32 BibliothequeId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), BibliothequeId);
+			return ((ISingleResult<BibliothequeBO>)result.ReturnValue);
+		}
 	}
 }

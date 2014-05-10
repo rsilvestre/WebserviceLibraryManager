@@ -11,6 +11,7 @@ namespace WebsBO
     public class ClientBO {
 		private Int32 _ClientId;
 		private Int32 _BibliothequeId;
+		private BibliothequeBO _Bibliotheque;
 		private List<DemandeReservationBO> _LstDemandeReservation;
 
 		public ClientBO() { }
@@ -30,6 +31,12 @@ namespace WebsBO
 		public Int32 ClientId {
 			get { return _ClientId; }
 			set { _ClientId = value; }
+		}
+		
+		[DataMember(Name = "Bibliotheque")]
+		public BibliothequeBO Bibliotheque {
+			get { return _Bibliotheque; }
+			set { _Bibliotheque = value; }
 		}
 
 		[DataMember(Name = "BibliothequeId")]

@@ -25,6 +25,14 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliotheque", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliothequeResponse")]
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliotheque", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliothequeResponse")]
+        System.IAsyncResult BeginSelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByBibliotheque(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
         WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre);
         
@@ -81,6 +89,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result)
         {
             return base.Channel.EndSelectAll(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque)
+        {
+            return base.Channel.SelectByBibliotheque(Token, pBibliotheque);
+        }
+        
+        public System.IAsyncResult BeginSelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByBibliotheque(Token, pBibliotheque, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByBibliotheque(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByBibliotheque(result);
         }
         
         public WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre)

@@ -18,6 +18,14 @@ namespace WebsFAC {
 			}
 		}
 
+		public List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
+			try {
+				return LivreBL.SelectByBibliotheque(Token, pBibliotheque);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
 		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
 			try {
 				return LivreBL.InsertLivre(Token, pObjLivre);

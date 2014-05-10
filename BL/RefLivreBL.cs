@@ -10,9 +10,31 @@ using WebsDAL;
 namespace WebsBL {
 	public static class RefLivreBL {
 
+		public static RefLivreBO SelectById(String Token, Int32 pRefLivreId) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
+
+			RefLivreBO result = null;
+
+			try {
+				using (RefLivreDAL refLivreDal = new RefLivreDAL(Util.GetConnection())) {
+					List<RefLivreBO> lstRefLivreBo = refLivreDal.RefLivreBO_SelectById(pRefLivreId).ToList();
+					if (lstRefLivreBo.Count > 0) {
+						result = lstRefLivreBo[0];
+					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return result;
+
+		}
+
 		public static List<RefLivreBO> FindAmazonRefByISBN(String Token, String[] pISBNs) {
 			if (!Autorization.Validate(Token)) {
-				return new List<RefLivreBO>();
+				return null;
 			}
 
 			List<RefLivreBO> lstRefLivre = null;
@@ -29,7 +51,7 @@ namespace WebsBL {
 
 		public static List<RefLivreBO> FindAmazonRefByTitle(String Token, String pTitle) {
 			if (!Autorization.Validate(Token)) {
-				return new List<RefLivreBO>();
+				return null;
 			}
 			List<RefLivreBO> lstRefLivre = null;
 
@@ -45,13 +67,47 @@ namespace WebsBL {
 
 		public static List<RefLivreBO> SelectAll(String Token) {
 			if (!Autorization.Validate(Token)) {
-				return new List<RefLivreBO>();
+				return null;
 			}
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
 				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
 					lstRefLivre = oReflIvreDal.RefLivreBO_SelectAll().ToList();
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return lstRefLivre;
+		}
+
+		public static List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
+			List<RefLivreBO> lstRefLivre = null;
+
+			try {
+				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
+					lstRefLivre = oReflIvreDal.RefLivreBO_SelectByTitre(pTitre).ToList();
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return lstRefLivre;
+		}
+
+		public static List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
+			List<RefLivreBO> lstRefLivre = null;
+
+			try {
+				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
+					lstRefLivre = oReflIvreDal.RefLivreBO_SelectByISBN(pISBN).ToList();
 				}
 			} catch (Exception ex) {
 				throw;

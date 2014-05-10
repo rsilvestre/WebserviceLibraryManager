@@ -13,6 +13,9 @@ namespace WebsIFAC {
 		List<LivreBO> SelectAll(String Token);
 
 		[OperationContract]
+		List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque);
+
+		[OperationContract]
 		LivreBO InsertLivre(String Token, LivreBO pObjLivre);
 	}
 }

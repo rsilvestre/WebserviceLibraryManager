@@ -19,6 +19,12 @@ namespace WebsIFAC {
 		List<RefLivreBO> SelectAll(String Token);
 
 		[OperationContract]
+		List<RefLivreBO> SelectByTitre(String Token, String pTitre);
+
+		[OperationContract]
+		List<RefLivreBO> SelectByISBN(String Token, String pISBN);
+
+		[OperationContract]
 		List<RefLivreBO> InsertLivre(
 			String Token,
 			String pISBN,

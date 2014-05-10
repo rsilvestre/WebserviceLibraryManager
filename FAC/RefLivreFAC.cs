@@ -35,6 +35,24 @@ namespace WebsFAC {
 			}
 		}
 
+
+		public List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
+			try {
+				return RefLivreBL.SelectByTitre(Token, pTitre);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
+
+		public List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
+			try {
+				return RefLivreBL.SelectByISBN(Token, pISBN);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
 		public List<RefLivreBO> InsertLivre(
 			String Token,
 			String pISBN,

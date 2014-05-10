@@ -51,10 +51,20 @@
 			this.amazonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addBookToLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.addBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.findBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -64,10 +74,14 @@
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.editMenu,
-            this.bookToolStripMenuItem});
+            this.libraryToolStripMenuItem,
+            this.bookToolStripMenuItem,
+            this.toolStripComboBox1,
+            this.helpToolStripMenuItem,
+            this.toolStripTextBox1});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(632, 24);
+			this.menuStrip.Size = new System.Drawing.Size(632, 27);
 			this.menuStrip.TabIndex = 0;
 			this.menuStrip.Text = "MenuStrip";
 			// 
@@ -87,7 +101,7 @@
             this.exitToolStripMenuItem});
 			this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
 			this.fileMenu.Name = "fileMenu";
-			this.fileMenu.Size = new System.Drawing.Size(37, 20);
+			this.fileMenu.Size = new System.Drawing.Size(37, 23);
 			this.fileMenu.Text = "&File";
 			// 
 			// newToolStripMenuItem
@@ -183,7 +197,7 @@
             this.toolStripSeparator7,
             this.selectAllToolStripMenuItem});
 			this.editMenu.Name = "editMenu";
-			this.editMenu.Size = new System.Drawing.Size(39, 20);
+			this.editMenu.Size = new System.Drawing.Size(39, 23);
 			this.editMenu.Text = "&Edit";
 			// 
 			// undoToolStripMenuItem
@@ -257,7 +271,7 @@
             this.amazonToolStripMenuItem,
             this.addBookToLibraryToolStripMenuItem});
 			this.bookToolStripMenuItem.Name = "bookToolStripMenuItem";
-			this.bookToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+			this.bookToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
 			this.bookToolStripMenuItem.Text = "&Book";
 			// 
 			// amazonToolStripMenuItem
@@ -283,6 +297,74 @@
 			this.addBookToLibraryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.addBookToLibraryToolStripMenuItem.Text = "Library";
 			// 
+			// addBookToolStripMenuItem
+			// 
+			this.addBookToolStripMenuItem.Enabled = false;
+			this.addBookToolStripMenuItem.Name = "addBookToolStripMenuItem";
+			this.addBookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.addBookToolStripMenuItem.Text = "Add Book";
+			this.addBookToolStripMenuItem.Click += new System.EventHandler(this.addBookToolStripMenuItem_Click);
+			// 
+			// toolStripComboBox1
+			// 
+			this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.toolStripComboBox1.DropDownHeight = 110;
+			this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.toolStripComboBox1.DropDownWidth = 122;
+			this.toolStripComboBox1.Enabled = false;
+			this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+			this.toolStripComboBox1.IntegralHeight = false;
+			this.toolStripComboBox1.MaxDropDownItems = 9;
+			this.toolStripComboBox1.MergeAction = System.Windows.Forms.MergeAction.Insert;
+			this.toolStripComboBox1.Name = "toolStripComboBox1";
+			this.toolStripComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+			this.toolStripComboBox1.Sorted = true;
+			this.toolStripComboBox1.Tag = "Bibliotheque";
+			this.toolStripComboBox1.ToolTipText = "Bibliotheque";
+			this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+			// 
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contentsToolStripMenuItem,
+            this.indexToolStripMenuItem,
+            this.searchToolStripMenuItem1,
+            this.toolStripSeparator10,
+            this.aboutToolStripMenuItem});
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+			this.helpToolStripMenuItem.Text = "&Help";
+			// 
+			// contentsToolStripMenuItem
+			// 
+			this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
+			this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.contentsToolStripMenuItem.Text = "&Contents";
+			// 
+			// indexToolStripMenuItem
+			// 
+			this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
+			this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.indexToolStripMenuItem.Text = "&Index";
+			// 
+			// searchToolStripMenuItem1
+			// 
+			this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
+			this.searchToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+			this.searchToolStripMenuItem1.Text = "&Search";
+			// 
+			// toolStripSeparator10
+			// 
+			this.toolStripSeparator10.Name = "toolStripSeparator10";
+			this.toolStripSeparator10.Size = new System.Drawing.Size(119, 6);
+			// 
+			// aboutToolStripMenuItem
+			// 
+			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.aboutToolStripMenuItem.Text = "&About...";
+			// 
 			// statusStrip
 			// 
 			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -299,12 +381,28 @@
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
 			this.toolStripStatusLabel.Text = "Status";
 			// 
-			// addBookToolStripMenuItem
+			// libraryToolStripMenuItem
 			// 
-			this.addBookToolStripMenuItem.Name = "addBookToolStripMenuItem";
-			this.addBookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.addBookToolStripMenuItem.Text = "Add Book";
-			this.addBookToolStripMenuItem.Click += new System.EventHandler(this.addBookToolStripMenuItem_Click);
+			this.libraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.findBookToolStripMenuItem});
+			this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
+			this.libraryToolStripMenuItem.Size = new System.Drawing.Size(55, 23);
+			this.libraryToolStripMenuItem.Text = "Library";
+			// 
+			// findBookToolStripMenuItem
+			// 
+			this.findBookToolStripMenuItem.Name = "findBookToolStripMenuItem";
+			this.findBookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.findBookToolStripMenuItem.Text = "Find Book";
+			this.findBookToolStripMenuItem.Click += new System.EventHandler(this.findBookToolStripMenuItem_Click);
+			// 
+			// toolStripTextBox1
+			// 
+			this.toolStripTextBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.toolStripTextBox1.Name = "toolStripTextBox1";
+			this.toolStripTextBox1.Size = new System.Drawing.Size(120, 23);
+			this.toolStripTextBox1.Text = "Bibliotheque Client :";
+			this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// FrmMdi
 			// 
@@ -359,6 +457,15 @@
 		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addBookToLibraryToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addBookToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem contentsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem indexToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem libraryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem findBookToolStripMenuItem;
+		private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
 	}
 }
 

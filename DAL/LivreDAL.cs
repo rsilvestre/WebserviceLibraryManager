@@ -20,6 +20,12 @@ namespace WebsDAL {
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
 
+		[Function(Name="[dbo].[Livre.SelectByBibliothequeId]")]
+		public ISingleResult<LivreBO> LivreBO_SelectByBibliothequeId([Parameter(DbType="int")] Int32 BibliothequeId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), BibliothequeId);
+			return ((ISingleResult<LivreBO>)result.ReturnValue);
+		}
+
 		[Function(Name="[dbo].[Livre.InsertLivre]")]
 		public ISingleResult<LivreBO> LivreBO_InsertLivre(
 			[Parameter(DbType = "int")]				Int32		BibliothequeId,

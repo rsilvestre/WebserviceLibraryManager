@@ -41,6 +41,22 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitreResponse")]
+        System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByTitre(string Token, string pTitre);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitreResponse")]
+        System.IAsyncResult BeginSelectByTitre(string Token, string pTitre, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectByTitre(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByISBN", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByISBNResponse")]
+        System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByISBN(string Token, string pISBN);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByISBN", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByISBNResponse")]
+        System.IAsyncResult BeginSelectByISBN(string Token, string pISBN, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectByISBN(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/InsertLivreResponse")]
         System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl);
         
@@ -127,6 +143,36 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result)
         {
             return base.Channel.EndSelectAll(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByTitre(string Token, string pTitre)
+        {
+            return base.Channel.SelectByTitre(Token, pTitre);
+        }
+        
+        public System.IAsyncResult BeginSelectByTitre(string Token, string pTitre, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByTitre(Token, pTitre, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectByTitre(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByTitre(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByISBN(string Token, string pISBN)
+        {
+            return base.Channel.SelectByISBN(Token, pISBN);
+        }
+        
+        public System.IAsyncResult BeginSelectByISBN(string Token, string pISBN, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByISBN(Token, pISBN, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectByISBN(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByISBN(result);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> InsertLivre(string Token, string pISBN, string pTitre, string pDescription, string pAuteur, string pLangue, string pEditeur, System.DateTime pPublished, string pImageUrl)

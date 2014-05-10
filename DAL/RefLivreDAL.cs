@@ -20,6 +20,18 @@ namespace WebsDAL {
 			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 
+		[Function(Name="[dbo].[RefLivre.SelectByTitre]")]
+		public ISingleResult<RefLivreBO> RefLivreBO_SelectByTitre([Parameter(DbType="varchar(50)")] String Titre) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), Titre);
+			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
+		}
+
+		[Function(Name="[dbo].[RefLivre.SelectByISBN]")]
+		public ISingleResult<RefLivreBO> RefLivreBO_SelectByISBN([Parameter(DbType="varchar(13)")] String ISBN) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ISBN);
+			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
+		}
+
 		[Function(Name="[dbo].[RefLivre.InsertLivre]")]
 		public ISingleResult<RefLivreBO> RefLivreBO_InsertLivre(
 			[Parameter(DbType = "varchar(13)")]		String		ISBN,

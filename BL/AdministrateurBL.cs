@@ -13,14 +13,13 @@ namespace WebsBL {
 			if (!Autorization.Validate(Token)) {
 				return new AdministrateurBO();
 			}
-			AdministrateurBO administrateurResult;
+			AdministrateurBO administrateurResult = null;
 			try {
 				using (AdministrateurDAL administrateurDal = new AdministrateurDAL(Util.GetConnection())) {
 					List<AdministrateurBO> lstAdministrateur = administrateurDal.AdministrateurDAL_SelectById(pAdministrateurId).ToList();
 					if (lstAdministrateur.Count() > 0) {
 						administrateurResult = lstAdministrateur[0];
-					} else {
-						administrateurResult = new AdministrateurBO();
+						administrateurResult.LstBibliotheque = BibliothequeBL.SelectByAdministrateurId(Token, administrateurResult.AdministrateurId);
 					}
 				}
 			} catch (Exception ex) {

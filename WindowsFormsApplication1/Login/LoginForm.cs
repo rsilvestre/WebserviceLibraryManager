@@ -55,7 +55,7 @@ namespace WindowsFormsApplication1.Login {
 		private void ConnectionResult(IAsyncResult result) {
 			var sampleSessionDelegate = (ASyncGuiSessionOpenSession)((AsyncResult)result).AsyncDelegate;
 			SessionManagerBO objSessionBo = sampleSessionDelegate.EndInvoke(result);
-			if (objSessionBo.Token == null) {
+			if (objSessionBo == null || objSessionBo.Token == null) {
 				MessageBox.Show("Mauvais nom d'utilisateur ou de mot de passe");
 				return;
 			}
@@ -65,15 +65,7 @@ namespace WindowsFormsApplication1.Login {
 		}
 
 		private void btnConnection_Click(object sender, EventArgs e) {
-			if (txtUsername.Text == "" || txtPassword.Text == "") {
-				MessageBox.Show("Les champs Nom d'utilisateur et Mot de passe doivent etre remplis!");
-				return;
-			}
-			try {
-				InitConnection();
-			} catch (Exception ex) {
-				throw;
-			}
+			InitConnection();
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e) {

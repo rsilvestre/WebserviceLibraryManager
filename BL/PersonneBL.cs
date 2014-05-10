@@ -36,8 +36,6 @@ namespace WebsBL {
 						objPersonne = lstPersonne[0];
 						objPersonne.Client = ClientBL.SelectById(Token, objPersonne.PersonneId);
 						objPersonne.Administrateur = AdministrateurBL.SelectById(Token, objPersonne.PersonneId);
-					} else {
-						objPersonne = new PersonneBO();
 					}
 				}
 			} catch (Exception Ex) {

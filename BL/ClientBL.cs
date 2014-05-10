@@ -32,9 +32,7 @@ namespace WebsBL
 					if (tmpObjClient.Count() > 0) {
 						objClientResult = tmpObjClient[0];
 						objClientResult.LstDemandeReservation = DemandeReservationBL.SelectByClientId(Token, objClientResult.ClientId);
-
-					} else {
-						objClientResult = new ClientBO();
+						objClientResult.Bibliotheque = BibliothequeBL.SelectById(Token, objClientResult.BibliothequeId);
 					}
 				}
 			} catch (Exception Ex) { 

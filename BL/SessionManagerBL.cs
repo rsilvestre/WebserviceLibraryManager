@@ -10,7 +10,7 @@ namespace WebsBL {
 	public static class SessionManagerBL {
 
 		public static SessionManagerBO OpenSession(string pUsername, string pPassword) {
-			SessionManagerBO sessionResult;
+			SessionManagerBO sessionResult = null;
 			try {
 				using (SessionManagerDAL sessionProxy = new SessionManagerDAL(Util.GetConnection())) {
 					List<SessionManagerBO> lstSession = sessionProxy.SessionManagerDAL_CreateSession(pUsername, pPassword).ToList();
@@ -20,9 +20,9 @@ namespace WebsBL {
 						//using (PersonneDAL sessionPersonne = new PersonneDAL(Util.GetConnection())) {
 						//	PersonneBO personne = sessionPersonne.PersonneBO_SelectById(sessionResult.PersonneId).ToList()[0];
 						//	sessionResult.Personne = personne;
+						sessionResult.Personne = objPersonne;
+						sessionResult.IsAdministrateur = objPersonne.Administrateur != null;
 						//}
-					} else {
-						sessionResult = new SessionManagerBO();
 					}
 				}
 			} catch (Exception ex) {

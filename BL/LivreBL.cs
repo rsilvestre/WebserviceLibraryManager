@@ -10,16 +10,39 @@ namespace WebsBL {
 	public static class LivreBL {
 		public static List<LivreBO> SelectAll(String Token) {
 			if (!Autorization.Validate(Token)) {
-				return new List<LivreBO>();
+				return null;
 			}
-			List<LivreBO> result;
+			List<LivreBO> result = null;
+
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
 					result = livreProxy.LivreBO_SelectAll().ToList();
+					if (result.Count > 0) {
+						foreach (LivreBO oLivreBO in result) {
+							oLivreBO.RefLivre = RefLivreBL.SelectById(Token, oLivreBO.RefLivreId);
+							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBO.BibliothequeId);
+						}
+					}
 				}
-				using (RefLivreDAL refLivreProxy = new RefLivreDAL(Util.GetConnection())) {
-					foreach (LivreBO oLivreBO in result) {
-						oLivreBO.RefLivre = refLivreProxy.RefLivreBO_SelectById(oLivreBO.RefLivreId).ToList()[0];
+			} catch (Exception ex) {
+				throw;
+			}
+			return result;
+		}
+		public static List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
+			List<LivreBO> result = null;
+
+			try {
+				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+					result = livreProxy.LivreBO_SelectByBibliothequeId(pBibliotheque.BibliothequeId).ToList();
+					if (result.Count > 0) {
+						foreach (LivreBO oLivreBO in result) {
+							oLivreBO.RefLivre = RefLivreBL.SelectById(Token, oLivreBO.RefLivreId);
+							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBO.BibliothequeId);
+						}
 					}
 				}
 			} catch (Exception ex) {

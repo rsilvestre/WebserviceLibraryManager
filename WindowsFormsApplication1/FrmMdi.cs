@@ -17,16 +17,17 @@ namespace WindowsFormsApplication1 {
 		private int childFormNumber = 0;
 		private FrmSplashScreen _splashScreen;
 		private AutoResetEvent AutoEvent = new AutoResetEvent(false);
+        private ToolStripComboBox toolStripComboBox1;
 
 		private Int32 _iLockMDI;
+
+		public FrmMdi() {
+			InitializeComponent();
+		}
 
 		public Int32 ILockMDI {
 			get { return _iLockMDI; }
 			set { _iLockMDI = value; }
-		}
-
-		public FrmMdi() {
-			InitializeComponent();
 		}
 
 		public void DecrementILockMDI() {
@@ -46,6 +47,19 @@ namespace WindowsFormsApplication1 {
 			}
 		}
 
+		private void initComponent() {
+			if (CGlobalCache.SessionManager.Personne.Administrateur != null) {
+				toolStripComboBox1.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
+				toolStripComboBox1.Enabled = true;
+			} else {
+				BibliothequeBO bibliothequeItem = CGlobalCache.SessionManager.Personne.Client.Bibliotheque;
+				toolStripComboBox1.Items.Add(bibliothequeItem);
+				toolStripComboBox1.SelectedItem = bibliothequeItem;
+				toolStripComboBox1.Enabled = false;
+			}
+			CGlobalCache.actualBibliothequeChangeEventHandler += actualBibliothequeChange;
+		}
+
 		private void FrmMdi_Load(object sender, EventArgs e) {
 			ILockMDI = 2;
 			try {
@@ -60,6 +74,7 @@ namespace WindowsFormsApplication1 {
 				if (_splashScreen.Connect) {
 					_splashScreen.Close();
 					WindowState = FormWindowState.Maximized;
+					initComponent();
 				} else {
 					_splashScreen.Close();
 					Close();
@@ -170,6 +185,25 @@ namespace WindowsFormsApplication1 {
 
 		private void addBookToolStripMenuItem_Click(object sender, EventArgs e) {
 			Livre.CreateLivre frmCreateLivre = new Livre.CreateLivre(this);
+			frmCreateLivre.MdiParent = this;
+			frmCreateLivre.Show();
+		}
+
+		private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+			BibliothequeBO objBibliotheque = (BibliothequeBO)toolStripComboBox1.SelectedItem;
+			CGlobalCache.ActualBibliotheque = objBibliotheque;
+			if (objBibliotheque != null && CGlobalCache.SessionManager.IsAdministrateur) {
+				addBookToolStripMenuItem.Enabled = true;
+			} 
+		}
+
+		private void actualBibliothequeChange(object value, EventArgs e) {
+			BibliothequeBO objBibliothequeBO = (BibliothequeBO) value;
+			toolStripComboBox1.SelectedItem = objBibliothequeBO;
+		}
+
+		private void findBookToolStripMenuItem_Click(object sender, EventArgs e) {
+			Livre.SearchLivre frmCreateLivre = new Livre.SearchLivre(this);
 			frmCreateLivre.MdiParent = this;
 			frmCreateLivre.Show();
 		}
