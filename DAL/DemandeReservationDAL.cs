@@ -24,6 +24,12 @@ namespace WebsDAL {
 		[Function(Name="[dbo].[DemandeReservation.SelectByClientId]")]
 		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_SelectByClientId([Parameter(DbType="int")] Int32 ClientId) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), ClientId);
+			return ((ISingleResult<DemandeReservationBO>)(result.ReturnValue));
+		}
+
+		[Function(Name="[dbo].[DemandeReservation.InsertDemandeReservation]")]
+		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_InsertDemandeReservation([Parameter(DbType="int")] Int32 ClientId, [Parameter(DbType="int")] Int32 RefLivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), ClientId, RefLivreId);
 			return ((ISingleResult<DemandeReservationBO>)result.ReturnValue);
 		}
 

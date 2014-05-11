@@ -16,5 +16,21 @@ namespace WebsFAC {
 				throw;
 			}
 		}
+
+		public List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient) {
+			try {
+				return DemandeReservationBL.SelectByClient(Token, pClient);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
+		public DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation) {
+			try {
+				return DemandeReservationBL.InsertDemandeReservation(Token, pDemandeReservation);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
 	}
 }

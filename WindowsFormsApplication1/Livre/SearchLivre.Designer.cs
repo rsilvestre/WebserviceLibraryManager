@@ -28,13 +28,17 @@
 			this.radioName = new System.Windows.Forms.RadioButton();
 			this.radioISBN = new System.Windows.Forms.RadioButton();
 			this.btnSearch = new System.Windows.Forms.Button();
-			this.lstSearchResult = new System.Windows.Forms.ListBox();
 			this.txtSearch = new System.Windows.Forms.TextBox();
+			this.dataGridSearchResult = new System.Windows.Forms.DataGridView();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblBibliotheque = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridSearchResult)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.Location = new System.Drawing.Point(414, 224);
+			this.btnCancel.Location = new System.Drawing.Point(553, 401);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 14;
@@ -46,18 +50,19 @@
 			// 
 			this.btnSelection.Enabled = false;
 			this.btnSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnSelection.Location = new System.Drawing.Point(321, 224);
+			this.btnSelection.Location = new System.Drawing.Point(460, 401);
 			this.btnSelection.Name = "btnSelection";
 			this.btnSelection.Size = new System.Drawing.Size(75, 23);
 			this.btnSelection.TabIndex = 13;
 			this.btnSelection.Text = "&Selection";
 			this.btnSelection.UseVisualStyleBackColor = true;
+			this.btnSelection.Click += new System.EventHandler(this.btnSelection_Click);
 			// 
 			// radioName
 			// 
 			this.radioName.AutoSize = true;
 			this.radioName.Checked = true;
-			this.radioName.Location = new System.Drawing.Point(423, 19);
+			this.radioName.Location = new System.Drawing.Point(500, 19);
 			this.radioName.Name = "radioName";
 			this.radioName.Size = new System.Drawing.Size(66, 17);
 			this.radioName.TabIndex = 12;
@@ -68,7 +73,7 @@
 			// radioISBN
 			// 
 			this.radioISBN.AutoSize = true;
-			this.radioISBN.Location = new System.Drawing.Point(348, 19);
+			this.radioISBN.Location = new System.Drawing.Point(425, 19);
 			this.radioISBN.Name = "radioISBN";
 			this.radioISBN.Size = new System.Drawing.Size(69, 17);
 			this.radioISBN.TabIndex = 11;
@@ -78,7 +83,7 @@
 			// 
 			// btnSearch
 			// 
-			this.btnSearch.Location = new System.Drawing.Point(258, 16);
+			this.btnSearch.Location = new System.Drawing.Point(333, 16);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(75, 23);
 			this.btnSearch.TabIndex = 10;
@@ -86,37 +91,74 @@
 			this.btnSearch.UseVisualStyleBackColor = true;
 			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
 			// 
-			// lstSearchResult
-			// 
-			this.lstSearchResult.FormattingEnabled = true;
-			this.lstSearchResult.Location = new System.Drawing.Point(26, 56);
-			this.lstSearchResult.Name = "lstSearchResult";
-			this.lstSearchResult.Size = new System.Drawing.Size(463, 147);
-			this.lstSearchResult.TabIndex = 9;
-			// 
 			// txtSearch
 			// 
-			this.txtSearch.Location = new System.Drawing.Point(26, 18);
+			this.txtSearch.Location = new System.Drawing.Point(144, 18);
 			this.txtSearch.Name = "txtSearch";
-			this.txtSearch.Size = new System.Drawing.Size(215, 20);
+			this.txtSearch.Size = new System.Drawing.Size(183, 20);
 			this.txtSearch.TabIndex = 8;
 			this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
 			this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+			// 
+			// dataGridSearchResult
+			// 
+			this.dataGridSearchResult.AllowUserToAddRows = false;
+			this.dataGridSearchResult.AllowUserToDeleteRows = false;
+			this.dataGridSearchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridSearchResult.Location = new System.Drawing.Point(26, 56);
+			this.dataGridSearchResult.Name = "dataGridSearchResult";
+			this.dataGridSearchResult.ReadOnly = true;
+			this.dataGridSearchResult.Size = new System.Drawing.Size(602, 329);
+			this.dataGridSearchResult.TabIndex = 15;
+			this.dataGridSearchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSearchResult_CellClick);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(23, 406);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(74, 13);
+			this.label1.TabIndex = 16;
+			this.label1.Text = "Bibliotheque : ";
+			// 
+			// lblBibliotheque
+			// 
+			this.lblBibliotheque.AutoSize = true;
+			this.lblBibliotheque.Location = new System.Drawing.Point(93, 406);
+			this.lblBibliotheque.Name = "lblBibliotheque";
+			this.lblBibliotheque.Size = new System.Drawing.Size(35, 13);
+			this.lblBibliotheque.TabIndex = 17;
+			this.lblBibliotheque.Text = "label2";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(23, 21);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(115, 13);
+			this.label3.TabIndex = 18;
+			this.label3.Text = "Champ de recherche : ";
 			// 
 			// SearchLivre
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(517, 262);
+			this.ClientSize = new System.Drawing.Size(656, 436);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.lblBibliotheque);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.dataGridSearchResult);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnSelection);
 			this.Controls.Add(this.radioName);
 			this.Controls.Add(this.radioISBN);
 			this.Controls.Add(this.btnSearch);
-			this.Controls.Add(this.lstSearchResult);
 			this.Controls.Add(this.txtSearch);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "SearchLivre";
 			this.Text = "SearchLivre";
+			this.Load += new System.EventHandler(this.SearchLivre_Load);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridSearchResult)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -129,7 +171,10 @@
 		private System.Windows.Forms.RadioButton radioName;
 		private System.Windows.Forms.RadioButton radioISBN;
 		private System.Windows.Forms.Button btnSearch;
-		private System.Windows.Forms.ListBox lstSearchResult;
 		private System.Windows.Forms.TextBox txtSearch;
+		private System.Windows.Forms.DataGridView dataGridSearchResult;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label lblBibliotheque;
+		private System.Windows.Forms.Label label3;
 	}
 }

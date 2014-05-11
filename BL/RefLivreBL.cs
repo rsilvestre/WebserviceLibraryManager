@@ -128,7 +128,7 @@ namespace WebsBL {
 			String pImageUrl
 			) {
 			if (!Autorization.Validate(Token)) {
-				return new List<RefLivreBO>();
+				return null;
 			}
 				List<RefLivreBO> result;
 

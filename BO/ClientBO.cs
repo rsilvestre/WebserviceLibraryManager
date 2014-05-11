@@ -5,26 +5,18 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebsBO
-{
+namespace WebsBO {
 	[DataContract(Namespace = "urn:WebsBO.ClientBO")]
     public class ClientBO {
 		private Int32 _ClientId;
 		private Int32 _BibliothequeId;
 		private BibliothequeBO _Bibliotheque;
-		private List<DemandeReservationBO> _LstDemandeReservation;
 
 		public ClientBO() { }
 
-		public ClientBO(Int32 pClientId, Int32 pBibliothequeId) {
+		public ClientBO(Int32 pClientId, Int32 pBibliothequeId) : this() {
 			ClientId = pClientId;
 			BibliothequeId = pBibliothequeId;
-		}
-
-		[DataMember(Name = "DemandeReservation")]
-		public List<DemandeReservationBO> LstDemandeReservation {
-			get { return _LstDemandeReservation; }
-			set { _LstDemandeReservation = value; }
 		}
 
 		[DataMember(Name="ClientId")]

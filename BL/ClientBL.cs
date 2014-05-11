@@ -29,9 +29,8 @@ namespace WebsBL
 			try {
 				using (ClientDAL clientDal = new ClientDAL(Util.GetConnection())) {
 					List<ClientBO> tmpObjClient = clientDal.ClientBO_SelectById(pId).ToList();
-					if (tmpObjClient.Count() > 0) {
+					if (tmpObjClient.Count() == 1) {
 						objClientResult = tmpObjClient[0];
-						objClientResult.LstDemandeReservation = DemandeReservationBL.SelectByClientId(Token, objClientResult.ClientId);
 						objClientResult.Bibliotheque = BibliothequeBL.SelectById(Token, objClientResult.BibliothequeId);
 					}
 				}

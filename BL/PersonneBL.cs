@@ -11,7 +11,7 @@ namespace WebsBL {
 
 		public static List<PersonneBO> SelectAll(String Token) {
 			if (!Autorization.Validate(Token)) {
-				return new List<PersonneBO>();
+				return null;
 			}
 			List<PersonneBO> lstPersonne = null;
 			try { 
@@ -26,13 +26,13 @@ namespace WebsBL {
 
 		public static PersonneBO SelectById(String Token, Int32 pId) {
 			if (!Autorization.Validate(Token)) {
-				return new PersonneBO();
+				return null;
 			}
 			PersonneBO objPersonne = null;
 			try {
 				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
 					List<PersonneBO> lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
-					if (lstPersonne.Count() > 0) {
+					if (lstPersonne.Count() == 1) {
 						objPersonne = lstPersonne[0];
 						objPersonne.Client = ClientBL.SelectById(Token, objPersonne.PersonneId);
 						objPersonne.Administrateur = AdministrateurBL.SelectById(Token, objPersonne.PersonneId);
@@ -46,7 +46,7 @@ namespace WebsBL {
 
 		public static List<PersonneBO> SelectByName(String Token, String pName) {
 			if (!Autorization.Validate(Token)) {
-				return new List<PersonneBO>();
+				return null;
 			}
 			List<PersonneBO> lstPersonne;
 			try {

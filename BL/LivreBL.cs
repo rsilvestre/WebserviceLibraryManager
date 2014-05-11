@@ -53,12 +53,12 @@ namespace WebsBL {
 
 		public static LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
 			if (!Autorization.Validate(Token)) {
-				return new LivreBO();
+				return null;
 			}
-			LivreBO result;
+			LivreBO oLivreBOResult;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
-					result = (LivreBO)livreProxy.LivreBO_InsertLivre(
+					oLivreBOResult = (LivreBO)livreProxy.LivreBO_InsertLivre(
 						pObjLivre.BibliothequeId,
 						pObjLivre.RefLivreId,
 						pObjLivre.RefLivre.ISBN,
@@ -70,11 +70,14 @@ namespace WebsBL {
 						pObjLivre.RefLivre.Published,
 						pObjLivre.RefLivre.ImageUrl
 						).ToList()[0];
+					
+						oLivreBOResult.RefLivre = RefLivreBL.SelectById(Token, oLivreBOResult.RefLivreId);
+						oLivreBOResult.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBOResult.BibliothequeId);
 				}
 			} catch (Exception ex) {
 				throw;
 			}
-			return result;
+			return oLivreBOResult;
 		}
 	}
 }

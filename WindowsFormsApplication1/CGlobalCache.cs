@@ -14,7 +14,7 @@ namespace WindowsFormsApplication1 {
 		public delegate void ActualBibliothequeChangeHandler(object value, EventArgs e);
 		public static event ActualBibliothequeChangeHandler actualBibliothequeChangeEventHandler;
 
-		public static Int32 _iLock = 8;
+		public static Int32 _iLock = 9;
 		static readonly AutoResetEvent AutoEvent = new AutoResetEvent(false);
 
 		private delegate List<PersonneBO> AsyncGuiPersonne(String Token);
@@ -26,6 +26,7 @@ namespace WindowsFormsApplication1 {
 		private delegate List<LivreBO> AsyncGuiLivreSelectByBibliotheque(String Token, BibliothequeBO pBibliotheque);
 		private delegate List<LivreStatusBO> ASyncGuiLivreStatusSelectAll(String Token);
 		private delegate List<BibliothequeBO> ASyncGuiBibliothequeSelectAll(String Token);
+		private delegate List<DemandeReservationBO> ASyncGuiDemandeReservationSelectByClient(String Token, ClientBO pClient);
 
 		private static BibliothequeBO _ActualBibliotheque;
 		
@@ -41,6 +42,7 @@ namespace WindowsFormsApplication1 {
 		public static List<LivreStatusBO> LstLivreStatusSelectAll { get; set; }
 		public static List<BibliothequeBO> LstBibliothequeSelectAll { get; set; }
 		public static SessionManagerBO SessionManager { get; set; }
+		public static List<DemandeReservationBO> LstDemandeReservationByClient { get; set; }
 		public static BibliothequeBO ActualBibliotheque { 
 			get { return _ActualBibliotheque; } 
 			set { 
@@ -64,6 +66,7 @@ namespace WindowsFormsApplication1 {
 			LivreIFACClient livreIFacSelectByBliotheque = null;
 			LivreStatusIFACClient livreStatusIFacSelectAll = null;
 			BibliothequeIFACClient bibliothequeIFacSelectAll = null;
+			DemandeReservationIFACClient demandeReservationIFacByClient = null;
 
 			try {
 				ofrmMdi = pFrmMdi;
@@ -99,7 +102,14 @@ namespace WindowsFormsApplication1 {
 					livreIFacSelectByBliotheque = new LivreIFACClient();
 					AsyncGuiLivreSelectByBibliotheque selectGuiSampleLivreByBibliothequeDelegate = livreIFacSelectByBliotheque.SelectByBibliotheque;
 					selectGuiSampleLivreByBibliothequeDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client.Bibliotheque, LivreSelectByBibliothequeResult, null);
+
+					
+					demandeReservationIFacByClient = new DemandeReservationIFACClient();
+					ASyncGuiDemandeReservationSelectByClient selectGuiSampleDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectByClient;
+					selectGuiSampleDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, DemandeReservationResults, null);
+					
 				} else {
+					DecrementILock();
 					DecrementILock();
 				}
 
@@ -145,6 +155,9 @@ namespace WindowsFormsApplication1 {
 				if (bibliothequeIFacSelectAll != null) {
 					bibliothequeIFacSelectAll.Close();
 				}
+				if (demandeReservationIFacByClient != null) {
+					demandeReservationIFacByClient.Close();
+				}
 				ofrmMdi.DecrementILockMDI();
 			}
 			return bReturn;
@@ -173,6 +186,16 @@ namespace WindowsFormsApplication1 {
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
+
+		
+		public static void DemandeReservationResults(IAsyncResult result) {
+			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
+			LstDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", LstDemandeReservationByClient[0].GetType().Name));
+			//Console.WriteLine(@"Lock: {0}", _iLock);
+			DecrementILock();
+		}
+		
 
 		/*
 		public static void PersonneByIdResult(IAsyncResult result) {

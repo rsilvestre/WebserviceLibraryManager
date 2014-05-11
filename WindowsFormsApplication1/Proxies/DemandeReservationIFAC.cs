@@ -13,17 +13,39 @@ namespace WCF.Proxies
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="WebsIFAC/DemandeReservationIFAC", ConfigurationName="WCF.Proxies.DemandeReservationIFAC")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="urn:WebsIFAC/DemandeReservationIFAC", ConfigurationName="WCF.Proxies.DemandeReservationIFAC")]
     public interface DemandeReservationIFAC
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
         System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectById(string Token, int pDemandeReservationId);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectById", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByIdResponse")]
         System.IAsyncResult BeginSelectById(string Token, int pDemandeReservationId, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectById(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClientResponse" +
+            "")]
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectByClient(string Token, WebsBO.ClientBO pClient);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClientResponse" +
+            "")]
+        System.IAsyncResult BeginSelectByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectByClient(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
+            "on", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
+            "onResponse")]
+        WebsBO.DemandeReservationBO InsertDemandeReservation(string Token, WebsBO.DemandeReservationBO pDemandeReservation);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
+            "on", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
+            "onResponse")]
+        System.IAsyncResult BeginInsertDemandeReservation(string Token, WebsBO.DemandeReservationBO pDemandeReservation, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.DemandeReservationBO EndInsertDemandeReservation(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -73,6 +95,36 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectById(System.IAsyncResult result)
         {
             return base.Channel.EndSelectById(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectByClient(string Token, WebsBO.ClientBO pClient)
+        {
+            return base.Channel.SelectByClient(Token, pClient);
+        }
+        
+        public System.IAsyncResult BeginSelectByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByClient(Token, pClient, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectByClient(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByClient(result);
+        }
+        
+        public WebsBO.DemandeReservationBO InsertDemandeReservation(string Token, WebsBO.DemandeReservationBO pDemandeReservation)
+        {
+            return base.Channel.InsertDemandeReservation(Token, pDemandeReservation);
+        }
+        
+        public System.IAsyncResult BeginInsertDemandeReservation(string Token, WebsBO.DemandeReservationBO pDemandeReservation, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertDemandeReservation(Token, pDemandeReservation, callback, asyncState);
+        }
+        
+        public WebsBO.DemandeReservationBO EndInsertDemandeReservation(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertDemandeReservation(result);
         }
     }
 }
