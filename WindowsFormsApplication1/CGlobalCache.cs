@@ -271,7 +271,7 @@ namespace WindowsFormsApplication1 {
 			try {
 				LivreIFacSelectAll = new LivreIFACClient();
 				var selectGuiSampleRefLivreDelegate = new AsyncGuiLivreSelectAll(LivreIFacSelectAll.SelectAll);
-				selectGuiSampleRefLivreDelegate.BeginInvoke(SessionManager.Token, RefLivreSelectAllResult, null);
+				selectGuiSampleRefLivreDelegate.BeginInvoke(SessionManager.Token, LivreSelectAllResult, null);
 
 				while (!AutoEvent.WaitOne(50, true)) {
 					Application.DoEvents();

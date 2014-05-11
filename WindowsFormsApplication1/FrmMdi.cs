@@ -48,15 +48,32 @@ namespace WindowsFormsApplication1 {
 		}
 
 		private void initComponent() {
+
 			if (CGlobalCache.SessionManager.Personne.Administrateur != null) {
 				toolStripComboBox1.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
-				toolStripComboBox1.Enabled = true;
+				toolStripTxtManagement.Visible = true;
+				toolStripComboBox1.Visible = true;
+				administrationToolStripMenuItem.Visible = true;
 			} else {
-				BibliothequeBO bibliothequeItem = CGlobalCache.SessionManager.Personne.Client.Bibliotheque;
-				toolStripComboBox1.Items.Add(bibliothequeItem);
-				toolStripComboBox1.SelectedItem = bibliothequeItem;
-				toolStripComboBox1.Enabled = false;
+				//BibliothequeBO bibliothequeItem = CGlobalCache.SessionManager.Personne.Client.Bibliotheque;
+				//toolStripComboBox1.Items.Add(bibliothequeItem);
+				//toolStripComboBox1.SelectedItem = bibliothequeItem;
+				toolStripTxtManagement.Visible = false;
+				toolStripComboBox1.Visible = false;
+				administrationToolStripMenuItem.Visible = false;
 			}
+
+			if (CGlobalCache.SessionManager.Personne.Client != null) {
+				toolStripTxtClient.Visible = true;
+				toolStripTxtClientBibliotheque.Visible = true;
+				toolStripTxtClientBibliotheque.Text = CGlobalCache.SessionManager.Personne.Client.Bibliotheque.BibliothequeName;
+				libraryToolStripMenuItem.Visible = true;
+			} else {
+				toolStripTxtClient.Visible = false;
+				toolStripTxtClientBibliotheque.Visible = false;
+				libraryToolStripMenuItem.Visible = false;
+			}
+			
 			CGlobalCache.actualBibliothequeChangeEventHandler += actualBibliothequeChange;
 		}
 
@@ -178,9 +195,14 @@ namespace WindowsFormsApplication1 {
 				throw;
 			}
 			if (Livre == null) {
-				return true;
+				return false;
 			}
-			return CGlobalCache.ReloadLivreCache();
+			// Ajout du livre au cache
+			CGlobalCache.LstLivreSelectAll.Add(Livre);
+			if (CGlobalCache.SessionManager.Personne.Client != null && Livre.BibliothequeId == CGlobalCache.SessionManager.Personne.Client.BibliothequeId) {
+				CGlobalCache.LstLivreByBibliotheque.Add(Livre);
+			}
+			return true;
 		}
 
 		private void addBookToolStripMenuItem_Click(object sender, EventArgs e) {
