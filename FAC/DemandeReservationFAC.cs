@@ -10,24 +10,33 @@ using WebsIFAC;
 namespace WebsFAC {
 	public class DemandeReservationFAC : DemandeReservationIFAC	{
 		public List<DemandeReservationBO> SelectById(String Token, int pDemandeReservationId) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return DemandeReservationBL.SelectById(Token, pDemandeReservationId);
+				return DemandeReservationBL.SelectById(pDemandeReservationId);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 		public List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return DemandeReservationBL.SelectByClient(Token, pClient);
+				return DemandeReservationBL.SelectByClient(pClient);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 		public DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return DemandeReservationBL.InsertDemandeReservation(Token, pDemandeReservation);
+				return DemandeReservationBL.InsertDemandeReservation(pDemandeReservation);
 			} catch (Exception ex) {
 				throw;
 			}

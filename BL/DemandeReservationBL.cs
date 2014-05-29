@@ -9,18 +9,15 @@ using WebsBL;
 
 namespace WebsBL {
 	public static class DemandeReservationBL {
-		public static List<DemandeReservationBO> SelectById(String Token, Int32 pDemandeReservationId) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<DemandeReservationBO> SelectById(Int32 pDemandeReservationId) {
 			List<DemandeReservationBO> lstDemandeReservation = null;
 
 			try {
 				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectById(pDemandeReservationId).ToList();
 					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
-						objDemandeReservation.Client = ClientBL.SelectById(Token, objDemandeReservation.ClientId);
-						objDemandeReservation.RefLivre = RefLivreBL.SelectById(Token, objDemandeReservation.RefLivreId);
+						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
+						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
 				}
 			} catch (Exception ex) {
@@ -30,10 +27,7 @@ namespace WebsBL {
 			return lstDemandeReservation;
 		}
 
-		public static List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<DemandeReservationBO> SelectByClient(ClientBO pClient) {
 			List<DemandeReservationBO> lstDemandeReservation = null;
 
 			try {
@@ -41,7 +35,7 @@ namespace WebsBL {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectByClientId(pClient.ClientId).ToList();
 					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = pClient;
-						objDemandeReservation.RefLivre = RefLivreBL.SelectById(Token, objDemandeReservation.RefLivreId);
+						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
 				}
 			} catch (Exception ex) {
@@ -51,10 +45,7 @@ namespace WebsBL {
 			return lstDemandeReservation;
 		}
 
-		public static DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static DemandeReservationBO InsertDemandeReservation(DemandeReservationBO pDemandeReservation) {
 			DemandeReservationBO objDemandeReservation = null;
 
 			try {

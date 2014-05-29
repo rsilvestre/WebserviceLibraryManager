@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CGlobalCache.cs" />
+    <Compile Include="Dashboard\DashboardManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard\DashboardManager.Designer.cs">
+      <DependentUpon>DashboardManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     <Compile Include="RefLivre\ShowBook.Designer.cs">
       <DependentUpon>ShowBook.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dashboard\DashboardManager.resx">
+      <DependentUpon>DashboardManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

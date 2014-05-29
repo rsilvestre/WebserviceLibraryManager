@@ -16,7 +16,7 @@ namespace WebsBL {
 					List<SessionManagerBO> lstSession = sessionProxy.SessionManagerDAL_CreateSession(pUsername, pPassword).ToList();
 					if (lstSession.Count() == 1) {
 						sessionResult = lstSession[0];
-						PersonneBO objPersonne = PersonneBL.SelectById(sessionResult.Token, sessionResult.PersonneId);
+						PersonneBO objPersonne = PersonneBL.SelectById(sessionResult.PersonneId);
 						//using (PersonneDAL sessionPersonne = new PersonneDAL(Util.GetConnection())) {
 						//	PersonneBO personne = sessionPersonne.PersonneBO_SelectById(sessionResult.PersonneId).ToList()[0];
 						//	sessionResult.Personne = personne;

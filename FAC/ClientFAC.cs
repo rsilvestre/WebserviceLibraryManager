@@ -11,16 +11,22 @@ namespace WebsFAC
 {
     public class ClientFAC : ClientIFAC {
 		public List<ClientBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return ClientBL.SelectAll(Token);
+				return ClientBL.SelectAll();
 			} catch (Exception Ex) { 
 				throw; 
 			}
 		}
 
 		public ClientBO SelectById(String Token, Int32 pId) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return ClientBL.SelectById(Token, pId);
+				return ClientBL.SelectById(pId);
 			} catch (Exception Ex) {
 				throw;
 			}

@@ -8,10 +8,7 @@ using WebsDAL;
 
 namespace WebsBL {
 	public static class LivreBL {
-		public static List<LivreBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<LivreBO> SelectAll() {
 			List<LivreBO> result = null;
 
 			try {
@@ -19,8 +16,8 @@ namespace WebsBL {
 					result = livreProxy.LivreBO_SelectAll().ToList();
 					if (result.Count > 0) {
 						foreach (LivreBO oLivreBO in result) {
-							oLivreBO.RefLivre = RefLivreBL.SelectById(Token, oLivreBO.RefLivreId);
-							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBO.BibliothequeId);
+							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
+							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(oLivreBO.BibliothequeId);
 						}
 					}
 				}
@@ -29,10 +26,7 @@ namespace WebsBL {
 			}
 			return result;
 		}
-		public static List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<LivreBO> SelectByBibliotheque(BibliothequeBO pBibliotheque) {
 			List<LivreBO> result = null;
 
 			try {
@@ -40,8 +34,8 @@ namespace WebsBL {
 					result = livreProxy.LivreBO_SelectByBibliothequeId(pBibliotheque.BibliothequeId).ToList();
 					if (result.Count > 0) {
 						foreach (LivreBO oLivreBO in result) {
-							oLivreBO.RefLivre = RefLivreBL.SelectById(Token, oLivreBO.RefLivreId);
-							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBO.BibliothequeId);
+							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
+							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(oLivreBO.BibliothequeId);
 						}
 					}
 				}
@@ -51,10 +45,7 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static LivreBO InsertLivre(LivreBO pObjLivre) {
 			LivreBO oLivreBOResult;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
@@ -71,8 +62,8 @@ namespace WebsBL {
 						pObjLivre.RefLivre.ImageUrl
 						).ToList()[0];
 					
-						oLivreBOResult.RefLivre = RefLivreBL.SelectById(Token, oLivreBOResult.RefLivreId);
-						oLivreBOResult.Bibliotheque = BibliothequeBL.SelectById(Token, oLivreBOResult.BibliothequeId);
+						oLivreBOResult.RefLivre = RefLivreBL.SelectById(oLivreBOResult.RefLivreId);
+						oLivreBOResult.Bibliotheque = BibliothequeBL.SelectById(oLivreBOResult.BibliothequeId);
 				}
 			} catch (Exception ex) {
 				throw;

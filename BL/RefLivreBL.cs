@@ -10,10 +10,7 @@ using WebsDAL;
 namespace WebsBL {
 	public static class RefLivreBL {
 
-		public static RefLivreBO SelectById(String Token, Int32 pRefLivreId) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static RefLivreBO SelectById(Int32 pRefLivreId) {
 
 			RefLivreBO result = null;
 
@@ -32,11 +29,7 @@ namespace WebsBL {
 
 		}
 
-		public static List<RefLivreBO> FindAmazonRefByISBN(String Token, String[] pISBNs) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
-
+		public static List<RefLivreBO> FindAmazonRefByISBN(String[] pISBNs) {
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -49,10 +42,7 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> FindAmazonRefByTitle(String Token, String pTitle) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<RefLivreBO> FindAmazonRefByTitle(String pTitle) {
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -65,10 +55,7 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<RefLivreBO> SelectAll() {
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -82,10 +69,7 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<RefLivreBO> SelectByTitre(String pTitre) {
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -99,10 +83,7 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
-		public static List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
+		public static List<RefLivreBO> SelectByISBN(String pISBN) {
 			List<RefLivreBO> lstRefLivre = null;
 
 			try {
@@ -117,7 +98,6 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> InsertLivre(
-			String Token,
 			String pISBN,
 			String pTitre,
 			String pDescription,
@@ -127,10 +107,7 @@ namespace WebsBL {
 			DateTime pTimestamp,
 			String pImageUrl
 			) {
-			if (!Autorization.Validate(Token)) {
-				return null;
-			}
-				List<RefLivreBO> result;
+			List<RefLivreBO> result;
 
 			try {
 				using (RefLivreDAL oRefLivreDal = new RefLivreDAL(Util.GetConnection())) {

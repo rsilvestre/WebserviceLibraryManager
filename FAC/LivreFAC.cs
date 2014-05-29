@@ -11,24 +11,33 @@ namespace WebsFAC {
 	public class LivreFAC : LivreIFAC {
 
 		public List<LivreBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return LivreBL.SelectAll(Token);
+				return LivreBL.SelectAll();
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 		public List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return LivreBL.SelectByBibliotheque(Token, pBibliotheque);
+				return LivreBL.SelectByBibliotheque(pBibliotheque);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return LivreBL.InsertLivre(Token, pObjLivre);
+				return LivreBL.InsertLivre(pObjLivre);
 			} catch (Exception ex) {
 				throw;
 			}

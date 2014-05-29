@@ -10,8 +10,11 @@ using WebsIFAC;
 namespace WebsFAC {
 	public class DemandeAnnulationFAC : DemandeAnnulationIFAC {
 		public List<DemandeAnnulationBO> SelectById(String Token, int pDemandeAnnulationId) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return DemandeAnnulationBL.SelectById(Token, pDemandeAnnulationId);
+				return DemandeAnnulationBL.SelectById(pDemandeAnnulationId);
 			} catch (Exception ex) {
 				throw;
 			}

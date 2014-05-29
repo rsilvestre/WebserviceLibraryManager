@@ -92,6 +92,9 @@ namespace WindowsFormsApplication1 {
 					_splashScreen.Close();
 					WindowState = FormWindowState.Maximized;
 					initComponent();
+					Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager();
+					dashboardManager.MdiParent = this;
+					dashboardManager.Show();
 				} else {
 					_splashScreen.Close();
 					Close();

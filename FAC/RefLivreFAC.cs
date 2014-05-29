@@ -11,16 +11,22 @@ namespace WebsFAC {
 	public class RefLivreFAC : RefLivreIFAC {
 
 		public List<RefLivreBO> FindAmazonRefByISBN(String Token, string[] pISBNs) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return RefLivreBL.FindAmazonRefByISBN(Token, pISBNs);
+				return RefLivreBL.FindAmazonRefByISBN(pISBNs);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
 		public List<RefLivreBO> FindAmazonRefByTitle(String Token, string pTitle) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return RefLivreBL.FindAmazonRefByTitle(Token, pTitle);
+				return RefLivreBL.FindAmazonRefByTitle(pTitle);
 			} catch (Exception Ex) {
 				throw;
 			}
@@ -28,8 +34,11 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectAll(String Token) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return RefLivreBL.SelectAll(Token);
+				return RefLivreBL.SelectAll();
 			} catch (Exception ex) {
 				throw;
 			}
@@ -37,8 +46,11 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return RefLivreBL.SelectByTitre(Token, pTitre);
+				return RefLivreBL.SelectByTitre(pTitre);
 			} catch (Exception ex) {
 				throw;
 			}
@@ -46,8 +58,11 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
-				return RefLivreBL.SelectByISBN(Token, pISBN);
+				return RefLivreBL.SelectByISBN(pISBN);
 			} catch (Exception ex) {
 				throw;
 			}
@@ -64,9 +79,11 @@ namespace WebsFAC {
 			DateTime pPublished,
 			String pImageUrl
 			) {
+			if (!Autorization.Validate(Token)) {
+				return null;
+			}
 			try {
 				return RefLivreBL.InsertLivre(
-					Token,
 					pISBN,
 					pTitre,
 					pDescription,

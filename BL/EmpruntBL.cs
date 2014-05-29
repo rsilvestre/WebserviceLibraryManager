@@ -8,10 +8,7 @@ using WebsBO;
 
 namespace WebsBL {
 	public static class EmpruntBL {
-		public static List<EmpruntBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
-				return new List<EmpruntBO>();
-			}
+		public static List<EmpruntBO> SelectAll() {
 			List<EmpruntBO> lstResult;
 
 			try {
@@ -24,10 +21,7 @@ namespace WebsBL {
 			return lstResult;
 		}
 
-		public static EmpruntBO SelectById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token)) {
-				return new EmpruntBO();
-			}
+		public static EmpruntBO SelectById(Int32 pId) {
 			EmpruntBO result = null;
 			try {
 				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {

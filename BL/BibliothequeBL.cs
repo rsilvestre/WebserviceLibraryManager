@@ -9,11 +9,7 @@ using WebsDAL;
 namespace WebsBL {
 	public static class BibliothequeBL {
 
-		public static List<BibliothequeBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
-				return new List<BibliothequeBO>();
-			}
-
+		public static List<BibliothequeBO> SelectAll() {
 			List<BibliothequeBO> result;
 
 			try {
@@ -27,11 +23,7 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static List<BibliothequeBO> SelectByAdministrateurId(String Token, Int32 pAdministrateurId) {
-			if (!Autorization.Validate(Token)) {
-				return new List<BibliothequeBO>();
-			}
-
+		public static List<BibliothequeBO> SelectByAdministrateurId(Int32 pAdministrateurId) {
 			List<BibliothequeBO> result;
 
 			try {
@@ -45,11 +37,7 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static BibliothequeBO SelectById(String Token, Int32 pAdministrateurId) {
-			if (!Autorization.Validate(Token)) {
-				return new BibliothequeBO();
-			}
-
+		public static BibliothequeBO SelectById(Int32 pAdministrateurId) {
 			BibliothequeBO result = null;
 
 			try {
