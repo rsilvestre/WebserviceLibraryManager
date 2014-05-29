@@ -24,27 +24,30 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.label1 = new System.Windows.Forms.Label();
-			this.lstReservationEnCours = new System.Windows.Forms.ListView();
 			this.label2 = new System.Windows.Forms.Label();
 			this.lblName = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.lblDtLastVisite = new System.Windows.Forms.Label();
-			this.lstEmpruntEnCours = new System.Windows.Forms.ListView();
 			this.label5 = new System.Windows.Forms.Label();
-			this.lstNouveaute = new System.Windows.Forms.ListView();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
-			this.lstEmpruntPasse = new System.Windows.Forms.ListView();
 			this.label9 = new System.Windows.Forms.Label();
-			this.lstReservationPasse = new System.Windows.Forms.ListView();
 			this.label10 = new System.Windows.Forms.Label();
-			this.listView1 = new System.Windows.Forms.ListView();
 			this.label11 = new System.Windows.Forms.Label();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.lstReservationEnCours = new System.Windows.Forms.ListBox();
+			this.lstReservationPasse = new System.Windows.Forms.ListBox();
+			this.lstEmpruntPasse = new System.Windows.Forms.ListBox();
+			this.lstEmpruntEnCours = new System.Windows.Forms.ListBox();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.label3 = new System.Windows.Forms.Label();
+			this.lstNewLivreNetwork = new System.Windows.Forms.ListBox();
+			this.lstNewLivreLocal = new System.Windows.Forms.ListBox();
+			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -55,14 +58,6 @@
 			this.label1.Size = new System.Drawing.Size(123, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Demande de réservation";
-			// 
-			// lstReservationEnCours
-			// 
-			this.lstReservationEnCours.Location = new System.Drawing.Point(25, 112);
-			this.lstReservationEnCours.Name = "lstReservationEnCours";
-			this.lstReservationEnCours.Size = new System.Drawing.Size(164, 105);
-			this.lstReservationEnCours.TabIndex = 2;
-			this.lstReservationEnCours.UseCompatibleStateImageBehavior = false;
 			// 
 			// label2
 			// 
@@ -86,7 +81,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(372, 9);
+			this.label4.Location = new System.Drawing.Point(744, 9);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(83, 13);
 			this.label4.TabIndex = 5;
@@ -95,51 +90,36 @@
 			// lblDtLastVisite
 			// 
 			this.lblDtLastVisite.AutoSize = true;
-			this.lblDtLastVisite.Location = new System.Drawing.Point(461, 9);
+			this.lblDtLastVisite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDtLastVisite.Location = new System.Drawing.Point(833, 9);
 			this.lblDtLastVisite.Name = "lblDtLastVisite";
-			this.lblDtLastVisite.Size = new System.Drawing.Size(90, 13);
+			this.lblDtLastVisite.Size = new System.Drawing.Size(106, 13);
 			this.lblDtLastVisite.TabIndex = 6;
 			this.lblDtLastVisite.Text = "Emprunt en cours";
-			// 
-			// lstEmpruntEnCours
-			// 
-			this.lstEmpruntEnCours.Location = new System.Drawing.Point(211, 112);
-			this.lstEmpruntEnCours.Name = "lstEmpruntEnCours";
-			this.lstEmpruntEnCours.Size = new System.Drawing.Size(164, 105);
-			this.lstEmpruntEnCours.TabIndex = 8;
-			this.lstEmpruntEnCours.UseCompatibleStateImageBehavior = false;
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(208, 96);
+			this.label5.Location = new System.Drawing.Point(306, 96);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(46, 13);
 			this.label5.TabIndex = 7;
 			this.label5.Text = "Emprunt";
 			// 
-			// lstNouveaute
-			// 
-			this.lstNouveaute.Location = new System.Drawing.Point(413, 112);
-			this.lstNouveaute.Name = "lstNouveaute";
-			this.lstNouveaute.Size = new System.Drawing.Size(164, 105);
-			this.lstNouveaute.TabIndex = 10;
-			this.lstNouveaute.UseCompatibleStateImageBehavior = false;
-			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(410, 96);
+			this.label6.Location = new System.Drawing.Point(672, 96);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(101, 13);
+			this.label6.Size = new System.Drawing.Size(44, 13);
 			this.label6.TabIndex = 9;
-			this.label6.Text = "Nouveautés locales";
+			this.label6.Text = "Locales";
 			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
 			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(142, 64);
+			this.label7.Location = new System.Drawing.Point(249, 64);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(94, 24);
 			this.label7.TabIndex = 11;
@@ -149,76 +129,53 @@
 			// 
 			this.label8.AutoSize = true;
 			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label8.Location = new System.Drawing.Point(169, 247);
+			this.label8.Location = new System.Drawing.Point(244, 292);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(66, 24);
+			this.label8.Size = new System.Drawing.Size(105, 24);
 			this.label8.TabIndex = 12;
-			this.label8.Text = "Passé";
-			// 
-			// lstEmpruntPasse
-			// 
-			this.lstEmpruntPasse.Location = new System.Drawing.Point(211, 294);
-			this.lstEmpruntPasse.Name = "lstEmpruntPasse";
-			this.lstEmpruntPasse.Size = new System.Drawing.Size(164, 105);
-			this.lstEmpruntPasse.TabIndex = 16;
-			this.lstEmpruntPasse.UseCompatibleStateImageBehavior = false;
+			this.label8.Text = "Historique";
 			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(208, 278);
+			this.label9.Location = new System.Drawing.Point(306, 323);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(46, 13);
 			this.label9.TabIndex = 15;
 			this.label9.Text = "Emprunt";
 			// 
-			// lstReservationPasse
-			// 
-			this.lstReservationPasse.Location = new System.Drawing.Point(25, 294);
-			this.lstReservationPasse.Name = "lstReservationPasse";
-			this.lstReservationPasse.Size = new System.Drawing.Size(164, 105);
-			this.lstReservationPasse.TabIndex = 14;
-			this.lstReservationPasse.UseCompatibleStateImageBehavior = false;
-			// 
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(22, 278);
+			this.label10.Location = new System.Drawing.Point(22, 323);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(123, 13);
 			this.label10.TabIndex = 13;
 			this.label10.Text = "Demande de réservation";
 			// 
-			// listView1
-			// 
-			this.listView1.Location = new System.Drawing.Point(413, 294);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(164, 105);
-			this.listView1.TabIndex = 18;
-			this.listView1.UseCompatibleStateImageBehavior = false;
-			// 
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(410, 278);
+			this.label11.Location = new System.Drawing.Point(672, 323);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(137, 13);
+			this.label11.Size = new System.Drawing.Size(78, 13);
 			this.label11.TabIndex = 17;
-			this.label11.Text = "Nouveautés dans le réseau";
+			this.label11.Text = "Dans le réseau";
 			// 
 			// lblBibliotheque
 			// 
 			this.lblBibliotheque.AutoSize = true;
-			this.lblBibliotheque.Location = new System.Drawing.Point(269, 9);
+			this.lblBibliotheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblBibliotheque.Location = new System.Drawing.Point(631, 9);
 			this.lblBibliotheque.Name = "lblBibliotheque";
-			this.lblBibliotheque.Size = new System.Drawing.Size(65, 13);
+			this.lblBibliotheque.Size = new System.Drawing.Size(77, 13);
 			this.lblBibliotheque.TabIndex = 20;
 			this.lblBibliotheque.Text = "Bibliotheque";
 			// 
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(180, 9);
+			this.label12.Location = new System.Drawing.Point(552, 9);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(74, 13);
 			this.label12.TabIndex = 19;
@@ -227,50 +184,113 @@
 			// panel1
 			// 
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel1.Controls.Add(this.lstReservationEnCours);
+			this.panel1.Controls.Add(this.lstReservationPasse);
+			this.panel1.Controls.Add(this.lstEmpruntPasse);
+			this.panel1.Controls.Add(this.lstEmpruntEnCours);
 			this.panel1.Location = new System.Drawing.Point(12, 56);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(379, 355);
+			this.panel1.Size = new System.Drawing.Size(565, 477);
 			this.panel1.TabIndex = 21;
+			// 
+			// lstReservationEnCours
+			// 
+			this.lstReservationEnCours.FormattingEnabled = true;
+			this.lstReservationEnCours.Location = new System.Drawing.Point(12, 55);
+			this.lstReservationEnCours.Name = "lstReservationEnCours";
+			this.lstReservationEnCours.Size = new System.Drawing.Size(254, 160);
+			this.lstReservationEnCours.TabIndex = 22;
+			// 
+			// lstReservationPasse
+			// 
+			this.lstReservationPasse.FormattingEnabled = true;
+			this.lstReservationPasse.Location = new System.Drawing.Point(12, 282);
+			this.lstReservationPasse.Name = "lstReservationPasse";
+			this.lstReservationPasse.Size = new System.Drawing.Size(254, 160);
+			this.lstReservationPasse.TabIndex = 21;
+			// 
+			// lstEmpruntPasse
+			// 
+			this.lstEmpruntPasse.FormattingEnabled = true;
+			this.lstEmpruntPasse.Location = new System.Drawing.Point(296, 282);
+			this.lstEmpruntPasse.Name = "lstEmpruntPasse";
+			this.lstEmpruntPasse.Size = new System.Drawing.Size(254, 160);
+			this.lstEmpruntPasse.TabIndex = 20;
+			// 
+			// lstEmpruntEnCours
+			// 
+			this.lstEmpruntEnCours.FormattingEnabled = true;
+			this.lstEmpruntEnCours.Location = new System.Drawing.Point(296, 55);
+			this.lstEmpruntEnCours.Name = "lstEmpruntEnCours";
+			this.lstEmpruntEnCours.Size = new System.Drawing.Size(254, 160);
+			this.lstEmpruntEnCours.TabIndex = 20;
 			// 
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel2.Location = new System.Drawing.Point(397, 56);
+			this.panel2.Controls.Add(this.label3);
+			this.panel2.Controls.Add(this.lstNewLivreNetwork);
+			this.panel2.Controls.Add(this.lstNewLivreLocal);
+			this.panel2.Location = new System.Drawing.Point(659, 56);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(202, 355);
+			this.panel2.Size = new System.Drawing.Size(287, 477);
 			this.panel2.TabIndex = 22;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(86, 7);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(121, 24);
+			this.label3.TabIndex = 23;
+			this.label3.Text = "Nouveautés";
+			// 
+			// lstNewLivreNetwork
+			// 
+			this.lstNewLivreNetwork.FormattingEnabled = true;
+			this.lstNewLivreNetwork.Location = new System.Drawing.Point(15, 282);
+			this.lstNewLivreNetwork.Name = "lstNewLivreNetwork";
+			this.lstNewLivreNetwork.Size = new System.Drawing.Size(254, 160);
+			this.lstNewLivreNetwork.TabIndex = 19;
+			// 
+			// lstNewLivreLocal
+			// 
+			this.lstNewLivreLocal.FormattingEnabled = true;
+			this.lstNewLivreLocal.Location = new System.Drawing.Point(15, 55);
+			this.lstNewLivreLocal.Name = "lstNewLivreLocal";
+			this.lstNewLivreLocal.Size = new System.Drawing.Size(254, 160);
+			this.lstNewLivreLocal.TabIndex = 0;
 			// 
 			// DashboardManager
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(611, 423);
+			this.ClientSize = new System.Drawing.Size(959, 588);
 			this.Controls.Add(this.lblBibliotheque);
 			this.Controls.Add(this.label12);
-			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.label11);
-			this.Controls.Add(this.lstEmpruntPasse);
 			this.Controls.Add(this.label9);
-			this.Controls.Add(this.lstReservationPasse);
 			this.Controls.Add(this.label10);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.label7);
-			this.Controls.Add(this.lstNouveaute);
 			this.Controls.Add(this.label6);
-			this.Controls.Add(this.lstEmpruntEnCours);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.lblDtLastVisite);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.lblName);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.lstReservationEnCours);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.panel2);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "DashboardManager";
 			this.Text = "DashboardManager";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardManager_FormClosed);
 			this.Load += new System.EventHandler(this.DashboardManager_Load);
+			this.panel1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -279,26 +299,27 @@
 		#endregion
 
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ListView lstReservationEnCours;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label lblName;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label lblDtLastVisite;
-		private System.Windows.Forms.ListView lstEmpruntEnCours;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.ListView lstNouveaute;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.ListView lstEmpruntPasse;
 		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.ListView lstReservationPasse;
 		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.ListView listView1;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label lblBibliotheque;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.ListBox lstNewLivreNetwork;
+		private System.Windows.Forms.ListBox lstNewLivreLocal;
+		private System.Windows.Forms.ListBox lstReservationEnCours;
+		private System.Windows.Forms.ListBox lstReservationPasse;
+		private System.Windows.Forms.ListBox lstEmpruntPasse;
+		private System.Windows.Forms.ListBox lstEmpruntEnCours;
+		private System.Windows.Forms.Label label3;
 	}
 }

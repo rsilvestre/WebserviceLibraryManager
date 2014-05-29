@@ -92,7 +92,8 @@ namespace WindowsFormsApplication1 {
 					_splashScreen.Close();
 					WindowState = FormWindowState.Maximized;
 					initComponent();
-					Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager();
+					Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager(this);
+					this.ChildFormIncrement();
 					dashboardManager.MdiParent = this;
 					dashboardManager.Show();
 				} else {
@@ -107,10 +108,22 @@ namespace WindowsFormsApplication1 {
 		}
 
 		private void ShowNewForm(object sender, EventArgs e) {
-			Form childForm = new Form1();
-			childForm.MdiParent = this;
-			childForm.Text = "Window " + childFormNumber++;
-			childForm.Show();
+			if (childFormNumber != 0) {
+				MessageBox.Show("Vous avez déjà un Dashboard ouvert");
+				return;
+			}
+			Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager(this);
+			this.ChildFormIncrement();
+			dashboardManager.MdiParent = this;
+			dashboardManager.Show();
+		}
+
+		private void ChildFormIncrement() {
+			childFormNumber++;
+		}
+
+		public void ChildFormDecrement() {
+			childFormNumber--;
 		}
 
 		private void OpenFile(object sender, EventArgs e) {
