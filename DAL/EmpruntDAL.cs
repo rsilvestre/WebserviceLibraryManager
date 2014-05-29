@@ -21,8 +21,8 @@ namespace WebsDAL {
 		}
 
 		[Function(Name="[dbo].[Emprunt.SelectById]")]
-		public ISingleResult<EmpruntBO> EmpruntBO_SelectById([Parameter(DbType = "int")] int pId) {
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pId);
+		public ISingleResult<EmpruntBO> EmpruntBO_SelectById([Parameter(DbType = "int")] int EmpruntId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), EmpruntId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
 

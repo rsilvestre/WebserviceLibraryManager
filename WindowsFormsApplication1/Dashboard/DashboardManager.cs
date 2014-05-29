@@ -25,7 +25,6 @@ namespace WindowsFormsApplication1.Dashboard {
 
 			lblBibliotheque.Text = personne.Client.Bibliotheque.BibliothequeName;
 
-
 		}
 	}
 }

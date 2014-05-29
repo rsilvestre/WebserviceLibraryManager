@@ -58,7 +58,7 @@ namespace WindowsFormsApplication1 {
 			
 			var bReturn = true;
 			PersonneIFACClient personneIFac = null;
-			EmpruntIFACClient locationIFac = null;
+			EmpruntIFACClient empruntIFac = null;
 			ClientIFACClient clientIFac = null;
 			PersonneIFACClient personneIFacById = null;
 			RefLivreIFACClient refLivreIFacSelectAll = null;
@@ -82,8 +82,8 @@ namespace WindowsFormsApplication1 {
 				//var selectGuiSamplePersonneByNameDelegate = new AsyncGuiPersonneByName(personneIFac.SelectByName);
 				//selectGuiSamplePersonneByNameDelegate.BeginInvoke("toto", PersonneByNameResult, null);
 
-				locationIFac = new EmpruntIFACClient();
-				var selectGuiSampleEmpruntDelegate = new AsyncGuiEmprunt(locationIFac.SelectAll);
+				empruntIFac = new EmpruntIFACClient();
+				var selectGuiSampleEmpruntDelegate = new AsyncGuiEmprunt(empruntIFac.SelectAll);
 				selectGuiSampleEmpruntDelegate.BeginInvoke(SessionManager.Token, EmpruntResults, null);
 
 				clientIFac = new ClientIFACClient();
@@ -131,8 +131,8 @@ namespace WindowsFormsApplication1 {
 				if (personneIFac != null) {
 					personneIFac.Close();
 				}
-				if (locationIFac != null) {
-					locationIFac.Close();
+				if (empruntIFac != null) {
+					empruntIFac.Close();
 				}
 				if (clientIFac != null) {
 					clientIFac.Close();
@@ -166,7 +166,7 @@ namespace WindowsFormsApplication1 {
 		public static void PersonneResults(IAsyncResult result) {
 			var samplePersDelegate = (AsyncGuiPersonne)((AsyncResult)result).AsyncDelegate;
 			LstPersonne = samplePersDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", LstPersonne[0].GetType().Name));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllPersonne"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
@@ -174,7 +174,7 @@ namespace WindowsFormsApplication1 {
 		public static void EmpruntResults(IAsyncResult result) {
 			var sampleEmpDelegate = (AsyncGuiEmprunt)((AsyncResult)result).AsyncDelegate;
 			LstEmprunt = sampleEmpDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", LstEmprunt[0].GetType().Name));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllEmprunt"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
@@ -182,7 +182,7 @@ namespace WindowsFormsApplication1 {
 		public static void ClientResults(IAsyncResult result) {
 			var sampleCliDelegate = (AsyncGuiClient)((AsyncResult)result).AsyncDelegate;
 			LstClient = sampleCliDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", LstClient[0].GetType().Name));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllClient"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
@@ -191,7 +191,7 @@ namespace WindowsFormsApplication1 {
 		public static void DemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
 			LstDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", LstDemandeReservationByClient[0].GetType().Name));
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllDemandeReservation"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
