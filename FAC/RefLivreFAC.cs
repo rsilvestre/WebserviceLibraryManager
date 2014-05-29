@@ -11,7 +11,7 @@ namespace WebsFAC {
 	public class RefLivreFAC : RefLivreIFAC {
 
 		public List<RefLivreBO> FindAmazonRefByISBN(String Token, string[] pISBNs) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -22,7 +22,7 @@ namespace WebsFAC {
 		}
 
 		public List<RefLivreBO> FindAmazonRefByTitle(String Token, string pTitle) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -34,7 +34,7 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -46,7 +46,7 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -58,7 +58,7 @@ namespace WebsFAC {
 
 
 		public List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -79,7 +79,7 @@ namespace WebsFAC {
 			DateTime pPublished,
 			String pImageUrl
 			) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {

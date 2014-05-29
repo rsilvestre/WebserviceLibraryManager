@@ -11,7 +11,7 @@ namespace WebsFAC {
 	public class LivreFAC : LivreIFAC {
 
 		public List<LivreBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -22,7 +22,7 @@ namespace WebsFAC {
 		}
 
 		public List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -33,7 +33,7 @@ namespace WebsFAC {
 		}
 
 		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {

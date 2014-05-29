@@ -10,7 +10,7 @@ using WebsBL;
 namespace WebsFAC {
 	public class LivreStatusFAC : LivreStatusIFAC {
 		public List<LivreStatusBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {

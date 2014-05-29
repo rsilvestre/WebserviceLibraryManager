@@ -10,7 +10,7 @@ using WebsIFAC;
 namespace WebsFAC {
 	public class EmpruntFAC : EmpruntIFAC {
 		public List<EmpruntBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -21,7 +21,7 @@ namespace WebsFAC {
 		}
 
 		public EmpruntBO SelectEmpruntById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {

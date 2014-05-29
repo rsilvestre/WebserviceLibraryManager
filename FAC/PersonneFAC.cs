@@ -10,7 +10,7 @@ using WebsBO;
 namespace WebsFAC {
 	public class PersonneFAC : PersonneIFAC {
 		public List<PersonneBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -21,7 +21,7 @@ namespace WebsFAC {
 		}
 
 		public PersonneBO SelectById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -32,7 +32,7 @@ namespace WebsFAC {
 		}
 
 		public List<PersonneBO> SelectByName(String Token, String pName) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {

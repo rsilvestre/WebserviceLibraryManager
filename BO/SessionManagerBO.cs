@@ -12,16 +12,18 @@ namespace WebsBO {
 		private Int32 _PersonneId;
 		private String _Token;
 		private DateTime _CreatedAt;
+		private Int32 _UserRole;
 		private PersonneBO _Personne;
 		private Boolean _IsAdministrateur;
 
 		public SessionManagerBO() { }
 
-		public SessionManagerBO(Int32 pSessionId, Int32 pPersonneId, String pToken, DateTime pCreatedAt) {
+		public SessionManagerBO(Int32 pSessionId, Int32 pPersonneId, String pToken, DateTime pCreatedAt, Int32 pUserRole) {
 			SessionId = pSessionId;
 			PersonneId = pPersonneId;
 			Token = pToken;
 			CreatedAt = pCreatedAt;
+			UserRole = pUserRole;
 		}
 
 		[DataMember(Name="IsAdministrateur")]
@@ -63,6 +65,12 @@ namespace WebsBO {
 		public DateTime CreatedAt {
 			get { return _CreatedAt; }
 			set { _CreatedAt = value; }
+		}
+
+		[DataMember(Name="UserRole")]
+		public Int32 UserRole {
+			get { return _UserRole; }
+			set { _UserRole = value; }
 		}
 	}
 }

@@ -10,7 +10,7 @@ using WebsIFAC;
 namespace WebsFAC {
 	public class DemandeReservationFAC : DemandeReservationIFAC	{
 		public List<DemandeReservationBO> SelectById(String Token, int pDemandeReservationId) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -21,7 +21,7 @@ namespace WebsFAC {
 		}
 
 		public List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -32,7 +32,7 @@ namespace WebsFAC {
 		}
 
 		public DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation) {
-			if (!Autorization.Validate(Token)) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
