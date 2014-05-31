@@ -15,16 +15,21 @@ namespace WebsDAL {
 		public EmpruntDAL(String ConnString) : base(ConnString, mappingSource) { }
 
 		[Function(Name="[dbo].[Emprunt.SelectAll]")]
-		public ISingleResult<EmpruntBO> EmpruntBO_SelectAll() {
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectAll() {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
 
 		[Function(Name="[dbo].[Emprunt.SelectById]")]
-		public ISingleResult<EmpruntBO> EmpruntBO_SelectById([Parameter(DbType = "int")] int EmpruntId) {
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectById([Parameter(DbType = "int")] Int32 EmpruntId) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), EmpruntId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
-
+		
+		[Function(Name="[dbo].[Emprunt.SelectForUserByLivreId]")]
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectForUserByLivreId([Parameter(DbType = "int")] Int32 ClientId, [Parameter(DbType = "int")] Int32 LivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ClientId, LivreId);
+			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
+		}
 	}
 }

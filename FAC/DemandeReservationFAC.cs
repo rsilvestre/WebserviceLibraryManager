@@ -20,12 +20,23 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient) {
+		public List<DemandeReservationBO> SelectNewByClient(String Token, ClientBO pClient) {
 			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
-				return DemandeReservationBL.SelectByClient(pClient);
+				return DemandeReservationBL.SelectNewByClient(pClient);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
+		public List<DemandeReservationBO> SelectOldByClient(String Token, ClientBO pClient) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+				return null;
+			}
+			try {
+				return DemandeReservationBL.SelectOldByClient(pClient);
 			} catch (Exception ex) {
 				throw;
 			}

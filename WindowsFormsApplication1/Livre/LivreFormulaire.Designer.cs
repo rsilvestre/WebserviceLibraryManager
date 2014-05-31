@@ -23,6 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.txtRef = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
 			this.txtISBN = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.cmbBibliotheque = new System.Windows.Forms.ComboBox();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -174,6 +176,11 @@
 			this.cmbBibliotheque.Size = new System.Drawing.Size(161, 21);
 			this.cmbBibliotheque.TabIndex = 15;
 			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+			// 
 			// LivreFormulaire
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,5 +226,6 @@
 		private System.Windows.Forms.TextBox txtISBN;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ComboBox cmbBibliotheque;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 	}
 }

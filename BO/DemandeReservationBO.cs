@@ -14,14 +14,22 @@ namespace WebsBO {
 		private Int32 _RefLivreId;
 		private RefLivreBO _RefLivre;
 		private DateTime _CreatedAt;
+		private Int32 _Valide;
 
 		public DemandeReservationBO() { }
 
-		public DemandeReservationBO(Int32 pDemandeReservationId, Int32 pClientId, Int32 pRefLivreId, DateTime pCreatedAt) : this() {
+		public DemandeReservationBO(Int32 pDemandeReservationId, Int32 pClientId, Int32 pRefLivreId, DateTime pCreatedAt, Int32 pValide = 0) : this() {
 			DemandeReservationId = pDemandeReservationId;
 			ClientId = pClientId;
 			RefLivreId = pRefLivreId;
 			CreatedAt = pCreatedAt;
+			Valide = pValide;
+		}
+
+		[DataMember(Name="Valide")]
+		public Int32 Valide {
+			get { return _Valide; }
+			set { _Valide = value; }
 		}
 
 		[DataMember(Name="CreatedAt")]
@@ -68,6 +76,10 @@ namespace WebsBO {
 		public Int32 DemandeReservationId {
 			get { return _DemandeReservationId; }
 			set { _DemandeReservationId = value; }
+		}
+
+		public override string ToString() {
+			return this.RefLivre.ToString();
 		}
 	}
 }

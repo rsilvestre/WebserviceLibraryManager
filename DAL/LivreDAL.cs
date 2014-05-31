@@ -15,19 +15,25 @@ namespace WebsDAL {
 		public LivreDAL(String connectString) : base(connectString, mappingSource) { }
 
 		[Function(Name="[dbo].[Livre.SelectAll]")]
-		public ISingleResult<LivreBO> LivreBO_SelectAll() {
+		public ISingleResult<LivreBO> LivreDAL_SelectAll() {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()));
+			return ((ISingleResult<LivreBO>)result.ReturnValue);
+		}
+		
+		[Function(Name="[dbo].[Livre.SelectById]")]
+		public ISingleResult<LivreBO> LivreDAL_SelectById([Parameter(DbType="int")] Int32 LivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), LivreId);
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
 
 		[Function(Name="[dbo].[Livre.SelectByBibliothequeId]")]
-		public ISingleResult<LivreBO> LivreBO_SelectByBibliothequeId([Parameter(DbType="int")] Int32 BibliothequeId) {
+		public ISingleResult<LivreBO> LivreDAL_SelectByBibliothequeId([Parameter(DbType="int")] Int32 BibliothequeId) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), BibliothequeId);
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
 
 		[Function(Name="[dbo].[Livre.InsertLivre]")]
-		public ISingleResult<LivreBO> LivreBO_InsertLivre(
+		public ISingleResult<LivreBO> LivreDAL_InsertLivre(
 			[Parameter(DbType = "int")]				Int32		BibliothequeId,
 			[Parameter(DbType = "int")]				Int32		RefLivreId,
 			[Parameter(DbType = "varchar(13)")]		String		ISBN,

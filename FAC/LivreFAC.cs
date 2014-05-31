@@ -32,6 +32,17 @@ namespace WebsFAC {
 			}
 		}
 
+		public FicheLivreBO SelectFicheLivreForClientByLivreId(String Token, Int32 pClientId, Int32 pLivreId) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+				return null;
+			}
+			try {
+				return LivreBL.SelectFicheLivreForClientByLivreId(pClientId, pLivreId);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
 		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
 			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;

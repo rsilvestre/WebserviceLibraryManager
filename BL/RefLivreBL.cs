@@ -69,6 +69,23 @@ namespace WebsBL {
 			return lstRefLivre;
 		}
 
+		public static FicheLivreBO SelectFicheLivreForClientByRefLivreId(int pClientId, int pRefLivreId) {
+			FicheLivreBO result = null;
+
+			try {
+				RefLivreBO objRefLivre = RefLivreBL.SelectById(pRefLivreId);
+				if (objRefLivre != null) {
+					result = new FicheLivreBO();
+					result.RefLivre = objRefLivre;
+					result.LstEmprunt = null;
+					result.LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objRefLivre.RefLivreId);
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			return result;
+		}
+
 		public static List<RefLivreBO> SelectByTitre(String pTitre) {
 			List<RefLivreBO> lstRefLivre = null;
 

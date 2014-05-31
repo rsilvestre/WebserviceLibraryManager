@@ -23,10 +23,11 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.lblName = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
+			this.lblDtLastVisiteTitle = new System.Windows.Forms.Label();
 			this.lblDtLastVisite = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -36,7 +37,7 @@
 			this.label10 = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
-			this.label12 = new System.Windows.Forms.Label();
+			this.lblBibliothequeTitle = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lstReservationEnCours = new System.Windows.Forms.ListBox();
 			this.lstReservationPasse = new System.Windows.Forms.ListBox();
@@ -46,8 +47,11 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.lstNewLivreNetwork = new System.Windows.Forms.ListBox();
 			this.lstNewLivreLocal = new System.Windows.Forms.ListBox();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.totoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
+			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -72,26 +76,26 @@
 			// 
 			this.lblName.AutoSize = true;
 			this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblName.Location = new System.Drawing.Point(70, 9);
+			this.lblName.Location = new System.Drawing.Point(58, 9);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(39, 13);
 			this.lblName.TabIndex = 4;
 			this.lblName.Text = "Name";
 			// 
-			// label4
+			// lblDtLastVisiteTitle
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(744, 9);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(83, 13);
-			this.label4.TabIndex = 5;
-			this.label4.Text = "Dernière visite : ";
+			this.lblDtLastVisiteTitle.AutoSize = true;
+			this.lblDtLastVisiteTitle.Location = new System.Drawing.Point(669, 9);
+			this.lblDtLastVisiteTitle.Name = "lblDtLastVisiteTitle";
+			this.lblDtLastVisiteTitle.Size = new System.Drawing.Size(83, 13);
+			this.lblDtLastVisiteTitle.TabIndex = 5;
+			this.lblDtLastVisiteTitle.Text = "Dernière visite : ";
 			// 
 			// lblDtLastVisite
 			// 
 			this.lblDtLastVisite.AutoSize = true;
 			this.lblDtLastVisite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblDtLastVisite.Location = new System.Drawing.Point(833, 9);
+			this.lblDtLastVisite.Location = new System.Drawing.Point(746, 9);
 			this.lblDtLastVisite.Name = "lblDtLastVisite";
 			this.lblDtLastVisite.Size = new System.Drawing.Size(106, 13);
 			this.lblDtLastVisite.TabIndex = 6;
@@ -109,7 +113,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(672, 96);
+			this.label6.Location = new System.Drawing.Point(599, 96);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(44, 13);
 			this.label6.TabIndex = 9;
@@ -156,7 +160,7 @@
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(672, 323);
+			this.label11.Location = new System.Drawing.Point(599, 323);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(78, 13);
 			this.label11.TabIndex = 17;
@@ -166,20 +170,20 @@
 			// 
 			this.lblBibliotheque.AutoSize = true;
 			this.lblBibliotheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblBibliotheque.Location = new System.Drawing.Point(631, 9);
+			this.lblBibliotheque.Location = new System.Drawing.Point(545, 9);
 			this.lblBibliotheque.Name = "lblBibliotheque";
 			this.lblBibliotheque.Size = new System.Drawing.Size(77, 13);
 			this.lblBibliotheque.TabIndex = 20;
 			this.lblBibliotheque.Text = "Bibliotheque";
 			// 
-			// label12
+			// lblBibliothequeTitle
 			// 
-			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(552, 9);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(74, 13);
-			this.label12.TabIndex = 19;
-			this.label12.Text = "Bibliothèque : ";
+			this.lblBibliothequeTitle.AutoSize = true;
+			this.lblBibliothequeTitle.Location = new System.Drawing.Point(477, 9);
+			this.lblBibliothequeTitle.Name = "lblBibliothequeTitle";
+			this.lblBibliothequeTitle.Size = new System.Drawing.Size(74, 13);
+			this.lblBibliothequeTitle.TabIndex = 19;
+			this.lblBibliothequeTitle.Text = "Bibliothèque : ";
 			// 
 			// panel1
 			// 
@@ -200,6 +204,7 @@
 			this.lstReservationEnCours.Name = "lstReservationEnCours";
 			this.lstReservationEnCours.Size = new System.Drawing.Size(254, 160);
 			this.lstReservationEnCours.TabIndex = 22;
+			this.lstReservationEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// lstReservationPasse
 			// 
@@ -208,6 +213,7 @@
 			this.lstReservationPasse.Name = "lstReservationPasse";
 			this.lstReservationPasse.Size = new System.Drawing.Size(254, 160);
 			this.lstReservationPasse.TabIndex = 21;
+			this.lstReservationPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// lstEmpruntPasse
 			// 
@@ -216,6 +222,7 @@
 			this.lstEmpruntPasse.Name = "lstEmpruntPasse";
 			this.lstEmpruntPasse.Size = new System.Drawing.Size(254, 160);
 			this.lstEmpruntPasse.TabIndex = 20;
+			this.lstEmpruntPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// lstEmpruntEnCours
 			// 
@@ -224,6 +231,7 @@
 			this.lstEmpruntEnCours.Name = "lstEmpruntEnCours";
 			this.lstEmpruntEnCours.Size = new System.Drawing.Size(254, 160);
 			this.lstEmpruntEnCours.TabIndex = 20;
+			this.lstEmpruntEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// panel2
 			// 
@@ -231,7 +239,7 @@
 			this.panel2.Controls.Add(this.label3);
 			this.panel2.Controls.Add(this.lstNewLivreNetwork);
 			this.panel2.Controls.Add(this.lstNewLivreLocal);
-			this.panel2.Location = new System.Drawing.Point(659, 56);
+			this.panel2.Location = new System.Drawing.Point(586, 56);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(287, 477);
 			this.panel2.TabIndex = 22;
@@ -253,6 +261,7 @@
 			this.lstNewLivreNetwork.Name = "lstNewLivreNetwork";
 			this.lstNewLivreNetwork.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreNetwork.TabIndex = 19;
+			this.lstNewLivreNetwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
 			// 
 			// lstNewLivreLocal
 			// 
@@ -261,14 +270,29 @@
 			this.lstNewLivreLocal.Name = "lstNewLivreLocal";
 			this.lstNewLivreLocal.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreLocal.TabIndex = 0;
+			this.lstNewLivreLocal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.totoToolStripMenuItem});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(161, 26);
+			// 
+			// totoToolStripMenuItem
+			// 
+			this.totoToolStripMenuItem.Name = "totoToolStripMenuItem";
+			this.totoToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+			this.totoToolStripMenuItem.Text = "Réserver un livre";
+			this.totoToolStripMenuItem.Click += new System.EventHandler(this.totoToolStripMenuItem_Click);
 			// 
 			// DashboardManager
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(959, 588);
+			this.ClientSize = new System.Drawing.Size(884, 588);
 			this.Controls.Add(this.lblBibliotheque);
-			this.Controls.Add(this.label12);
+			this.Controls.Add(this.lblBibliothequeTitle);
 			this.Controls.Add(this.label11);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.label10);
@@ -277,7 +301,7 @@
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.lblDtLastVisite);
-			this.Controls.Add(this.label4);
+			this.Controls.Add(this.lblDtLastVisiteTitle);
 			this.Controls.Add(this.lblName);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
@@ -285,12 +309,13 @@
 			this.Controls.Add(this.panel2);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "DashboardManager";
-			this.Text = "DashboardManager";
+			this.Text = " ";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardManager_FormClosed);
 			this.Load += new System.EventHandler(this.DashboardManager_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -301,7 +326,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label lblName;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label lblDtLastVisiteTitle;
 		private System.Windows.Forms.Label lblDtLastVisite;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
@@ -311,7 +336,7 @@
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label lblBibliotheque;
-		private System.Windows.Forms.Label label12;
+		private System.Windows.Forms.Label lblBibliothequeTitle;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.ListBox lstNewLivreNetwork;
@@ -321,5 +346,7 @@
 		private System.Windows.Forms.ListBox lstEmpruntPasse;
 		private System.Windows.Forms.ListBox lstEmpruntEnCours;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem totoToolStripMenuItem;
 	}
 }

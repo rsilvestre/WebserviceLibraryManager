@@ -43,14 +43,35 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Transitions">
+      <HintPath>..\Transitions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CGlobalCache.cs" />
+    <Compile Include="DashboardAdmin\DashboardAdminManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardAdmin\DashboardAdminManager.Designer.cs">
+      <DependentUpon>DashboardAdminManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard\DashboardManager.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dashboard\DashboardManager.Designer.cs">
       <DependentUpon>DashboardManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\FicheDeLivre.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dashboard\FicheDeLivre.Designer.cs">
+      <DependentUpon>FicheDeLivre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\FicheDeLivreReservation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dashboard\FicheDeLivreReservation.Designer.cs">
+      <DependentUpon>FicheDeLivreReservation.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -128,6 +149,12 @@
     <EmbeddedResource Include="Dashboard\DashboardManager.resx">
       <DependentUpon>DashboardManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\FicheDeLivre.resx">
+      <DependentUpon>FicheDeLivre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\FicheDeLivreReservation.resx">
+      <DependentUpon>FicheDeLivreReservation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,7 +213,6 @@
       <Name>WebsBO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

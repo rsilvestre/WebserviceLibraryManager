@@ -13,7 +13,10 @@ namespace WebsIFAC {
 		List<DemandeReservationBO> SelectById(String Token, Int32 pDemandeReservationId);
 		
 		[OperationContract]
-		List<DemandeReservationBO> SelectByClient(String Token, ClientBO pClient);
+		List<DemandeReservationBO> SelectNewByClient(String Token, ClientBO pClient);
+		
+		[OperationContract]
+		List<DemandeReservationBO> SelectOldByClient(String Token, ClientBO pClient);
 
 		[OperationContract]
 		DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation);

@@ -15,6 +15,7 @@ namespace WebsBO {
 		private DateTime _CreatedAt;
 		private Int32 _AdministrateurId;
 		private Int32 _ClientId;
+		private LivreBO _Livre;
 
 		public EmpruntBO() { }
 
@@ -26,6 +27,12 @@ namespace WebsBO {
 			CreatedAt = pCreatedAt;
 			AdministrateurId = pAdministrateurId;
 			ClientId = pClientId;
+		}
+		
+		[DataMember(Name="Livre")]
+		public LivreBO Livre {
+			get { return _Livre; }
+			set { _Livre = value; }
 		}
 
 		[DataMember(Name="ClientId")]

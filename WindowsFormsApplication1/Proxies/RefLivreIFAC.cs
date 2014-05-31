@@ -41,6 +41,16 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectFicheLivreForClientByRefLivreId", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectFicheLivreForClientByRefLivreIdRespo" +
+            "nse")]
+        WebsBO.FicheLivreBO SelectFicheLivreForClientByRefLivreId(string Token, int pClientId, int pRefLivreId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectFicheLivreForClientByRefLivreId", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectFicheLivreForClientByRefLivreIdRespo" +
+            "nse")]
+        System.IAsyncResult BeginSelectFicheLivreForClientByRefLivreId(string Token, int pClientId, int pRefLivreId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.FicheLivreBO EndSelectFicheLivreForClientByRefLivreId(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitre", ReplyAction="urn:WebsIFAC/RefLivreIFAC/RefLivreIFAC/SelectByTitreResponse")]
         System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByTitre(string Token, string pTitre);
         
@@ -143,6 +153,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.RefLivreBO> EndSelectAll(System.IAsyncResult result)
         {
             return base.Channel.EndSelectAll(result);
+        }
+        
+        public WebsBO.FicheLivreBO SelectFicheLivreForClientByRefLivreId(string Token, int pClientId, int pRefLivreId)
+        {
+            return base.Channel.SelectFicheLivreForClientByRefLivreId(Token, pClientId, pRefLivreId);
+        }
+        
+        public System.IAsyncResult BeginSelectFicheLivreForClientByRefLivreId(string Token, int pClientId, int pRefLivreId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectFicheLivreForClientByRefLivreId(Token, pClientId, pRefLivreId, callback, asyncState);
+        }
+        
+        public WebsBO.FicheLivreBO EndSelectFicheLivreForClientByRefLivreId(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectFicheLivreForClientByRefLivreId(result);
         }
         
         public System.Collections.Generic.List<WebsBO.RefLivreBO> SelectByTitre(string Token, string pTitre)

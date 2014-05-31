@@ -11,10 +11,13 @@ using WebsBO;
 
 namespace WindowsFormsApplication1 {
 	public static class CGlobalCache {
-		public delegate void ActualBibliothequeChangeHandler(object value, EventArgs e);
+		public delegate void ActualBibliothequeChangeHandler(Object value, EventArgs e);
 		public static event ActualBibliothequeChangeHandler actualBibliothequeChangeEventHandler;
 
-		public static Int32 _iLock = 9;
+		public delegate void ActualLstDemandeReservationHandler(DemandeReservationBO value, EventArgs e);
+		public static event ActualLstDemandeReservationHandler actualLstDemandeReservationEventHandlser;
+
+		public static Int32 _iLock = 10;
 		static readonly AutoResetEvent AutoEvent = new AutoResetEvent(false);
 
 		private delegate List<PersonneBO> AsyncGuiPersonne(String Token);
@@ -42,7 +45,8 @@ namespace WindowsFormsApplication1 {
 		public static List<LivreStatusBO> LstLivreStatusSelectAll { get; set; }
 		public static List<BibliothequeBO> LstBibliothequeSelectAll { get; set; }
 		public static SessionManagerBO SessionManager { get; set; }
-		public static List<DemandeReservationBO> LstDemandeReservationByClient { get; set; }
+		public static List<DemandeReservationBO> LstNewDemandeReservationByClient { get; set; }
+		public static List<DemandeReservationBO> LstOldDemandeReservationByClient { get; set; }
 		public static BibliothequeBO ActualBibliotheque { 
 			get { return _ActualBibliotheque; } 
 			set { 
@@ -103,10 +107,15 @@ namespace WindowsFormsApplication1 {
 					AsyncGuiLivreSelectByBibliotheque selectGuiSampleLivreByBibliothequeDelegate = livreIFacSelectByBliotheque.SelectByBibliotheque;
 					selectGuiSampleLivreByBibliothequeDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client.Bibliotheque, LivreSelectByBibliothequeResult, null);
 
-					
 					demandeReservationIFacByClient = new DemandeReservationIFACClient();
-					ASyncGuiDemandeReservationSelectByClient selectGuiSampleDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectByClient;
-					selectGuiSampleDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, DemandeReservationResults, null);
+					ASyncGuiDemandeReservationSelectByClient selectGuiSampleNewDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectNewByClient;
+					selectGuiSampleNewDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, NewDemandeReservationResults, null);
+
+					demandeReservationIFacByClient = new DemandeReservationIFACClient();
+					ASyncGuiDemandeReservationSelectByClient selectGuiSampleOldDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectOldByClient;
+					selectGuiSampleOldDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, OldDemandeReservationResults, null);
+
+
 					
 				} else {
 					DecrementILock();
@@ -186,12 +195,19 @@ namespace WindowsFormsApplication1 {
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
-
 		
-		public static void DemandeReservationResults(IAsyncResult result) {
+		public static void NewDemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
-			LstDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
-			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllDemandeReservation"));
+			LstNewDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllNewDemandeReservation"));
+			//Console.WriteLine(@"Lock: {0}", _iLock);
+			DecrementILock();
+		}
+		
+		public static void OldDemandeReservationResults(IAsyncResult result) {
+			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
+			LstOldDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
+			ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllOldDemandeReservation"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
@@ -311,6 +327,11 @@ namespace WindowsFormsApplication1 {
 
 		internal static bool LoadCache(FrmSplashScreen frmSplashScreen) {
 			throw new NotImplementedException();
+		}
+
+		internal static void AddNewDemandeReservationByClient(DemandeReservationBO demandeReservationResult) {
+			CGlobalCache.LstNewDemandeReservationByClient.Add(demandeReservationResult);
+			actualLstDemandeReservationEventHandlser(demandeReservationResult, new EventArgs());
 		}
 	}
 }

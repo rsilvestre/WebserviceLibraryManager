@@ -44,6 +44,16 @@ namespace WebsFAC {
 			}
 		}
 
+		public FicheLivreBO SelectFicheLivreForClientByRefLivreId(String Token, Int32 pClientId, Int32 pRefLivreId) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+				return null;
+			}
+			try {
+				return RefLivreBL.SelectFicheLivreForClientByRefLivreId(pClientId, pRefLivreId);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
 
 		public List<RefLivreBO> SelectByTitre(String Token, String pTitre) {
 			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
@@ -55,7 +65,6 @@ namespace WebsFAC {
 				throw;
 			}
 		}
-
 
 		public List<RefLivreBO> SelectByISBN(String Token, String pISBN) {
 			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {

@@ -109,7 +109,7 @@ namespace WindowsFormsApplication1.Livre {
 				}
 			}
 			if (demandeReservationResult != null) {
-				CGlobalCache.LstDemandeReservationByClient.Add(demandeReservationResult);
+				CGlobalCache.AddNewDemandeReservationByClient(demandeReservationResult);
 				bResult = true;
 			}
 			return bResult;
@@ -141,7 +141,8 @@ namespace WindowsFormsApplication1.Livre {
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e) {
-			this.Close();
+			//this.Close();
+			this.Dispose();
 		}
 
 		private void SearchLivre_Load(object sender, EventArgs e) {
@@ -160,13 +161,18 @@ namespace WindowsFormsApplication1.Livre {
 		}
 
 		private void btnSelection_Click(object sender, EventArgs e) {
+			if (CGlobalCache.LstNewDemandeReservationByClient.FirstOrDefault(xx => xx.RefLivre.RefLivreId == _livreSelected.RefLivre.RefLivreId) != null) {
+				MessageBox.Show("Ce livre est déjà dans votre liste de demande de réservation");
+				return;
+			}
 			DialogResult result = MessageBox.Show(String.Format(@"Demande de réservation pour: ""{0}""", _livreSelected.RefLivre.Titre), "Demande de réservation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly, false);
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				if (!InsertDemandeReservation()) {
 					MessageBox.Show("Erreur lors de l'enregistrement de la demande de réservation");
 					return;
 				}
-				this.Close();
+				//this.Close();
+				this.Dispose();
 			}
 		}
 	}

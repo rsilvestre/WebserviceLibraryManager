@@ -21,8 +21,20 @@ namespace WebsDAL {
 			return ((ISingleResult<DemandeReservationBO>)result.ReturnValue);
 		}
 
-		[Function(Name="[dbo].[DemandeReservation.SelectByClientId]")]
-		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_SelectByClientId([Parameter(DbType="int")] Int32 ClientId) {
+		[Function(Name="[dbo].[DemandeReservation.SelectForUserByRefLivreId]")]
+		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_SelectForUserByRefLivreId([Parameter(DbType = "int")] Int32 ClientId,  [Parameter(DbType = "int")] Int32 RefLivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), ClientId, RefLivreId);
+			return ((ISingleResult<DemandeReservationBO>)result.ReturnValue);
+		}
+
+		[Function(Name="[dbo].[DemandeReservation.SelectNewByClientId]")]
+		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_SelectNewByClientId([Parameter(DbType="int")] Int32 ClientId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), ClientId);
+			return ((ISingleResult<DemandeReservationBO>)(result.ReturnValue));
+		}
+
+		[Function(Name="[dbo].[DemandeReservation.SelectOldByClientId]")]
+		public ISingleResult<DemandeReservationBO> DemandeReservationDAL_SelectOldByClientId([Parameter(DbType="int")] Int32 ClientId) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), ClientId);
 			return ((ISingleResult<DemandeReservationBO>)(result.ReturnValue));
 		}

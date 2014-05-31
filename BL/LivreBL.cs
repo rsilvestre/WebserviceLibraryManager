@@ -13,7 +13,7 @@ namespace WebsBL {
 
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
-					result = livreProxy.LivreBO_SelectAll().ToList();
+					result = livreProxy.LivreDAL_SelectAll().ToList();
 					if (result.Count > 0) {
 						foreach (LivreBO oLivreBO in result) {
 							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
@@ -26,18 +26,53 @@ namespace WebsBL {
 			}
 			return result;
 		}
+		public static LivreBO SelectById(Int32 pLivreId) {
+			LivreBO result = null;
+
+			try {
+				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+					List<LivreBO> lstLivre = livreProxy.LivreDAL_SelectById(pLivreId).ToList();
+					if (lstLivre.Count == 1) {
+						result = new LivreBO();
+						result.RefLivre = RefLivreBL.SelectById(lstLivre[0].RefLivreId);
+						result.Bibliotheque = BibliothequeBL.SelectById(lstLivre[0].BibliothequeId);
+					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			return result;
+		}
+
 		public static List<LivreBO> SelectByBibliotheque(BibliothequeBO pBibliotheque) {
 			List<LivreBO> result = null;
 
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
-					result = livreProxy.LivreBO_SelectByBibliothequeId(pBibliotheque.BibliothequeId).ToList();
+					result = livreProxy.LivreDAL_SelectByBibliothequeId(pBibliotheque.BibliothequeId).ToList();
 					if (result.Count > 0) {
 						foreach (LivreBO oLivreBO in result) {
 							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
 							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(oLivreBO.BibliothequeId);
 						}
 					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			return result;
+		}
+
+		public static FicheLivreBO SelectFicheLivreForClientByLivreId(int pClientId, int pLivreId) {
+			FicheLivreBO result = null;
+
+			try {
+				LivreBO objLivre = LivreBL.SelectById(pLivreId);
+				if (objLivre != null) {
+					result = new FicheLivreBO();
+					result.RefLivre = objLivre.RefLivre;
+					result.LstEmprunt = EmpruntBL.SelectForClientByLivreId(pClientId, pLivreId);
+					result.LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objLivre.RefLivre.RefLivreId);
 				}
 			} catch (Exception ex) {
 				throw;
@@ -49,7 +84,7 @@ namespace WebsBL {
 			LivreBO oLivreBOResult;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
-					oLivreBOResult = (LivreBO)livreProxy.LivreBO_InsertLivre(
+					oLivreBOResult = (LivreBO)livreProxy.LivreDAL_InsertLivre(
 						pObjLivre.BibliothequeId,
 						pObjLivre.RefLivreId,
 						pObjLivre.RefLivre.ISBN,

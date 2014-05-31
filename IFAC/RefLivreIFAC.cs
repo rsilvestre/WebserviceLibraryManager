@@ -19,6 +19,9 @@ namespace WebsIFAC {
 		List<RefLivreBO> SelectAll(String Token);
 
 		[OperationContract]
+		FicheLivreBO SelectFicheLivreForClientByRefLivreId(String Token, Int32 pClientId, Int32 pRefLivreId);
+
+		[OperationContract]
 		List<RefLivreBO> SelectByTitre(String Token, String pTitre);
 
 		[OperationContract]

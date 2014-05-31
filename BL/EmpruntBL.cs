@@ -13,7 +13,7 @@ namespace WebsBL {
 
 			try {
 				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					lstResult = empruntDal.EmpruntBO_SelectAll().ToList();
+					lstResult = empruntDal.EmpruntDAL_SelectAll().ToList();
 				}
 			} catch (Exception Ex) {
 				throw;
@@ -25,12 +25,28 @@ namespace WebsBL {
 			EmpruntBO result = null;
 			try {
 				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					result = (EmpruntBO)empruntDal.EmpruntBO_SelectById(pId);
+					result = (EmpruntBO)empruntDal.EmpruntDAL_SelectById(pId);
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
 			return result;
+		}
+
+		internal static List<EmpruntBO> SelectForClientByLivreId(int pClientId, int pLivreId) {
+			List<EmpruntBO> lstResult;
+
+			try {
+				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					lstResult = empruntDal.EmpruntDAL_SelectForUserByLivreId(pClientId, pLivreId).ToList();
+					foreach (EmpruntBO objEmprunt in lstResult) {
+						objEmprunt.Livre = LivreBL.SelectById(objEmprunt.LivreId);
+					}
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return lstResult;
 		}
 	}
 }

@@ -25,15 +25,25 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectById(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClientResponse" +
-            "")]
-        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectByClient(string Token, WebsBO.ClientBO pClient);
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectNewByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectNewByClientRespo" +
+            "nse")]
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectNewByClient(string Token, WebsBO.ClientBO pClient);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectByClientResponse" +
-            "")]
-        System.IAsyncResult BeginSelectByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectNewByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectNewByClientRespo" +
+            "nse")]
+        System.IAsyncResult BeginSelectNewByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectByClient(System.IAsyncResult result);
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectNewByClient(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectOldByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectOldByClientRespo" +
+            "nse")]
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectOldByClient(string Token, WebsBO.ClientBO pClient);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectOldByClient", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/SelectOldByClientRespo" +
+            "nse")]
+        System.IAsyncResult BeginSelectOldByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectOldByClient(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
             "on", ReplyAction="urn:WebsIFAC/DemandeReservationIFAC/DemandeReservationIFAC/InsertDemandeReservati" +
@@ -97,19 +107,34 @@ namespace WCF.Proxies
             return base.Channel.EndSelectById(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectByClient(string Token, WebsBO.ClientBO pClient)
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectNewByClient(string Token, WebsBO.ClientBO pClient)
         {
-            return base.Channel.SelectByClient(Token, pClient);
+            return base.Channel.SelectNewByClient(Token, pClient);
         }
         
-        public System.IAsyncResult BeginSelectByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectNewByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectByClient(Token, pClient, callback, asyncState);
+            return base.Channel.BeginSelectNewByClient(Token, pClient, callback, asyncState);
         }
         
-        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectByClient(System.IAsyncResult result)
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectNewByClient(System.IAsyncResult result)
         {
-            return base.Channel.EndSelectByClient(result);
+            return base.Channel.EndSelectNewByClient(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> SelectOldByClient(string Token, WebsBO.ClientBO pClient)
+        {
+            return base.Channel.SelectOldByClient(Token, pClient);
+        }
+        
+        public System.IAsyncResult BeginSelectOldByClient(string Token, WebsBO.ClientBO pClient, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectOldByClient(Token, pClient, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.DemandeReservationBO> EndSelectOldByClient(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectOldByClient(result);
         }
         
         public WebsBO.DemandeReservationBO InsertDemandeReservation(string Token, WebsBO.DemandeReservationBO pDemandeReservation)
