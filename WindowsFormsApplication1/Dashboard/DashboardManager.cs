@@ -50,7 +50,7 @@ namespace WindowsFormsApplication1.Dashboard {
 
 		private void loadDecoration() {
 			PersonneBO personne = CGlobalCache.SessionManager.Personne;
-			lblName.Text = String.Format(@"{0} {1}", personne.PersonneFirstName, personne.PersonneLastName);
+			lblName.Text = personne.ToString();
 			lblDtLastVisite.Text = "";
 			lblBibliotheque.Text = personne.Client.Bibliotheque.BibliothequeName;
 		}

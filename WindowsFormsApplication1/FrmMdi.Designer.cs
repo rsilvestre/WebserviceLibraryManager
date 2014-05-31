@@ -41,22 +41,24 @@
 			this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
 			this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.findBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.amazonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addBookToLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+			this.cmbToolStripBibliotheque = new System.Windows.Forms.ToolStripComboBox();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripTxtManagement = new System.Windows.Forms.ToolStripTextBox();
-			this.toolStripTxtClientBibliotheque = new System.Windows.Forms.ToolStripTextBox();
-			this.toolStripTxtClient = new System.Windows.Forms.ToolStripTextBox();
+			this.lblToolStripManagement = new System.Windows.Forms.ToolStripTextBox();
+			this.txtToolStripClientBibliotheque = new System.Windows.Forms.ToolStripTextBox();
+			this.lblToolStripClient = new System.Windows.Forms.ToolStripTextBox();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -71,11 +73,11 @@
             this.editMenu,
             this.libraryToolStripMenuItem,
             this.administrationToolStripMenuItem,
-            this.toolStripComboBox1,
+            this.cmbToolStripBibliotheque,
             this.helpToolStripMenuItem,
-            this.toolStripTxtManagement,
-            this.toolStripTxtClientBibliotheque,
-            this.toolStripTxtClient});
+            this.lblToolStripManagement,
+            this.txtToolStripClientBibliotheque,
+            this.lblToolStripClient});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(702, 27);
@@ -102,7 +104,7 @@
 			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
 			this.newToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.newToolStripMenuItem.Text = "&Dashboard";
-			this.newToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.ShowClientDashboard);
 			// 
 			// openToolStripMenuItem
 			// 
@@ -209,33 +211,55 @@
 			// libraryToolStripMenuItem
 			// 
 			this.libraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
             this.findBookToolStripMenuItem});
 			this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
-			this.libraryToolStripMenuItem.Size = new System.Drawing.Size(55, 23);
-			this.libraryToolStripMenuItem.Text = "&Library";
+			this.libraryToolStripMenuItem.Size = new System.Drawing.Size(50, 23);
+			this.libraryToolStripMenuItem.Text = "Cl&ient";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+			this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Black;
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
+			this.toolStripMenuItem1.Text = "Das&hboard";
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.ShowClientDashboard);
 			// 
 			// findBookToolStripMenuItem
 			// 
 			this.findBookToolStripMenuItem.Name = "findBookToolStripMenuItem";
-			this.findBookToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.findBookToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.findBookToolStripMenuItem.Text = "&Find Book";
 			this.findBookToolStripMenuItem.Click += new System.EventHandler(this.findBookToolStripMenuItem_Click);
 			// 
 			// administrationToolStripMenuItem
 			// 
 			this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
             this.amazonToolStripMenuItem,
             this.addBookToLibraryToolStripMenuItem});
 			this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
 			this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 23);
 			this.administrationToolStripMenuItem.Text = "&Administration";
 			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem2.Image")));
+			this.toolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Black;
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(173, 22);
+			this.toolStripMenuItem2.Text = "&Dashboard";
+			this.toolStripMenuItem2.Click += new System.EventHandler(this.ShowAdminDashboard);
+			// 
 			// amazonToolStripMenuItem
 			// 
 			this.amazonToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchToolStripMenuItem});
 			this.amazonToolStripMenuItem.Name = "amazonToolStripMenuItem";
-			this.amazonToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.amazonToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.amazonToolStripMenuItem.Text = "A&mazon";
 			// 
 			// searchToolStripMenuItem
@@ -250,7 +274,7 @@
 			this.addBookToLibraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addBookToolStripMenuItem});
 			this.addBookToLibraryToolStripMenuItem.Name = "addBookToLibraryToolStripMenuItem";
-			this.addBookToLibraryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.addBookToLibraryToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
 			this.addBookToLibraryToolStripMenuItem.Text = "Li&brary";
 			// 
 			// addBookToolStripMenuItem
@@ -261,23 +285,23 @@
 			this.addBookToolStripMenuItem.Text = "A&dd Book";
 			this.addBookToolStripMenuItem.Click += new System.EventHandler(this.addBookToolStripMenuItem_Click);
 			// 
-			// toolStripComboBox1
+			// cmbToolStripBibliotheque
 			// 
-			this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripComboBox1.DropDownHeight = 110;
-			this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.toolStripComboBox1.DropDownWidth = 122;
-			this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-			this.toolStripComboBox1.IntegralHeight = false;
-			this.toolStripComboBox1.MaxDropDownItems = 9;
-			this.toolStripComboBox1.MergeAction = System.Windows.Forms.MergeAction.Insert;
-			this.toolStripComboBox1.Name = "toolStripComboBox1";
-			this.toolStripComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
-			this.toolStripComboBox1.Sorted = true;
-			this.toolStripComboBox1.Tag = "Bibliotheque";
-			this.toolStripComboBox1.ToolTipText = "Bibliotheque";
-			this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+			this.cmbToolStripBibliotheque.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.cmbToolStripBibliotheque.DropDownHeight = 110;
+			this.cmbToolStripBibliotheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbToolStripBibliotheque.DropDownWidth = 122;
+			this.cmbToolStripBibliotheque.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+			this.cmbToolStripBibliotheque.IntegralHeight = false;
+			this.cmbToolStripBibliotheque.MaxDropDownItems = 9;
+			this.cmbToolStripBibliotheque.MergeAction = System.Windows.Forms.MergeAction.Insert;
+			this.cmbToolStripBibliotheque.Name = "cmbToolStripBibliotheque";
+			this.cmbToolStripBibliotheque.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.cmbToolStripBibliotheque.Size = new System.Drawing.Size(121, 23);
+			this.cmbToolStripBibliotheque.Sorted = true;
+			this.cmbToolStripBibliotheque.Tag = "Bibliotheque";
+			this.cmbToolStripBibliotheque.ToolTipText = "Bibliotheque";
+			this.cmbToolStripBibliotheque.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -320,35 +344,35 @@
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
 			this.aboutToolStripMenuItem.Text = "&About...";
 			// 
-			// toolStripTxtManagement
+			// lblToolStripManagement
 			// 
-			this.toolStripTxtManagement.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripTxtManagement.BackColor = System.Drawing.SystemColors.Window;
-			this.toolStripTxtManagement.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.toolStripTxtManagement.Name = "toolStripTxtManagement";
-			this.toolStripTxtManagement.ReadOnly = true;
-			this.toolStripTxtManagement.Size = new System.Drawing.Size(60, 23);
-			this.toolStripTxtManagement.Text = "Gestion : ";
-			this.toolStripTxtManagement.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.lblToolStripManagement.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.lblToolStripManagement.BackColor = System.Drawing.SystemColors.Window;
+			this.lblToolStripManagement.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.lblToolStripManagement.Name = "lblToolStripManagement";
+			this.lblToolStripManagement.ReadOnly = true;
+			this.lblToolStripManagement.Size = new System.Drawing.Size(60, 23);
+			this.lblToolStripManagement.Text = "Gestion : ";
+			this.lblToolStripManagement.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
-			// toolStripTxtClientBibliotheque
+			// txtToolStripClientBibliotheque
 			// 
-			this.toolStripTxtClientBibliotheque.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripTxtClientBibliotheque.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.toolStripTxtClientBibliotheque.Name = "toolStripTxtClientBibliotheque";
-			this.toolStripTxtClientBibliotheque.ReadOnly = true;
-			this.toolStripTxtClientBibliotheque.Size = new System.Drawing.Size(100, 23);
+			this.txtToolStripClientBibliotheque.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.txtToolStripClientBibliotheque.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtToolStripClientBibliotheque.Name = "txtToolStripClientBibliotheque";
+			this.txtToolStripClientBibliotheque.ReadOnly = true;
+			this.txtToolStripClientBibliotheque.Size = new System.Drawing.Size(100, 23);
 			// 
-			// toolStripTxtClient
+			// lblToolStripClient
 			// 
-			this.toolStripTxtClient.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripTxtClient.BackColor = System.Drawing.SystemColors.Window;
-			this.toolStripTxtClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.toolStripTxtClient.Name = "toolStripTxtClient";
-			this.toolStripTxtClient.ReadOnly = true;
-			this.toolStripTxtClient.Size = new System.Drawing.Size(120, 23);
-			this.toolStripTxtClient.Text = "Bibliotheque Client : ";
-			this.toolStripTxtClient.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.lblToolStripClient.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.lblToolStripClient.BackColor = System.Drawing.SystemColors.Window;
+			this.lblToolStripClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.lblToolStripClient.Name = "lblToolStripClient";
+			this.lblToolStripClient.ReadOnly = true;
+			this.lblToolStripClient.Size = new System.Drawing.Size(120, 23);
+			this.lblToolStripClient.Text = "Bibliotheque Client : ";
+			this.lblToolStripClient.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// statusStrip
 			// 
@@ -420,9 +444,11 @@
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem libraryToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem findBookToolStripMenuItem;
-		private System.Windows.Forms.ToolStripTextBox toolStripTxtClient;
-		private System.Windows.Forms.ToolStripTextBox toolStripTxtClientBibliotheque;
-		private System.Windows.Forms.ToolStripTextBox toolStripTxtManagement;
+		private System.Windows.Forms.ToolStripTextBox lblToolStripClient;
+		private System.Windows.Forms.ToolStripTextBox txtToolStripClientBibliotheque;
+		private System.Windows.Forms.ToolStripTextBox lblToolStripManagement;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 	}
 }
 

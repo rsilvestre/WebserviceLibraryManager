@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WCF.Proxies;
 using WebsBO;
+using WindowsFormsApplication1.Dashboard;
+using WindowsFormsApplication1.DashboardAdmin;
 using WindowsFormsApplication1.RefLivre;
 
 namespace WindowsFormsApplication1 {
@@ -17,7 +19,7 @@ namespace WindowsFormsApplication1 {
 		private int childFormNumber = 0;
 		private FrmSplashScreen _splashScreen;
 		private AutoResetEvent AutoEvent = new AutoResetEvent(false);
-        private ToolStripComboBox toolStripComboBox1;
+        private ToolStripComboBox cmbToolStripBibliotheque;
 
 		private Int32 _iLockMDI;
 
@@ -50,27 +52,27 @@ namespace WindowsFormsApplication1 {
 		private void initComponent() {
 
 			if (CGlobalCache.SessionManager.Personne.Administrateur != null) {
-				toolStripComboBox1.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
-				toolStripTxtManagement.Visible = true;
-				toolStripComboBox1.Visible = true;
+				cmbToolStripBibliotheque.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
+				lblToolStripManagement.Visible = true;
+				cmbToolStripBibliotheque.Visible = true;
 				administrationToolStripMenuItem.Visible = true;
 			} else {
 				//BibliothequeBO bibliothequeItem = CGlobalCache.SessionManager.Personne.Client.Bibliotheque;
 				//toolStripComboBox1.Items.Add(bibliothequeItem);
 				//toolStripComboBox1.SelectedItem = bibliothequeItem;
-				toolStripTxtManagement.Visible = false;
-				toolStripComboBox1.Visible = false;
+				lblToolStripManagement.Visible = false;
+				cmbToolStripBibliotheque.Visible = false;
 				administrationToolStripMenuItem.Visible = false;
 			}
 
 			if (CGlobalCache.SessionManager.Personne.Client != null) {
-				toolStripTxtClient.Visible = true;
-				toolStripTxtClientBibliotheque.Visible = true;
-				toolStripTxtClientBibliotheque.Text = CGlobalCache.SessionManager.Personne.Client.Bibliotheque.BibliothequeName;
+				lblToolStripClient.Visible = true;
+				txtToolStripClientBibliotheque.Visible = true;
+				txtToolStripClientBibliotheque.Text = CGlobalCache.SessionManager.Personne.Client.Bibliotheque.BibliothequeName;
 				libraryToolStripMenuItem.Visible = true;
 			} else {
-				toolStripTxtClient.Visible = false;
-				toolStripTxtClientBibliotheque.Visible = false;
+				lblToolStripClient.Visible = false;
+				txtToolStripClientBibliotheque.Visible = false;
 				libraryToolStripMenuItem.Visible = false;
 			}
 			
@@ -107,12 +109,23 @@ namespace WindowsFormsApplication1 {
 			}
 		}
 
-		private void ShowNewForm(object sender, EventArgs e) {
+		private void ShowClientDashboard(object sender, EventArgs e) {
 			if (childFormNumber != 0) {
 				MessageBox.Show("Vous avez déjà un Dashboard ouvert");
 				return;
 			}
-			Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager(this);
+			DashboardManager dashboardManager = new DashboardManager(this);
+			this.ChildFormIncrement();
+			dashboardManager.MdiParent = this;
+			dashboardManager.Show();
+		}
+
+		private void ShowAdminDashboard(object sender, EventArgs e) {
+			if (childFormNumber != 0) {
+				MessageBox.Show("Vous avez déjà un Dashboard ouvert");
+				return;
+			}
+			DashboardAdminManager dashboardManager = new DashboardAdminManager(this);
 			this.ChildFormIncrement();
 			dashboardManager.MdiParent = this;
 			dashboardManager.Show();
@@ -228,7 +241,7 @@ namespace WindowsFormsApplication1 {
 		}
 
 		private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e) {
-			BibliothequeBO objBibliotheque = (BibliothequeBO)toolStripComboBox1.SelectedItem;
+			BibliothequeBO objBibliotheque = (BibliothequeBO)cmbToolStripBibliotheque.SelectedItem;
 			CGlobalCache.ActualBibliotheque = objBibliotheque;
 			if (objBibliotheque != null && CGlobalCache.SessionManager.IsAdministrateur) {
 				addBookToolStripMenuItem.Enabled = true;
@@ -237,7 +250,7 @@ namespace WindowsFormsApplication1 {
 
 		private void actualBibliothequeChange(object value, EventArgs e) {
 			BibliothequeBO objBibliothequeBO = (BibliothequeBO) value;
-			toolStripComboBox1.SelectedItem = objBibliothequeBO;
+			cmbToolStripBibliotheque.SelectedItem = objBibliothequeBO;
 		}
 
 		private void findBookToolStripMenuItem_Click(object sender, EventArgs e) {

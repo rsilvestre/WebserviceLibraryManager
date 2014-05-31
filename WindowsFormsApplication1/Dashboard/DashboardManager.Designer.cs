@@ -290,7 +290,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(884, 588);
+			this.ClientSize = new System.Drawing.Size(885, 588);
 			this.Controls.Add(this.lblBibliotheque);
 			this.Controls.Add(this.lblBibliothequeTitle);
 			this.Controls.Add(this.label11);
@@ -308,6 +308,7 @@
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.panel2);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "DashboardManager";
 			this.Text = " ";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardManager_FormClosed);

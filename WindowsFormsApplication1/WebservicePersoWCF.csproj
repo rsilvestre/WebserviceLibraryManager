@@ -146,6 +146,9 @@
     <Compile Include="RefLivre\ShowBook.Designer.cs">
       <DependentUpon>ShowBook.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DashboardAdmin\DashboardAdminManager.resx">
+      <DependentUpon>DashboardAdminManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard\DashboardManager.resx">
       <DependentUpon>DashboardManager.cs</DependentUpon>
     </EmbeddedResource>

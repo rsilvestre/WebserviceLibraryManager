@@ -130,6 +130,7 @@
 			this.Controls.Add(this.lstSearchResult);
 			this.Controls.Add(this.txtSearch);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "SearchRefLivre";
 			this.Text = "Recherche référence de livre";
 			this.ResumeLayout(false);

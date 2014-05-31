@@ -77,6 +77,8 @@
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.btnCreate);
 			this.Controls.Add(this.RefLivreSearch);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "CreateLivre";
 			this.Text = "Ajout d\'un livre à la bibliotheque";
 			this.ResumeLayout(false);

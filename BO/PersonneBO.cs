@@ -95,6 +95,8 @@ namespace WebsBO {
 			set { _personneLastName = value; }
 		}
 
-
+		public override string ToString() {
+			return this.PersonneFirstName + " " + this.PersonneLastName;
+		}
 	}
 }

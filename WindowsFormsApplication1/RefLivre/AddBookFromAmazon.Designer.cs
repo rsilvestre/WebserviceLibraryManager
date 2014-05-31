@@ -100,6 +100,8 @@
 			this.Controls.Add(this.showBook1);
 			this.Controls.Add(this.btnSearch);
 			this.Controls.Add(this.txtSearch);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "AddBookFromAmazon";
 			this.Text = "AddBookFromAmazon";
 			this.ResumeLayout(false);

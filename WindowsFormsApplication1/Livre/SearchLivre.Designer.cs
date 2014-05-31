@@ -155,6 +155,7 @@
 			this.Controls.Add(this.btnSearch);
 			this.Controls.Add(this.txtSearch);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "SearchLivre";
 			this.Text = "SearchLivre";
 			this.Load += new System.EventHandler(this.SearchLivre_Load);
