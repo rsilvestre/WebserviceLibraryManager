@@ -31,5 +31,17 @@ namespace WebsDAL {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ClientId, LivreId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
+		
+		[Function(Name="[dbo].[Emprunt.InsertEmpruntFromReservation]")]
+		public ISingleResult<EmpruntBO> EmpruntDAL_InsertEmpruntFromReservation([Parameter(DbType = "int")]Int32 pReservationId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pReservationId);
+			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
+		}
+		
+		[Function(Name="[dbo].[Emprunt.InsertEmprunt]")]
+		public ISingleResult<EmpruntBO> EmpruntDAL_InsertEmprunt([Parameter(DbType = "int")]Int32 pBibliothequeId, [Parameter(DbType = "int")]Int32 pPersonneId, [Parameter(DbType = "int")]Int32 pLivreId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pBibliothequeId, pPersonneId, pLivreId);
+			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
+		}
 	}
 }

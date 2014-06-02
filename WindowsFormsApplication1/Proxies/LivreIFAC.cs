@@ -25,6 +25,14 @@ namespace WCF.Proxies
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfoResponse")]
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string Token, string pLivreInfo, int pBibliothequeId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfoResponse")]
+        System.IAsyncResult BeginSelectByInfo(string Token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByInfo(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliotheque", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliothequeResponse")]
         System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque);
         
@@ -97,6 +105,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result)
         {
             return base.Channel.EndSelectAll(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string Token, string pLivreInfo, int pBibliothequeId)
+        {
+            return base.Channel.SelectByInfo(Token, pLivreInfo, pBibliothequeId);
+        }
+        
+        public System.IAsyncResult BeginSelectByInfo(string Token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByInfo(Token, pLivreInfo, pBibliothequeId, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByInfo(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByInfo(result);
         }
         
         public System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque)

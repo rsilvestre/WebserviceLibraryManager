@@ -40,6 +40,14 @@ namespace WCF.Proxies
         System.IAsyncResult BeginSelectByName(string Token, string pName, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByName(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByInfoResponse")]
+        System.Collections.Generic.List<WebsBO.PersonneBO> SelectByInfo(string Token, string pInfo);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/PersonneIFAC/PersonneIFAC/SelectByInfoResponse")]
+        System.IAsyncResult BeginSelectByInfo(string Token, string pInfo, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByInfo(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -119,6 +127,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByName(System.IAsyncResult result)
         {
             return base.Channel.EndSelectByName(result);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.PersonneBO> SelectByInfo(string Token, string pInfo)
+        {
+            return base.Channel.SelectByInfo(Token, pInfo);
+        }
+        
+        public System.IAsyncResult BeginSelectByInfo(string Token, string pInfo, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectByInfo(Token, pInfo, callback, asyncState);
+        }
+        
+        public System.Collections.Generic.List<WebsBO.PersonneBO> EndSelectByInfo(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectByInfo(result);
         }
     }
 }

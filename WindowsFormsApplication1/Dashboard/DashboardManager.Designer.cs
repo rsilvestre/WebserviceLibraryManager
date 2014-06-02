@@ -1,4 +1,5 @@
-﻿namespace WindowsFormsApplication1.Dashboard {
+﻿using System;
+namespace WindowsFormsApplication1.Dashboard {
 	partial class DashboardManager {
 		/// <summary>
 		/// Required designer variable.
@@ -13,7 +14,11 @@
 			if (disposing && (components != null)) {
 				components.Dispose();
 			}
-			base.Dispose(disposing);
+			try {
+				base.Dispose(disposing);
+			} catch (Exception ex) {
+				throw;
+			}
 		}
 
 		#region Windows Form Designer generated code
@@ -311,7 +316,7 @@
 			this.MaximizeBox = false;
 			this.Name = "DashboardManager";
 			this.Text = " ";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardManager_FormClosed);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DashboardManager_FormClosing);
 			this.Load += new System.EventHandler(this.DashboardManager_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);

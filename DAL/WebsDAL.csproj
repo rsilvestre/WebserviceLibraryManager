@@ -60,6 +60,7 @@
     <Compile Include="ClientDAL.cs" />
     <Compile Include="DemandeAnnulationDAL.cs" />
     <Compile Include="DemandeReservationDAL.cs" />
+    <Compile Include="ReservationDAL.cs" />
     <Compile Include="EmpruntDAL.cs" />
     <Compile Include="LivreDAL.cs" />
     <Compile Include="LivreStatusDAL.cs" />

@@ -49,5 +49,17 @@ namespace WebsBL {
 			}
 			return lstPersonne;
 		}
+
+		public static List<PersonneBO> SelectByInfo(String pInfo) {
+			List<PersonneBO> lstPersonne;
+			try {
+				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
+					lstPersonne = personneDal.PersonneBO_SelectByInfo(pInfo).ToList();
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return lstPersonne;
+		}
 	}
 }

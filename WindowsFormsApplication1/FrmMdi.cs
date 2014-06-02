@@ -94,10 +94,7 @@ namespace WindowsFormsApplication1 {
 					_splashScreen.Close();
 					WindowState = FormWindowState.Maximized;
 					initComponent();
-					Dashboard.DashboardManager dashboardManager = new Dashboard.DashboardManager(this);
-					this.ChildFormIncrement();
-					dashboardManager.MdiParent = this;
-					dashboardManager.Show();
+					this.lauchDashboard();
 				} else {
 					_splashScreen.Close();
 					Close();
@@ -106,6 +103,24 @@ namespace WindowsFormsApplication1 {
 			} catch (Exception Ex) {
 				_splashScreen.Close();
 				Close();
+			}
+		}
+
+		private void lauchDashboard() {
+			try {
+				if (!CGlobalCache.SessionManager.IsAdministrateur) {
+					DashboardManager dashboardManager = new DashboardManager(this);
+					dashboardManager.MdiParent = this;
+					dashboardManager.Show();
+				} else {
+					DashboardAdminManager dashboardAdminManager = new DashboardAdminManager(this);
+					dashboardAdminManager.MdiParent = this;
+					dashboardAdminManager.Show();
+				}
+			} catch (Exception ex) {
+				throw;
+			} finally {
+				this.ChildFormIncrement();
 			}
 		}
 

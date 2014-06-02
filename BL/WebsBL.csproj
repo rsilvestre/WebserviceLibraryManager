@@ -47,6 +47,7 @@
     <Compile Include="ClientBL.cs" />
     <Compile Include="DemandeAnnulationBL.cs" />
     <Compile Include="DemandeReservationBL.cs" />
+    <Compile Include="ReservationBL.cs" />
     <Compile Include="EmpruntBL.cs" />
     <Compile Include="LivreBL.cs" />
     <Compile Include="LivreStatusBL.cs" />

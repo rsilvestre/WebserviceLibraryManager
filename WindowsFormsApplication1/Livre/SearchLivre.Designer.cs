@@ -111,6 +111,7 @@
 			this.dataGridSearchResult.Size = new System.Drawing.Size(602, 329);
 			this.dataGridSearchResult.TabIndex = 15;
 			this.dataGridSearchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSearchResult_CellClick);
+			this.dataGridSearchResult.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSearchResult_CellDoubleClick);
 			// 
 			// label1
 			// 

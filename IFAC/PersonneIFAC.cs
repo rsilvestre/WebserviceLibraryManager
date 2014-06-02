@@ -18,5 +18,8 @@ namespace WebsIFAC {
 
 		[OperationContract]
 		List<PersonneBO> SelectByName(String Token, String pName);
+
+		[OperationContract]
+		List<PersonneBO> SelectByInfo(String Token, String pInfo);
 	}
 }

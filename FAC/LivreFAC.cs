@@ -53,5 +53,17 @@ namespace WebsFAC {
 				throw;
 			}
 		}
+
+
+		public List<LivreBO> SelectByInfo(string Token, String pLivreInfo, Int32 pBibliothequeId) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return LivreBL.SelectByInfo(pLivreInfo, pBibliothequeId);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
 	}
 }

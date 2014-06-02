@@ -14,6 +14,15 @@ namespace WebsIFAC {
 
 		[OperationContract]
 		EmpruntBO SelectEmpruntById(String Token, int pId);
+
+		[OperationContract]
+		EmpruntBO InsertEmpruntFromReservation(String Token, ReservationBO pReservation);
+
+		[OperationContract]
+		EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pReservationId);
+
+		[OperationContract]
+		EmpruntBO InsertEmprunt(String Token, Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId);
 	}
 
 }

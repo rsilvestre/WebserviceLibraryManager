@@ -175,5 +175,9 @@ namespace WindowsFormsApplication1.Livre {
 				this.Dispose();
 			}
 		}
+
+		private void dataGridSearchResult_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+			dataGridSearchResult_CellClick(sender, e);
+		}
 	}
 }

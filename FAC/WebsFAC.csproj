@@ -45,6 +45,7 @@
     <Compile Include="ClientFAC.cs" />
     <Compile Include="DemandeAnnulationFAC.cs" />
     <Compile Include="DemandeReservationFAC.cs" />
+    <Compile Include="ReservationFAC.cs" />
     <Compile Include="EmpruntFAC.cs" />
     <Compile Include="LivreFAC.cs" />
     <Compile Include="LivreStatusFAC.cs" />

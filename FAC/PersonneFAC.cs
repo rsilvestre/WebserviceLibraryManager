@@ -41,5 +41,16 @@ namespace WebsFAC {
 				throw;
 			}
 		}
+
+		public List<PersonneBO> SelectByInfo(String Token, String pInfo) {
+			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+				return null;
+			}
+			try {
+				return PersonneBL.SelectByInfo(pInfo);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
 	}
 }

@@ -50,5 +50,11 @@ namespace WebsDAL {
 				);
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
+		
+		[Function(Name="[dbo].[Livre.SelectByInfo]")]
+		public ISingleResult<LivreBO> LivreDAL_SelectByInfo([Parameter(DbType="varchar(50)")] String pLivreInfo, [Parameter(DbType="int")]Int32 pBibliothequeId) {
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), pLivreInfo, pBibliothequeId);
+			return ((ISingleResult<LivreBO>)result.ReturnValue);
+		}
 	}
 }

@@ -8,7 +8,7 @@ namespace WebservicePerso {
 	class Program {
 		static void Main(string[] args) {
 			HostingServerClient clientServer = new HostingServerClient();
-			HostingServerEmprunt locationServer = new HostingServerEmprunt();
+			HostingServerEmprunt empruntServer = new HostingServerEmprunt();
 			HostingServerPersonne personneServer = new HostingServerPersonne();
 			HostingServerRefLivre refLivreServer = new HostingServerRefLivre();
 			HostingServerLivre livreServer = new HostingServerLivre();
@@ -18,9 +18,10 @@ namespace WebservicePerso {
 			HostingServerAdministrateur administrateurServer = new HostingServerAdministrateur();
 			HostingServerDemandeReservation demandeReservationServer = new HostingServerDemandeReservation();
 			HostingServerDemandeAnnulation demandeAnnulationServer = new HostingServerDemandeAnnulation();
+			HostingServerReservation reservationServer = new HostingServerReservation();
 			Console.WriteLine("Server Started");
 			clientServer.StartServer();
-			locationServer.StartServer();
+			empruntServer.StartServer();
 			personneServer.StartServer();
 			refLivreServer.StartServer();
 			livreServer.StartServer();
@@ -30,10 +31,11 @@ namespace WebservicePerso {
 			administrateurServer.StartServer();
 			demandeReservationServer.StartServer();
 			demandeAnnulationServer.StartServer();
+			reservationServer.StartServer();
 			Console.WriteLine("Press a key to stop the Service");
 			Console.ReadKey();
 			clientServer.StopServer();
-			locationServer.StopServer();
+			empruntServer.StopServer();
 			personneServer.StopServer();
 			refLivreServer.StopServer();
 			livreServer.StopServer();
@@ -43,6 +45,7 @@ namespace WebservicePerso {
 			administrateurServer.StopServer();
 			demandeReservationServer.StopServer();
 			demandeAnnulationServer.StopServer();
+			reservationServer.StopServer();
 			Console.WriteLine("Server Stopped");
 
 

@@ -33,7 +33,7 @@ namespace WebsBL {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
 					List<LivreBO> lstLivre = livreProxy.LivreDAL_SelectById(pLivreId).ToList();
 					if (lstLivre.Count == 1) {
-						result = new LivreBO();
+						result = lstLivre[0];
 						result.RefLivre = RefLivreBL.SelectById(lstLivre[0].RefLivreId);
 						result.Bibliotheque = BibliothequeBL.SelectById(lstLivre[0].BibliothequeId);
 					}
@@ -104,6 +104,25 @@ namespace WebsBL {
 				throw;
 			}
 			return oLivreBOResult;
+		}
+
+		public static List<LivreBO> SelectByInfo(String pLivreInfo, Int32 pBibliothequeId) {
+			List<LivreBO> lstLivre = null;
+
+			try {
+				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+					lstLivre = livreProxy.LivreDAL_SelectByInfo(pLivreInfo, pBibliothequeId).ToList();
+					if (lstLivre.Count > 0) {
+						foreach (LivreBO objLivre in lstLivre) {
+							objLivre.RefLivre = RefLivreBL.SelectById(objLivre.RefLivreId);
+							objLivre.Bibliotheque = BibliothequeBL.SelectById(objLivre.BibliothequeId);
+						}
+					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+			return lstLivre;
 		}
 	}
 }

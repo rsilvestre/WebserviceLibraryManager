@@ -11,6 +11,8 @@ namespace WebsIFAC {
 	public interface LivreIFAC {
 		[OperationContract]
 		List<LivreBO> SelectAll(String Token);
+		[OperationContract]
+		List<LivreBO> SelectByInfo(String Token, String pLivreInfo, Int32 pBibliothequeId);
 
 		[OperationContract]
 		List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque);

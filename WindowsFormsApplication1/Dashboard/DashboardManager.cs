@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		private LivreBO _livreSelected;
 		private FicheDeLivre _ficheDeLivre;
 		private FicheDeLivreReservation _ficheDeLivreReservation;
+
 		private const int ADD_DASHBOARD_FICHE_DE_LIVRE = 596;
 		private const int ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION = 544;
 		private int _dashboardWidth;
@@ -25,6 +26,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		private int _lblBibliothequeTitleLocationX;
 		private int _lblDtLastLocationX;
 		private int _lblDtLastVisiteTitleLocationX;
+
 		private FicheLivreBO _actualFicheLivre;
 
 		private delegate FicheLivreBO AsyncGuiFicheDeLivreSelectForClientById(String Token, Int32 pClientId, Int32 pLivreId);
@@ -33,8 +35,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			InitializeComponent();
 		}
 
-		public DashboardManager(FrmMdi frmMdi)
-			: this() {
+		public DashboardManager(FrmMdi frmMdi) : this() {
 			this._frmMdi = frmMdi;
 		}
 
@@ -224,11 +225,6 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.loadReservation();
 		}
 
-		private void DashboardManager_FormClosed(object sender, FormClosedEventArgs e) {
-			this._frmMdi.ChildFormDecrement();
-			Dispose();
-		}
-
 		private void LivreEmprunt_MouseDown(object sender, MouseEventArgs e) {
 			ListBox listBox = (ListBox)sender;
 
@@ -272,6 +268,10 @@ namespace WindowsFormsApplication1.Dashboard {
 			if (!InsertDemandeReservation()) {
 				MessageBox.Show("Le livre n'a pas pu etre ajouté dans votre liste de demande");
 			}
+		}
+
+		private void DashboardManager_FormClosing(object sender, FormClosingEventArgs e) {
+			this._frmMdi.ChildFormDecrement();
 		}
 
 	}

@@ -30,5 +30,39 @@ namespace WebsFAC {
 				throw;
 			}
 		}
+
+
+		public EmpruntBO InsertEmpruntFromReservation(String Token, ReservationBO pReservation) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return EmpruntBL.InsertEmpruntFromReservation(pReservation);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pReservationId) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return EmpruntBL.InsertEmpruntFromReservation(pReservationId);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public EmpruntBO InsertEmprunt(String Token, Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return EmpruntBL.InsertEmprunt(pBibliothequeId, pPersonneId, pLivreId);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
 	}
 }

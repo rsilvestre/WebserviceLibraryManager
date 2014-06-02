@@ -64,6 +64,7 @@
     <Compile Include="HostingServerClient.cs" />
     <Compile Include="HostingServerDemandeAnnulation.cs" />
     <Compile Include="HostingServerDemandeReservation.cs" />
+    <Compile Include="HostingServerReservation.cs" />
     <Compile Include="HostingServerEmprunt.cs" />
     <Compile Include="HostingServerLivre.cs" />
     <Compile Include="HostingServerPersonne.cs" />

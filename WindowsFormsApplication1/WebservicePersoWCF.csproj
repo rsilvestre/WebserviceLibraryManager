@@ -55,6 +55,18 @@
     <Compile Include="DashboardAdmin\DashboardAdminManager.Designer.cs">
       <DependentUpon>DashboardAdminManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="DashboardAdmin\EmpruntManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DashboardAdmin\EmpruntManagement.Designer.cs">
+      <DependentUpon>EmpruntManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardAdmin\ReservationManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DashboardAdmin\ReservationManagement.Designer.cs">
+      <DependentUpon>ReservationManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard\DashboardManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +139,7 @@
     <Compile Include="Proxies\LivreStatusIFAC.cs" />
     <Compile Include="Proxies\PersonneIFAC.cs" />
     <Compile Include="Proxies\RefLivreIFAC.cs" />
+    <Compile Include="Proxies\ReservationIFAC.cs" />
     <Compile Include="Proxies\SessionManagerIFAC.cs" />
     <Compile Include="RefLivre\AddBookFromAmazon.cs">
       <SubType>Form</SubType>
@@ -148,6 +161,12 @@
     </Compile>
     <EmbeddedResource Include="DashboardAdmin\DashboardAdminManager.resx">
       <DependentUpon>DashboardAdminManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardAdmin\EmpruntManagement.resx">
+      <DependentUpon>EmpruntManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardAdmin\ReservationManagement.resx">
+      <DependentUpon>ReservationManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard\DashboardManager.resx">
       <DependentUpon>DashboardManager.cs</DependentUpon>

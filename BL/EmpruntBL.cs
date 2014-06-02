@@ -48,5 +48,41 @@ namespace WebsBL {
 			}
 			return lstResult;
 		}
+
+		public static EmpruntBO InsertEmpruntFromReservation(ReservationBO pReservation) {
+			EmpruntBO result = null;
+			try {
+				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmpruntFromReservation(pReservation.ReservationId);
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return result;
+		}
+
+		public static EmpruntBO InsertEmpruntFromReservation(Int32 pReservationId) {
+			EmpruntBO result = null;
+			try {
+				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmpruntFromReservation(pReservationId);
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return result;
+		}
+
+		public static EmpruntBO InsertEmprunt(Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId) {
+			EmpruntBO result = null;
+			try {
+				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmprunt(pBibliothequeId, pPersonneId, pLivreId);
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return result;
+		}
 	}
 }
