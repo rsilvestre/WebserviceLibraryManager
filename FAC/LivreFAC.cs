@@ -43,12 +43,12 @@ namespace WebsFAC {
 			}
 		}
 
-		public LivreBO InsertLivre(String Token, LivreBO pObjLivre) {
+		public LivreBO InsertLivre(String Token, LivreBO pObjLivre, Int32 AdministrateurId) {
 			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return LivreBL.InsertLivre(pObjLivre);
+				return LivreBL.InsertLivre(pObjLivre, AdministrateurId);
 			} catch (Exception ex) {
 				throw;
 			}

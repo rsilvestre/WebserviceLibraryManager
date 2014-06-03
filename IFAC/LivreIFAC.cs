@@ -21,6 +21,6 @@ namespace WebsIFAC {
 		FicheLivreBO SelectFicheLivreForClientByLivreId(String Token, Int32 pClientId, Int32 pLivreId);
 
 		[OperationContract]
-		LivreBO InsertLivre(String Token, LivreBO pObjLivre);
+		LivreBO InsertLivre(String Token, LivreBO pObjLivre, Int32 AdministrateurId);
 	}
 }

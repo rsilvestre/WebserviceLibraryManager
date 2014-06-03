@@ -50,10 +50,10 @@ namespace WCF.Proxies
         WebsBO.FicheLivreBO EndSelectFicheLivreForClientByLivreId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre);
+        WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result);
     }
@@ -152,14 +152,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectFicheLivreForClientByLivreId(result);
         }
         
-        public WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre)
+        public WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId)
         {
-            return base.Channel.InsertLivre(Token, pObjLivre);
+            return base.Channel.InsertLivre(Token, pObjLivre, AdministrateurId);
         }
         
-        public System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginInsertLivre(Token, pObjLivre, callback, asyncState);
+            return base.Channel.BeginInsertLivre(Token, pObjLivre, AdministrateurId, callback, asyncState);
         }
         
         public WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result)

@@ -10,6 +10,7 @@ using WebsBO;
 
 namespace WebsDAL {
 	public class EmpruntDAL : System.Data.Linq.DataContext {
+
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 
 		public EmpruntDAL(String ConnString) : base(ConnString, mappingSource) { }

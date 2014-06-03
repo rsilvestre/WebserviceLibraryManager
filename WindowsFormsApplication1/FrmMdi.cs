@@ -233,7 +233,7 @@ namespace WindowsFormsApplication1 {
 			LivreBO Livre;
 			try {
 				using (LivreIFACClient livreProxy = new LivreIFACClient()) {
-					Livre = livreProxy.InsertLivre(CGlobalCache.SessionManager.Token, pObjLivre);
+					Livre = livreProxy.InsertLivre(CGlobalCache.SessionManager.Token, pObjLivre, CGlobalCache.SessionManager.Personne.Administrateur.AdministrateurId);
 				}
 			} catch (Exception ex) {
 				throw;

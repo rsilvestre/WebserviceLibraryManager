@@ -80,7 +80,7 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static LivreBO InsertLivre(LivreBO pObjLivre) {
+		public static LivreBO InsertLivre(LivreBO pObjLivre, Int32 AdministrateurId) {
 			LivreBO oLivreBOResult;
 			try {
 				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
@@ -94,7 +94,8 @@ namespace WebsBL {
 						pObjLivre.RefLivre.Langue,
 						pObjLivre.RefLivre.Editeur,
 						pObjLivre.RefLivre.Published,
-						pObjLivre.RefLivre.ImageUrl
+						pObjLivre.RefLivre.ImageUrl,
+						AdministrateurId
 						).ToList()[0];
 					
 						oLivreBOResult.RefLivre = RefLivreBL.SelectById(oLivreBOResult.RefLivreId);

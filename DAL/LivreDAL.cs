@@ -43,10 +43,11 @@ namespace WebsDAL {
 			[Parameter(DbType = "varchar(50)")]		String		Langue,
 			[Parameter(DbType = "varchar(50)")]		String		Editeur,
 			[Parameter(DbType = "date")]			DateTime	Published,
-			[Parameter(DbType = "varchar(250)")]	String		ImageUrl
+			[Parameter(DbType = "varchar(250)")]	String		ImageUrl,
+			[Parameter(DbType = "int")]				Int32		AdministrateurId
 			) {
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()),
-				BibliothequeId, RefLivreId, ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl
+				BibliothequeId, RefLivreId, ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl, AdministrateurId
 				);
 			return ((ISingleResult<LivreBO>)result.ReturnValue);
 		}
