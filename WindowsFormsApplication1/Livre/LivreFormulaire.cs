@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebsBO;
 using System.Net;
@@ -18,7 +12,7 @@ namespace WindowsFormsApplication1.Livre {
 		}
 
 		public void SetForm(LivreBO pLivre) {
-			CGlobalCache.actualBibliothequeChangeEventHandler += actualBibliothequeChange;
+			CGlobalCache.actualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 			cmbBibliotheque.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
 			cmbBibliotheque.SelectedItem = CGlobalCache.ActualBibliotheque;
 
@@ -35,35 +29,35 @@ namespace WindowsFormsApplication1.Livre {
 			datePicker.Text = pLivre.RefLivre.Published.ToShortDateString();
 
 			// Create a web request to the URL for the picture
-			System.Net.WebRequest webRequest = HttpWebRequest.Create(pLivre.RefLivre.ImageUrl);
+			WebRequest webRequest = WebRequest.Create(pLivre.RefLivre.ImageUrl);
 			// Execute the request synchronuously
-			HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+			var webResponse = (HttpWebResponse)webRequest.GetResponse();
 
 			// Create an image from the stream returned by the web request
-			picBook.Image = new System.Drawing.Bitmap(webResponse.GetResponseStream());
+			picBook.Image = new Bitmap(webResponse.GetResponseStream());
 		}
 
-		private void actualBibliothequeChange(object value, EventArgs e) {
-			BibliothequeBO objBibliothequeBO = (BibliothequeBO) value;
-			cmbBibliotheque.SelectedItem = objBibliothequeBO;
+		private void ActualBibliothequeChange(object value, EventArgs e) {
+			var objBibliothequeBo = (BibliothequeBO) value;
+			cmbBibliotheque.SelectedItem = objBibliothequeBo;
 		}
 
 		/// <summary>
 		/// Vérifie si des champs ont été modifiés
 		/// </summary>
-		/// <param name="ObjLivre"></param>
-		public void CheckField(LivreBO ObjLivre) {
-			if (ObjLivre.CreatedAt.ToShortDateString() != datePicker.Text) {
-				ObjLivre.CreatedAt = DateTime.Parse(datePicker.Text);
+		/// <param name="objLivre"></param>
+		public void CheckField(LivreBO objLivre) {
+			if (objLivre.CreatedAt.ToShortDateString() != datePicker.Text) {
+				objLivre.CreatedAt = DateTime.Parse(datePicker.Text);
 			}
-			if (!ObjLivre.RefLivre.ISBN.Equals(txtISBN.Text)) {
-				ObjLivre.RefLivre.ISBN = txtISBN.Text;
+			if (!objLivre.RefLivre.ISBN.Equals(txtISBN.Text)) {
+				objLivre.RefLivre.ISBN = txtISBN.Text;
 			}
-			if (!ObjLivre.RefLivre.Titre.Equals(txtTitle.Text)) {
-				ObjLivre.RefLivre.Titre = txtTitle.Text;
+			if (!objLivre.RefLivre.Titre.Equals(txtTitle.Text)) {
+				objLivre.RefLivre.Titre = txtTitle.Text;
 			}
-			if (!ObjLivre.RefLivre.Auteur.Equals(txtAuteur.Text)) {
-				ObjLivre.RefLivre.Auteur = txtAuteur.Text;
+			if (!objLivre.RefLivre.Auteur.Equals(txtAuteur.Text)) {
+				objLivre.RefLivre.Auteur = txtAuteur.Text;
 			}
 		}
 	}

@@ -49,7 +49,7 @@
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addBookToLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmbToolStripBibliotheque = new System.Windows.Forms.ToolStripComboBox();
+			this._cmbToolStripBibliotheque = new System.Windows.Forms.ToolStripComboBox();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,7 @@
             this.editMenu,
             this.libraryToolStripMenuItem,
             this.administrationToolStripMenuItem,
-            this.cmbToolStripBibliotheque,
+            this._cmbToolStripBibliotheque,
             this.helpToolStripMenuItem,
             this.lblToolStripManagement,
             this.txtToolStripClientBibliotheque,
@@ -287,21 +287,21 @@
 			// 
 			// cmbToolStripBibliotheque
 			// 
-			this.cmbToolStripBibliotheque.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.cmbToolStripBibliotheque.DropDownHeight = 110;
-			this.cmbToolStripBibliotheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbToolStripBibliotheque.DropDownWidth = 122;
-			this.cmbToolStripBibliotheque.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-			this.cmbToolStripBibliotheque.IntegralHeight = false;
-			this.cmbToolStripBibliotheque.MaxDropDownItems = 9;
-			this.cmbToolStripBibliotheque.MergeAction = System.Windows.Forms.MergeAction.Insert;
-			this.cmbToolStripBibliotheque.Name = "cmbToolStripBibliotheque";
-			this.cmbToolStripBibliotheque.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.cmbToolStripBibliotheque.Size = new System.Drawing.Size(121, 23);
-			this.cmbToolStripBibliotheque.Sorted = true;
-			this.cmbToolStripBibliotheque.Tag = "Bibliotheque";
-			this.cmbToolStripBibliotheque.ToolTipText = "Bibliotheque";
-			this.cmbToolStripBibliotheque.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+			this._cmbToolStripBibliotheque.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this._cmbToolStripBibliotheque.DropDownHeight = 110;
+			this._cmbToolStripBibliotheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this._cmbToolStripBibliotheque.DropDownWidth = 122;
+			this._cmbToolStripBibliotheque.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+			this._cmbToolStripBibliotheque.IntegralHeight = false;
+			this._cmbToolStripBibliotheque.MaxDropDownItems = 9;
+			this._cmbToolStripBibliotheque.MergeAction = System.Windows.Forms.MergeAction.Insert;
+			this._cmbToolStripBibliotheque.Name = "_cmbToolStripBibliotheque";
+			this._cmbToolStripBibliotheque.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this._cmbToolStripBibliotheque.Size = new System.Drawing.Size(121, 23);
+			this._cmbToolStripBibliotheque.Sorted = true;
+			this._cmbToolStripBibliotheque.Tag = "Bibliotheque";
+			this._cmbToolStripBibliotheque.ToolTipText = "Bibliotheque";
+			this._cmbToolStripBibliotheque.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
 			// 
 			// helpToolStripMenuItem
 			// 

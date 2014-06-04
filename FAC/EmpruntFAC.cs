@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebsBL;
@@ -31,35 +30,45 @@ namespace WebsFAC {
 			}
 		}
 
-
-		public EmpruntBO InsertEmpruntFromReservation(String Token, ReservationBO pReservation) {
+		public EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pAdministrateurId, Int32 pReservationId) {
 			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return EmpruntBL.InsertEmpruntFromReservation(pReservation);
+				return EmpruntBL.InsertEmpruntFromReservation(pAdministrateurId, pReservationId);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
-		public EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pReservationId) {
+		public EmpruntBO InsertEmprunt(String Token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId) {
 			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return EmpruntBL.InsertEmpruntFromReservation(pReservationId);
+				return EmpruntBL.InsertEmprunt(pAdministrateurId, pPersonneId, pLivreId);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
-		public EmpruntBO InsertEmprunt(String Token, Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId) {
+		public EmpruntBO InsertRetour(String Token, Int32 pAdministrateurId, Int32 pLivreId) {
 			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return EmpruntBL.InsertEmprunt(pBibliothequeId, pPersonneId, pLivreId);
+				return EmpruntBL.InsertRetour(pAdministrateurId, pLivreId);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public EmpruntBO InsertAnnul(String Token, Int32 pAdministrateurId, Int32 pLivreId) {
+			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return EmpruntBL.InsertAnnul(pAdministrateurId, pLivreId);
 			} catch (Exception Ex) {
 				throw;
 			}

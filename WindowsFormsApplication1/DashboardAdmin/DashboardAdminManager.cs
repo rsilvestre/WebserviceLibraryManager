@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Transitions;
 using WebsBO;
@@ -13,11 +10,9 @@ using WCF.Proxies;
 
 namespace WindowsFormsApplication1.DashboardAdmin {
 	public partial class DashboardAdminManager : Form {
-		private FrmMdi _frmMdi;
+		private readonly FrmMdi _frmMdi;
 		private ReservationManagement _reservationManagement;
 
-		private const int ADD_DASHBOARD_FICHE_DE_LIVRE = 596;
-		private const int ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION = 544;
 		private int _dashboardWidth;
 		private int _cmbBibliothequeLocationX;
 		private int _lblBibliothequeTitleLocationX;
@@ -28,42 +23,42 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		public DashboardAdminManager(FrmMdi frmMdi) : this() {
-			this._frmMdi = frmMdi;
+			_frmMdi = frmMdi;
 		}
 
-		public void switchToEmpruntManagement(DemandeReservationBO objDemandeReservation) {
-			this.loadEmpruntManagement(objDemandeReservation);
+		public void SwitchToEmpruntManagement(DemandeReservationBO objDemandeReservation) {
+			LoadEmpruntManagement(objDemandeReservation);
 		}
 
-		internal void saveEmprunt(EmpruntManagement objEmpruntManagement, BibliothequeBO pBibliotheque, PersonneBO personneBO, LivreBO livreBO, DemandeReservationBO demandeReservationBO) {
-			EmpruntIFACClient empruntIFac = new EmpruntIFACClient();
+		internal void SaveEmprunt(EmpruntManagement objEmpruntManagement, BibliothequeBO pBibliotheque, PersonneBO personneBo, LivreBO livreBo, DemandeReservationBO demandeReservationBo) {
+			var empruntIFac = new EmpruntIFACClient();
 			
 			throw new NotImplementedException();
 		}
 
 		#region private method
 
-		private void loadDecoration() {
-			PersonneBO personne = CGlobalCache.SessionManager.Personne;
+		private void LoadDecoration() {
+			var personne = CGlobalCache.SessionManager.Personne;
 			lblName.Text = personne.ToString();
 			cmbBibliotheque.SelectedItem = CGlobalCache.ActualBibliotheque;
 		}
 
-		private void initComponent() {
-			cmbBibliotheque.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
-			CGlobalCache.actualBibliothequeChangeEventHandler += actualBibliothequeChange;
+		private void InitComponent() {
+			cmbBibliotheque.Items.AddRange(items: CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
+			CGlobalCache.actualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 		}
 
-		private void fixSize() {
-			_dashboardWidth = this.Width;
+		private void FixSize() {
+			_dashboardWidth = Width;
 			_cmbBibliothequeLocationX = cmbBibliotheque.Location.X ;
 			_lblBibliothequeTitleLocationX = lblBibliothequeTitle.Location.X;
 		}
 
-		private void showStat() {
-			BibliothequeBO objActualBibliotheque = CGlobalCache.ActualBibliotheque;
-			List<BibliothequeBO> lstBibliotheque = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque;
-			String result = "";
+		private void ShowStat() {
+			var objActualBibliotheque = CGlobalCache.ActualBibliotheque;
+			var lstBibliotheque = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque;
+			var result = "";
 			
 			result += "Livre:\n" + statLivre(lstBibliotheque, objActualBibliotheque) + "\n\n";
 			result += "Réservation:\n" + statReservation(lstBibliotheque, objActualBibliotheque) + "\n\n";
@@ -72,81 +67,72 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			lblStat.Text = result;
 		}
 
-		private string statRefLivre(List<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
+		private string statRefLivre(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
 			// Référence de livre
-			List<LivreBO> lstLivre = CGlobalCache.LstLivreSelectAll;
-			String RefLivreAll = "", RefLivreManaged = "", RefLivreBibliotheque = "";
+			var lstLivre = CGlobalCache.LstLivreSelectAll;
+			String refLivreAll = "", refLivreManaged = "", refLivreBibliotheque = "";
 			var reflivreUniq = lstLivre.GroupBy(xx => xx.RefLivreId).Select(grp => grp.First());
-			RefLivreAll += "Toutes les références: " + reflivreUniq.Count().ToString();
+			refLivreAll += "Toutes les références: " + reflivreUniq.Count().ToString(CultureInfo.InvariantCulture);
 			var grpAllBibliotheque = reflivreUniq.GroupBy(yy => yy.BibliothequeId).Select(grp => new { bibliothequeId = grp.Key, count = grp.Count() });
 			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			int count = 0;
-			foreach (var result in query) {
-				count += result.count;
-			}
-			RefLivreManaged += "dans vos bibliothèques: " + count;
+			var count = query.Sum(result => result.count);
+			refLivreManaged += "dans vos bibliothèques: " + count;
 			if (objActualBibliotheque != null) {
 				var result = grpAllBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				RefLivreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString() ;
+				refLivreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString() ;
 			} else {
-				RefLivreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+				refLivreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return RefLivreAll + "\n" + RefLivreManaged + "\n" + RefLivreBibliotheque + "\n";
+			return refLivreAll + "\n" + refLivreManaged + "\n" + refLivreBibliotheque + "\n";
 		}
 
-		private string statReservation(List<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
+		private string statReservation(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
 			// Demande de réservation
-			List<DemandeReservationBO> lstNewReservation = CGlobalCache.LstNewDemandeReservationByClient;
-			String ReservationAll = "", ReservationManaged = "", ReservationBibliotheque = "", ReservationBibliothequeDepasse = "";
-			ReservationAll += "Toutes les réservations: " + lstNewReservation.Count.ToString();
+			var lstNewReservation = CGlobalCache.LstNewDemandeReservationByClient;
+			String reservationAll = "", reservationManaged = "", reservationBibliotheque = "", reservationBibliothequeDepasse = "";
+			reservationAll += "Toutes les réservations: " + lstNewReservation.Count.ToString();
 			var grpAllNewBibliotheque = lstNewReservation.Where(condition => condition.Valide == 0).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
 			var query = lstBibliotheque.Join(grpAllNewBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			int count = 0;
-			foreach (var result in query) {
-				count += result.count;
-			}
-			ReservationManaged += "dans vos bibliothèques: " + count;
+			var count = query.Sum(result => result.count);
+			reservationManaged += "dans vos bibliothèques: " + count;
 			if (objActualBibliotheque != null) {
-				List<DemandeReservationBO> lstOldReservation = CGlobalCache.LstOldDemandeReservationByClient;
+				var lstOldReservation = CGlobalCache.LstOldDemandeReservationByClient;
 				var grpAllOldBibliotheque = lstOldReservation.Where(condition => condition.Valide == 0).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
 
 				var newReservation = grpAllNewBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
 				var oldReservation = grpAllOldBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
 
-				ReservationBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((newReservation != null)?newReservation.count : 0).ToString();
-				ReservationBibliothequeDepasse += "dépassée dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((oldReservation != null)?oldReservation.count : 0).ToString();
+				reservationBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((newReservation != null)?newReservation.count : 0).ToString();
+				reservationBibliothequeDepasse += "dépassée dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((oldReservation != null)?oldReservation.count : 0).ToString();
 			} else {
-				ReservationBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+				reservationBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return ReservationAll + "\n" + ReservationManaged + "\n" + ReservationBibliotheque + "\n" + ReservationBibliothequeDepasse + "\n";
+			return reservationAll + "\n" + reservationManaged + "\n" + reservationBibliotheque + "\n" + reservationBibliothequeDepasse + "\n";
 		}
 
-		private String statLivre(List<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) { 
+		private String statLivre(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) { 
 			// Livre
-			List<LivreBO> lstLivre = CGlobalCache.LstLivreSelectAll;
-			String LivreAll = "", LivreManaged = "", LivreBibliotheque = "";
+			var lstLivre = CGlobalCache.LstLivreSelectAll;
+			String LivreAll = "", livreManaged = "", livreBibliotheque = "";
 			LivreAll += "Tous les livres disponibles: " + lstLivre.Count.ToString();
 			var grpAllBibliotheque = lstLivre.GroupBy(xx => xx.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
 			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			int count = 0;
-			foreach (var result in query) {
-				count += result.count;
-			}
-			LivreManaged += "dans vos bibliothèques: " + count;
+			var count = query.Sum(result => result.count);
+			livreManaged += "dans vos bibliothèques: " + count;
 			if (objActualBibliotheque != null) {
 				var result = grpAllBibliotheque.FirstOrDefault(xx =>xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				LivreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString() ;
+				livreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString() ;
 			} else {
-				LivreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+				livreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return LivreAll + "\n" + LivreManaged + "\n" + LivreBibliotheque + "\n";
+			return LivreAll + "\n" + livreManaged + "\n" + livreBibliotheque + "\n";
 		}
 
-		private void loadReservationManagement() {
-			this.createReservationManagement();
+		private void LoadReservationManagement() {
+			CreateReservationManagement();
 			/*
 			RefLivreIFACClient refLivreIFac = new RefLivreIFACClient();
 			
@@ -169,8 +155,8 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			*/
 		}
 
-		private void loadEmpruntManagement() {
-			this.createEmpruntManagement();
+		private void LoadEmpruntManagement() {
+			CreateEmpruntManagement();
 			/*
 			RefLivreIFACClient refLivreIFac = new RefLivreIFACClient();
 			
@@ -193,8 +179,8 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			*/
 		}
 
-		private void loadEmpruntManagement(DemandeReservationBO objDemandeReservation) {
-			this.createEmpruntManagement(objDemandeReservation);
+		private void LoadEmpruntManagement(DemandeReservationBO objDemandeReservation) {
+			CreateEmpruntManagement(objDemandeReservation);
 			/*
 			RefLivreIFACClient refLivreIFac = new RefLivreIFACClient();
 			
@@ -217,74 +203,71 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			*/
 		}
 
-		private void createReservationManagement() {
+		private void CreateReservationManagement() {
 			if (_reservationManagement != null) {
 				return;
 			}
 
-			_reservationManagement = new ReservationManagement(this);
-			_reservationManagement.Location = new Point(panel1.Width + 20, 56);
+			_reservationManagement = new ReservationManagement(this) {Location = new Point(panel1.Width + 20, 56)};
 
-			
+
 			if (_empruntManagement != null) {
-				this.Controls.Remove(_empruntManagement);
+				Controls.Remove(_empruntManagement);
 				_empruntManagement = null;
 			}
 
-			Transition t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
+			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
 			t1.add(this, "Width", _dashboardWidth + _reservationManagement.Width + 10);
 			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + _reservationManagement.Width + 10);
 			t1.add(cmbBibliotheque, "Left", _cmbBibliothequeLocationX + _reservationManagement.Width + 10);
 
-			this.Controls.Add(_reservationManagement);
+			Controls.Add(_reservationManagement);
 
 			t1.run();
 		}
 
-		private void createEmpruntManagement() {
+		private void CreateEmpruntManagement() {
 			if (_empruntManagement != null) {
 				return;
 			}
 
-			_empruntManagement = new EmpruntManagement(this);
-			_empruntManagement.Location = new Point(panel1.Width + 20, 56);
+			_empruntManagement = new EmpruntManagement(this) {Location = new Point(panel1.Width + 20, 56)};
 
-			
+
 			if (_reservationManagement != null) {
-				this.Controls.Remove(_reservationManagement);
+				Controls.Remove(_reservationManagement);
 				_reservationManagement = null;
 			}
 
-			Transition t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
+			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
 			t1.add(this, "Width", _dashboardWidth + _empruntManagement.Width + 10);
 			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + _empruntManagement.Width + 10);
 			t1.add(cmbBibliotheque, "Left", _cmbBibliothequeLocationX + _empruntManagement.Width + 10);
 
-			this.Controls.Add(_empruntManagement);
+			Controls.Add(_empruntManagement);
 
 			t1.run();
 		}
 
-		private void createEmpruntManagement(DemandeReservationBO objDemandeReservation) {
+		private void CreateEmpruntManagement(DemandeReservationBO objDemandeReservation) {
 			if (_empruntManagement != null) {
 				return;
 			}
 
-			_empruntManagement = new EmpruntManagement(this, objDemandeReservation);
-			_empruntManagement.Location = new Point(panel1.Width + 20, 56);
+			_empruntManagement = new EmpruntManagement(this, objDemandeReservation) {Location = new Point(panel1.Width + 20, 56)};
 
-			
+
 			if (_reservationManagement != null) {
-				this.Controls.Remove(_reservationManagement);
+				Controls.Remove(_reservationManagement);
 				_reservationManagement = null;
 			}
 
-			Transition t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
+			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
 			t1.add(this, "Width", _dashboardWidth + _empruntManagement.Width + 10);
 			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + _empruntManagement.Width + 10);
 			t1.add(cmbBibliotheque, "Left", _cmbBibliothequeLocationX + _empruntManagement.Width + 10);
 
-			this.Controls.Add(_empruntManagement);
+			Controls.Add(_empruntManagement);
 
 			t1.run();
 		}
@@ -296,35 +279,35 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		#region Callback
 
 		private void DashboardAdminManager_Load(object sender, EventArgs e) {
-			this.fixSize();
-			this.initComponent();
-			this.loadDecoration();
-			this.showStat();
+			FixSize();
+			InitComponent();
+			LoadDecoration();
+			ShowStat();
 		}
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
-			BibliothequeBO objBibliotheque = (BibliothequeBO)((ComboBox)sender).SelectedItem;
+			var objBibliotheque = (BibliothequeBO)((ComboBox)sender).SelectedItem;
 			CGlobalCache.ActualBibliotheque = objBibliotheque;
 			if (objBibliotheque != null && CGlobalCache.SessionManager.IsAdministrateur) {
 			} 
 		}
 
-		private void actualBibliothequeChange(object value, EventArgs e) {
-			BibliothequeBO objBibliothequeBO = (BibliothequeBO) value;
-			cmbBibliotheque.SelectedItem = objBibliothequeBO;
-			this.showStat();
+		private void ActualBibliothequeChange(object value, EventArgs e) {
+			var objBibliothequeBo = (BibliothequeBO) value;
+			cmbBibliotheque.SelectedItem = objBibliothequeBo;
+			ShowStat();
 		}
 
 		private void DashboardAdminManager_FormClosed(object sender, FormClosedEventArgs e) {
-			this._frmMdi.ChildFormDecrement();
+			_frmMdi.ChildFormDecrement();
 		}
 
 		private void btReservationManagement_Click(object sender, EventArgs e) {
-			this.loadReservationManagement();
+			LoadReservationManagement();
 		}
 
 		private void btnEmpruntManagement_Click(object sender, EventArgs e) {
-			this.loadEmpruntManagement();
+			LoadEmpruntManagement();
 		}
 
 		#endregion Callback

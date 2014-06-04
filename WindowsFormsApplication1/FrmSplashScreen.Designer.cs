@@ -77,6 +77,7 @@
 			this.Controls.Add(this.btnConnect);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "FrmSplashScreen";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "FrmSplashScreen";
 			this.Load += new System.EventHandler(this.FrmSplashScreen_Load);
 			this.ResumeLayout(false);

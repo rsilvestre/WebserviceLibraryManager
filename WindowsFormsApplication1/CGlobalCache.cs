@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WCF.Proxies;
 using WebsBO;
@@ -167,7 +164,7 @@ namespace WindowsFormsApplication1 {
 				if (demandeReservationIFacByClient != null) {
 					demandeReservationIFacByClient.Close();
 				}
-				ofrmMdi.DecrementILockMDI();
+				ofrmMdi.DecrementILockMdi();
 			}
 			return bReturn;
 		}
@@ -330,7 +327,7 @@ namespace WindowsFormsApplication1 {
 		}
 
 		internal static void AddNewDemandeReservationByClient(DemandeReservationBO demandeReservationResult) {
-			CGlobalCache.LstNewDemandeReservationByClient.Add(demandeReservationResult);
+			LstNewDemandeReservationByClient.Add(demandeReservationResult);
 			actualLstDemandeReservationEventHandlser(demandeReservationResult, new EventArgs());
 		}
 	}

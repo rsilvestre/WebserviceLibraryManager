@@ -32,6 +32,38 @@ namespace WCF.Proxies
         System.IAsyncResult BeginSelectEmpruntById(string Token, int pId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.EmpruntBO EndSelectEmpruntById(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntFromReservation", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntFromReservationResponse")]
+        WebsBO.EmpruntBO InsertEmpruntFromReservation(string Token, int pReservationId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntFromReservation", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntFromReservationResponse")]
+        System.IAsyncResult BeginInsertEmpruntFromReservation(string Token, int pReservationId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.EmpruntBO EndInsertEmpruntFromReservation(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmprunt", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntResponse")]
+        WebsBO.EmpruntBO InsertEmprunt(string Token, int pBibliothequeId, int pPersonneId, int pLivreId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmprunt", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertEmpruntResponse")]
+        System.IAsyncResult BeginInsertEmprunt(string Token, int pBibliothequeId, int pPersonneId, int pLivreId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.EmpruntBO EndInsertEmprunt(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertRetour", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertRetourResponse")]
+        WebsBO.EmpruntBO InsertRetour(string Token, int pLivreId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertRetour", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertRetourResponse")]
+        System.IAsyncResult BeginInsertRetour(string Token, int pLivreId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.EmpruntBO EndInsertRetour(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertAnnul", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertAnnulResponse")]
+        WebsBO.EmpruntBO InsertAnnul(string Token, int pLivreId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertAnnul", ReplyAction="urn:WebsIFAC/EmpruntIFAC/EmpruntIFAC/InsertAnnulResponse")]
+        System.IAsyncResult BeginInsertAnnul(string Token, int pLivreId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.EmpruntBO EndInsertAnnul(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -96,6 +128,66 @@ namespace WCF.Proxies
         public WebsBO.EmpruntBO EndSelectEmpruntById(System.IAsyncResult result)
         {
             return base.Channel.EndSelectEmpruntById(result);
+        }
+        
+        public WebsBO.EmpruntBO InsertEmpruntFromReservation(string Token, int pReservationId)
+        {
+            return base.Channel.InsertEmpruntFromReservation(Token, pReservationId);
+        }
+        
+        public System.IAsyncResult BeginInsertEmpruntFromReservation(string Token, int pReservationId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertEmpruntFromReservation(Token, pReservationId, callback, asyncState);
+        }
+        
+        public WebsBO.EmpruntBO EndInsertEmpruntFromReservation(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertEmpruntFromReservation(result);
+        }
+        
+        public WebsBO.EmpruntBO InsertEmprunt(string Token, int pBibliothequeId, int pPersonneId, int pLivreId)
+        {
+            return base.Channel.InsertEmprunt(Token, pBibliothequeId, pPersonneId, pLivreId);
+        }
+        
+        public System.IAsyncResult BeginInsertEmprunt(string Token, int pBibliothequeId, int pPersonneId, int pLivreId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertEmprunt(Token, pBibliothequeId, pPersonneId, pLivreId, callback, asyncState);
+        }
+        
+        public WebsBO.EmpruntBO EndInsertEmprunt(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertEmprunt(result);
+        }
+        
+        public WebsBO.EmpruntBO InsertRetour(string Token, int pLivreId)
+        {
+            return base.Channel.InsertRetour(Token, pLivreId);
+        }
+        
+        public System.IAsyncResult BeginInsertRetour(string Token, int pLivreId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertRetour(Token, pLivreId, callback, asyncState);
+        }
+        
+        public WebsBO.EmpruntBO EndInsertRetour(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertRetour(result);
+        }
+        
+        public WebsBO.EmpruntBO InsertAnnul(string Token, int pLivreId)
+        {
+            return base.Channel.InsertAnnul(Token, pLivreId);
+        }
+        
+        public System.IAsyncResult BeginInsertAnnul(string Token, int pLivreId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertAnnul(Token, pLivreId, callback, asyncState);
+        }
+        
+        public WebsBO.EmpruntBO EndInsertAnnul(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertAnnul(result);
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Livre;
 using WebsBO;
 using WCF.Proxies;
 using System.Runtime.Remoting.Messaging;
@@ -14,22 +9,18 @@ using System.Text.RegularExpressions;
 
 namespace WindowsFormsApplication1.RefLivre {
 	public partial class SearchRefLivre : Form {
-		private Livre.CreateLivre _createLivre;
+		private readonly CreateLivre _createLivre;
 		private delegate List<RefLivreBO> ASyncGuiSelectLstRefLivreByString(String pToken, String pString);
-		private RefLivreBO _ObjRefLivre;
 
-		public RefLivreBO ObjRefLivre {
-			get { return _ObjRefLivre; }
-			private set { _ObjRefLivre = value; }
-		}
+		public RefLivreBO ObjRefLivre { get; private set; }
 
 		public SearchRefLivre() {
 			InitializeComponent();
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			FormBorderStyle = FormBorderStyle.FixedSingle;
 		}
 
-		public SearchRefLivre(Livre.CreateLivre createLivre) : this() {
-			this._createLivre = createLivre;
+		public SearchRefLivre(CreateLivre createLivre) : this() {
+			_createLivre = createLivre;
 		}
 
 		private void RaiseFind() {
@@ -40,20 +31,20 @@ namespace WindowsFormsApplication1.RefLivre {
 			}
 		}
 		private void FindByTitre(String pSearchText) {
-			WCF.Proxies.RefLivreIFACClient refLivreIFAC = new RefLivreIFACClient();
-			ASyncGuiSelectLstRefLivreByString selectRefLivreByString = refLivreIFAC.SelectByTitre;
+			var refLivreIfac = new RefLivreIFACClient();
+			ASyncGuiSelectLstRefLivreByString selectRefLivreByString = refLivreIfac.SelectByTitre;
 			selectRefLivreByString.BeginInvoke(CGlobalCache.SessionManager.Token, pSearchText, CbFindByTitreResult, null);
 		}
 
 		private void FindByIsbn(String pSearchText) {
-			WCF.Proxies.RefLivreIFACClient refLivreIFAC = new RefLivreIFACClient();
-			ASyncGuiSelectLstRefLivreByString selectRefLivreByString = refLivreIFAC.SelectByISBN;
+			var refLivreIfac = new RefLivreIFACClient();
+			ASyncGuiSelectLstRefLivreByString selectRefLivreByString = refLivreIfac.SelectByISBN;
 			selectRefLivreByString.BeginInvoke(CGlobalCache.SessionManager.Token, pSearchText, CbFindByTitreResult, null);
 		}
 
 		private void CbFindByTitreResult(IAsyncResult result) {
-			ASyncGuiSelectLstRefLivreByString sampleFindByTitreCallback = (ASyncGuiSelectLstRefLivreByString)((AsyncResult)result).AsyncDelegate;
-			List<RefLivreBO> lstRefLivre = sampleFindByTitreCallback.EndInvoke(result);
+			var sampleFindByTitreCallback = (ASyncGuiSelectLstRefLivreByString)((AsyncResult)result).AsyncDelegate;
+			var lstRefLivre = sampleFindByTitreCallback.EndInvoke(result);
 			lstSearchResult.Items.Clear();
 			lstSearchResult.Items.AddRange(lstRefLivre.ToArray());
 		}
@@ -65,7 +56,7 @@ namespace WindowsFormsApplication1.RefLivre {
 		/// <param name="e"></param>
 		private void btnSearchAmazon_Click(object sender, EventArgs e) {
 			_createLivre.SearchBookOnAmazon();
-			this.Dispose();
+			Dispose();
 			//AddBookFromAmazon frmAddBookFromAmazon = new AddBookFromAmazon(this);
 			//frmAddBookFromAmazon.Show();
 		}
@@ -92,7 +83,7 @@ namespace WindowsFormsApplication1.RefLivre {
 
 		private void radioISBN_CheckedChanged(object sender, EventArgs e) {
 			if (((RadioButton)sender).Checked) {
-				String pattern = @"[^0-9]";
+				const string pattern = @"[^0-9]";
 				if (Regex.Matches(txtSearch.Text, pattern).Count > 0) {
 					txtSearch.Text = Regex.Replace(txtSearch.Text, pattern, @"");
 				}
@@ -105,8 +96,8 @@ namespace WindowsFormsApplication1.RefLivre {
 		}
 
 		private void btnSelection_Click(object sender, EventArgs e) {
-			_createLivre.fillForm((RefLivreBO)ObjRefLivre.Clone());
-			this.Dispose();
+			_createLivre.FillForm((RefLivreBO)ObjRefLivre.Clone());
+			Dispose();
 		}
 	}
 }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsDAL;
 using WebsBO;
-using WebsBL;
 
 namespace WebsBL {
 	public static class DemandeReservationBL {
@@ -13,9 +10,9 @@ namespace WebsBL {
 			List<DemandeReservationBO> lstDemandeReservation = null;
 
 			try {
-				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectById(pDemandeReservationId).ToList();
-					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
+					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
@@ -27,12 +24,12 @@ namespace WebsBL {
 			return lstDemandeReservation;
 		}
 		public static List<DemandeReservationBO> SelectForClientByRefLivreId(Int32 pClientId, Int32 pRefLivreId) {
-			List<DemandeReservationBO> lstDemandeReservation = null;
+			List<DemandeReservationBO> lstDemandeReservation;
 
 			try {
-				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectForUserByRefLivreId(pClientId, pRefLivreId).ToList();
-					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
+					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
@@ -45,12 +42,12 @@ namespace WebsBL {
 		}
 
 		public static List<DemandeReservationBO> SelectNewByClient(ClientBO pClient) {
-			List<DemandeReservationBO> lstDemandeReservation = null;
+			List<DemandeReservationBO> lstDemandeReservation;
 
 			try {
-				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectNewByClientId(pClient.ClientId).ToList();
-					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
+					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = pClient;
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
@@ -63,12 +60,12 @@ namespace WebsBL {
 		}
 
 		public static List<DemandeReservationBO> SelectOldByClient(ClientBO pClient) {
-			List<DemandeReservationBO> lstDemandeReservation = null;
+			List<DemandeReservationBO> lstDemandeReservation;
 
 			try {
-				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
 					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectOldByClientId(pClient.ClientId).ToList();
-					foreach (DemandeReservationBO objDemandeReservation in lstDemandeReservation) {
+					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = pClient;
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
 					}
@@ -84,9 +81,8 @@ namespace WebsBL {
 			DemandeReservationBO objDemandeReservation = null;
 
 			try {
-				using (DemandeReservationDAL demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
-					List<DemandeReservationBO> lstDemandeReservation;
-					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_InsertDemandeReservation(pDemandeReservation.ClientId, pDemandeReservation.RefLivreId).ToList();
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+					List<DemandeReservationBO> lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_InsertDemandeReservation(pDemandeReservation.ClientId, pDemandeReservation.RefLivreId).ToList();
 					if (lstDemandeReservation.Count() == 1) {
 						objDemandeReservation = lstDemandeReservation[0];
 						objDemandeReservation.Client = pDemandeReservation.Client;

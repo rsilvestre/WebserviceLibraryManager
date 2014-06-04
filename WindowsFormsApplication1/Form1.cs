@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WCF.Proxies;
 
 namespace WindowsFormsApplication1 {
 	public partial class Form1 : Form {
@@ -15,7 +8,7 @@ namespace WindowsFormsApplication1 {
 			InitializeComponent();
 		}
 
-		private void loadDatasClient() {
+		private void LoadDatasClient() {
 			/*
 			using (ClientIFACClient clientProxy = new ClientIFACClient()) {
 				dataGridView1.DataSource = clientProxy.SelectAll().ToList();
@@ -24,7 +17,7 @@ namespace WindowsFormsApplication1 {
 			dataGridView1.DataSource = CGlobalCache.LstClient.ToList();
 		}
 
-		private void loadDatasLocation() {
+		private void LoadDatasLocation() {
 			dataGridView2.DataSource = CGlobalCache.LstEmprunt.ToList();
 			/*
 			using (LocationIFACClient locationProxy = new LocationIFACClient()) {
@@ -34,11 +27,11 @@ namespace WindowsFormsApplication1 {
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			loadDatasClient();
+			LoadDatasClient();
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
-			loadDatasLocation();
+			LoadDatasLocation();
 		}
 	}
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBO;
 using Simple;
 using WebsDAL;
@@ -15,8 +13,8 @@ namespace WebsBL {
 			RefLivreBO result = null;
 
 			try {
-				using (RefLivreDAL refLivreDal = new RefLivreDAL(Util.GetConnection())) {
-					List<RefLivreBO> lstRefLivreBo = refLivreDal.RefLivreBO_SelectById(pRefLivreId).ToList();
+				using (var refLivreDal = new RefLivreDAL(Util.GetConnection())) {
+					var lstRefLivreBo = refLivreDal.RefLivreBO_SelectById(pRefLivreId).ToList();
 					if (lstRefLivreBo.Count > 0) {
 						result = lstRefLivreBo[0];
 					}
@@ -30,10 +28,10 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> FindAmazonRefByISBN(String[] pISBNs) {
-			List<RefLivreBO> lstRefLivre = null;
+			List<RefLivreBO> lstRefLivre;
 
 			try {
-				using (AWSECommerceService awseCommerceService = new AWSECommerceService()) {
+				using (var awseCommerceService = new AwseCommerceService()) {
 					lstRefLivre = awseCommerceService.AWSE_FindBookByISBN(pISBNs);
 				}
 			} catch (Exception Ex) {
@@ -43,10 +41,10 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> FindAmazonRefByTitle(String pTitle) {
-			List<RefLivreBO> lstRefLivre = null;
+			List<RefLivreBO> lstRefLivre;
 
 			try {
-				using (AWSECommerceService awseCommerceService = new AWSECommerceService()) {
+				using (var awseCommerceService = new AwseCommerceService()) {
 					lstRefLivre = awseCommerceService.AWSE_FindByTitle(pTitle);
 				}
 			} catch (Exception Ex) {
@@ -56,10 +54,10 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> SelectAll() {
-			List<RefLivreBO> lstRefLivre = null;
+			List<RefLivreBO> lstRefLivre;
 
 			try {
-				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
+				using (var oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
 					lstRefLivre = oReflIvreDal.RefLivreBO_SelectAll().ToList();
 				}
 			} catch (Exception ex) {
@@ -73,12 +71,13 @@ namespace WebsBL {
 			FicheLivreBO result = null;
 
 			try {
-				RefLivreBO objRefLivre = RefLivreBL.SelectById(pRefLivreId);
+				var objRefLivre = RefLivreBL.SelectById(pRefLivreId);
 				if (objRefLivre != null) {
-					result = new FicheLivreBO();
-					result.RefLivre = objRefLivre;
-					result.LstEmprunt = null;
-					result.LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objRefLivre.RefLivreId);
+					result = new FicheLivreBO {
+						RefLivre = objRefLivre,
+						LstEmprunt = null,
+						LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objRefLivre.RefLivreId)
+					};
 				}
 			} catch (Exception ex) {
 				throw;
@@ -87,10 +86,10 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> SelectByTitre(String pTitre) {
-			List<RefLivreBO> lstRefLivre = null;
+			List<RefLivreBO> lstRefLivre;
 
 			try {
-				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
+				using (var oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
 					lstRefLivre = oReflIvreDal.RefLivreBO_SelectByTitre(pTitre).ToList();
 				}
 			} catch (Exception ex) {
@@ -101,10 +100,10 @@ namespace WebsBL {
 		}
 
 		public static List<RefLivreBO> SelectByISBN(String pISBN) {
-			List<RefLivreBO> lstRefLivre = null;
+			List<RefLivreBO> lstRefLivre;
 
 			try {
-				using (RefLivreDAL oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
+				using (var oReflIvreDal = new RefLivreDAL(Util.GetConnection())) {
 					lstRefLivre = oReflIvreDal.RefLivreBO_SelectByISBN(pISBN).ToList();
 				}
 			} catch (Exception ex) {
@@ -127,7 +126,7 @@ namespace WebsBL {
 			List<RefLivreBO> result;
 
 			try {
-				using (RefLivreDAL oRefLivreDal = new RefLivreDAL(Util.GetConnection())) {
+				using (var oRefLivreDal = new RefLivreDAL(Util.GetConnection())) {
 					result = oRefLivreDal.RefLivreBO_InsertLivre(
 						pISBN,
 						pTitre,

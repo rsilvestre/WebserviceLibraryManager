@@ -1,44 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Livre;
+using WindowsFormsApplication1.Properties;
 using WCF.Proxies;
 using WebsBO;
 
 namespace WindowsFormsApplication1.RefLivre {
 	public partial class AddBookFromAmazon : Form {
 
-		private FrmMdi _objFrmMDI;
-		private SearchRefLivre _searchRefLivre;
-		private Livre.CreateLivre _createLivre;
-		private RefLivreBO _ObjRefLivre;
+		private readonly FrmMdi _objFrmMdi;
+		private readonly SearchRefLivre _searchRefLivre;
+		private readonly CreateLivre _createLivre;
 
 		public AddBookFromAmazon() {
 			InitializeComponent();
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			FormBorderStyle = FormBorderStyle.FixedSingle;
 		}
-		public AddBookFromAmazon(FrmMdi pFrmMDI) : this() {
-			_objFrmMDI = pFrmMDI;
+		public AddBookFromAmazon(FrmMdi pFrmMdi) : this() {
+			_objFrmMdi = pFrmMdi;
 		}
 
 		public AddBookFromAmazon(SearchRefLivre pSearchRefLivre) : this() {
 			_searchRefLivre = pSearchRefLivre;
 		}
 
-		public AddBookFromAmazon(Livre.CreateLivre pCreateLivre) : this() {
+		public AddBookFromAmazon(CreateLivre pCreateLivre) : this() {
 			_createLivre = pCreateLivre;
 		}
 
-		public FrmMdi ObjFrmMDI {
-			get { return _objFrmMDI; }
+		public FrmMdi ObjFrmMdi {
+			get { return _objFrmMdi; }
 		}
 
-		public Livre.CreateLivre CreateLivre {
+		public CreateLivre CreateLivre {
 			get { return _createLivre; }
 		}
 
@@ -46,21 +41,18 @@ namespace WindowsFormsApplication1.RefLivre {
 			get { return _searchRefLivre; }
 		}
 
-		private RefLivreBO ObjRefLivre {
-			get { return _ObjRefLivre; }
-			set { _ObjRefLivre = value; }
-		}
+		private RefLivreBO ObjRefLivre { get; set; }
 
-		private void FindBookByISBN(String txtSearch) {
+		private void FindBookByIsbn(String txtSearch) {
 			if (txtSearch.Length != 10 && txtSearch.Length != 13) {
-				MessageBox.Show("Le numéro ISBN doit contenir 10 ou 13 chiffres");
+				MessageBox.Show(Resources.AddBookFromAmazon_FindBookByIsbn_Le_numéro_ISBN_doit_contenir_10_ou_13_chiffres);
 				return;
 			}
-			String[] txtSearchs = new String[] { txtSearch };
+			var txtSearchs = new[] { txtSearch };
 			try {
-				using (RefLivreIFACClient refLivreProxy = new RefLivreIFACClient()) {
+				using (var refLivreProxy = new RefLivreIFACClient()) {
 					foreach (RefLivreBO oRefLivre in refLivreProxy.FindAmazonRefByISBN(CGlobalCache.SessionManager.Token, txtSearchs.ToList())) {
-						showBook1.setLivre(oRefLivre);
+						showBook1.SetLivre(oRefLivre);
 						ObjRefLivre = oRefLivre;
 						btnAccept.Enabled = true;
 						break;
@@ -72,12 +64,12 @@ namespace WindowsFormsApplication1.RefLivre {
 		}
 
 		private void btnSearch_Click(object sender, EventArgs e) {
-			FindBookByISBN(txtSearch.Text);
+			FindBookByIsbn(txtSearch.Text);
 		}
 
 		private void txtSearch_KeyPress(object sender, KeyPressEventArgs e) {
 			if (e.KeyChar == (char)Keys.Enter) {
-				FindBookByISBN(txtSearch.Text);
+				FindBookByIsbn(txtSearch.Text);
 				return;
 			}
 
@@ -86,18 +78,17 @@ namespace WindowsFormsApplication1.RefLivre {
 				//Handle the event so the key press is accepted
 				e.Handled = true;
 				//Get out of there - make it safe to add stuff after the if statement
-				return;
 			}
 		}
 
 		private void btnAccept_Click(object sender, EventArgs e) {
-			_createLivre.fillForm((RefLivreBO)ObjRefLivre.Clone());
-			this.Dispose();
+			_createLivre.FillForm((RefLivreBO)ObjRefLivre.Clone());
+			Dispose();
 			//InsertRefLivre(ObjRefLivre);
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e) {
-			this.Dispose();
+			Dispose();
 		}
 
 		//private void InsertRefLivre(RefLivreBO ObjRefLivre) {

@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApplication1.Login;
 
@@ -14,27 +7,27 @@ namespace WindowsFormsApplication1 {
 	public partial class FrmSplashScreen : Form {
 
 		private LoginForm _loginScreen;
-		private AutoResetEvent AutoEvent = new AutoResetEvent(false);
+		private readonly AutoResetEvent _autoEvent = new AutoResetEvent(false);
 
 		private Int32 _iLockSplash;
 
-		private static Boolean _connect = false;
+		private static Boolean _connect;
 
-		private FrmMdi _oFrmMdi;
+		private readonly FrmMdi _oFrmMdi;
 
-		public Int32 ILockSplash {
+		public Int32 LockSplash {
 			get { return _iLockSplash; }
 			set { _iLockSplash = value; }
 		}
 
 		public Boolean Connect {
-			get { return FrmSplashScreen._connect; }
-			set { FrmSplashScreen._connect = value; }
+			get { return _connect; }
+			set { _connect = value; }
 		}
 
 		public String LoadginText {
 			set {
-				Control.CheckForIllegalCrossThreadCalls = false;
+				CheckForIllegalCrossThreadCalls = false;
 				label1.Text = value;
 			}
 		}
@@ -44,17 +37,17 @@ namespace WindowsFormsApplication1 {
 		}
 
 		public FrmSplashScreen(FrmMdi pfrmMdi) : this() {
-			this._oFrmMdi = pfrmMdi;
+			_oFrmMdi = pfrmMdi;
 		}
 
 		private void FrmSplashScreen_Load(object sender, EventArgs e) {
-			ILockSplash = 1;
+			LockSplash = 1;
 			try {
 				_loginScreen = new LoginForm(this);
 				_loginScreen.Show();
 				//_loginScreen.EnableConnect(CGlobalCache.LoadCache(this));
 
-				while (!AutoEvent.WaitOne(50, true)) {
+				while (!_autoEvent.WaitOne(50, true)) {
 					Application.DoEvents();
 				}
 
@@ -66,8 +59,8 @@ namespace WindowsFormsApplication1 {
 					Close();
 				}
 
-			} catch (Exception Ex) {
-				MessageBox.Show(Ex.Message);
+			} catch (Exception ex) {
+				MessageBox.Show(ex.Message);
 				_loginScreen.Close();
 				Close();
 			}
@@ -88,29 +81,29 @@ namespace WindowsFormsApplication1 {
 
 		private void btnConnect_Click(object sender, EventArgs e) {
 			_connect = true;
-			_oFrmMdi.DecrementILockMDI();
+			_oFrmMdi.DecrementILockMdi();
 		}
 
 		private void btnExit_Click(object sender, EventArgs e) {
 			_connect = false;
-			_oFrmMdi.DecrementILockMDI();
+			_oFrmMdi.DecrementILockMdi();
 		}
 
 
-		internal Boolean EnableConnect(Boolean Value) {
+		internal Boolean EnableConnect(Boolean value) {
 			try {
-				btnConnect.Enabled = Value;
+				btnConnect.Enabled = value;
 			} catch (Exception ex) {
 				throw;
 			}
-			return Value;
+			return value;
 		}
 
 		public void DecrementILockSplash() {
 
 			Interlocked.Decrement(ref _iLockSplash);
 			if (_iLockSplash == 0) {
-				AutoEvent.Set();
+				_autoEvent.Set();
 			}
 		}
 

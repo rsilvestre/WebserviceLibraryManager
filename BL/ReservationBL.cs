@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsDAL;
 using WebsBO;
 
@@ -12,7 +10,7 @@ namespace WebsBL {
 			List<ReservationBO> lstResult;
 
 			try {
-				using (ReservationDAL ReservationDal = new ReservationDAL(Util.GetConnection())) {
+				using (var ReservationDal = new ReservationDAL(Util.GetConnection())) {
 					lstResult = ReservationDal.ReservationDAL_SelectAll().ToList();
 				}
 			} catch (Exception Ex) {
@@ -22,9 +20,9 @@ namespace WebsBL {
 		}
 
 		public static ReservationBO SelectById(Int32 pId) {
-			ReservationBO result = null;
+			ReservationBO result;
 			try {
-				using (ReservationDAL ReservationDal = new ReservationDAL(Util.GetConnection())) {
+				using (var ReservationDal = new ReservationDAL(Util.GetConnection())) {
 					result = (ReservationBO)ReservationDal.ReservationDAL_SelectById(pId);
 				}
 			} catch (Exception Ex) {

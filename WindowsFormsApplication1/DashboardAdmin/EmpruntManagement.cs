@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WCF.Proxies;
 using WebsBO;
@@ -15,7 +11,7 @@ using System.Net;
 namespace WindowsFormsApplication1.DashboardAdmin {
 	public partial class EmpruntManagement : UserControl {
 		private DashboardAdminManager _dashboardAdminManager;
-		private WebsBO.DemandeReservationBO _objDemandeReservation;
+		private DemandeReservationBO _objDemandeReservation;
 		private List<PersonneBO> _lstPersonneField;
 
 		private bool _bCmbClientFieldToogle = false;
@@ -29,11 +25,11 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		public EmpruntManagement(DashboardAdminManager dashboardAdminManager) : this() {
-			this._dashboardAdminManager = dashboardAdminManager;
+			_dashboardAdminManager = dashboardAdminManager;
 		}
 
-		public EmpruntManagement(DashboardAdminManager dashboardAdminManager, WebsBO.DemandeReservationBO objDemandeReservation) : this(dashboardAdminManager) {
-			this._objDemandeReservation = objDemandeReservation;
+		public EmpruntManagement(DashboardAdminManager dashboardAdminManager, DemandeReservationBO objDemandeReservation) : this(dashboardAdminManager) {
+			_objDemandeReservation = objDemandeReservation;
 		}
 
 		#region private
@@ -44,7 +40,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			}
 			CGlobalCache.actualBibliothequeChangeEventHandler += actualBibliothequeChange;
 			if (_objDemandeReservation != null) {
-				this.fillDemandeReservationControllers();
+				fillDemandeReservationControllers();
 			}
 		}
 
@@ -172,7 +168,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		private void fillRecapitulatif() {
 			Boolean bEnableValidButton = true;
 			if (cmbLivreField.SelectedValue != null) {
-				this.fillRecapitulatifLivreField(cmbLivreField.SelectedValue);
+				fillRecapitulatifLivreField(cmbLivreField.SelectedValue);
 				bEnableValidButton &= true;
 			} else {
 				bEnableValidButton = false;
@@ -212,12 +208,12 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			txtRefLivreTitre.Text = objRefLivre.Titre;
 			Action<String> GetImage = (imageUrl) => { 
 				// Create a web request to the URL for the picture
-				System.Net.WebRequest webRequest = HttpWebRequest.Create(imageUrl);
+				WebRequest webRequest = HttpWebRequest.Create(imageUrl);
 				// Execute the request synchronuously
 				HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
 
 				// Create an image from the stream returned by the web request
-				picBook.Image = new System.Drawing.Bitmap(webResponse.GetResponseStream());
+				picBook.Image = new Bitmap(webResponse.GetResponseStream());
 			};
 
 				GetImage(objRefLivre.ImageUrl);
@@ -228,57 +224,57 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		#region callback
 
 		private void EmpruntManagement_Load(object sender, EventArgs e) {
-			this.initComponent();
+			initComponent();
 		}
 
 		#endregion callback
 
 		private void txtClientField_KeyDown(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
-				this.SearchClientField();
+				SearchClientField();
 			}
 		}
 
 		private void btnClientGo_Click(object sender, EventArgs e) {
-				this.SearchClientField();
+				SearchClientField();
 		}
 
 		private void cmbClientField_SelectedValueChanged(object sender, EventArgs e) {
 			if (_bCmbClientFieldToogle) {
-				this.fillDemandeReservation();
-				this.fillRecapitulatif();
+				fillDemandeReservation();
+				fillRecapitulatif();
 			}
 		}
 
 		private void txtDemandeReservationField_KeyDown(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
-				this.SearchDemandeReservationField();
+				SearchDemandeReservationField();
 			}
 		}
 
 		private void btnDemandeReservationGo_Click(object sender, EventArgs e) {
-				this.SearchDemandeReservationField();
+				SearchDemandeReservationField();
 		}
 
 		private void cmbDemandeReservationField_SelectedValueChanged(object sender, EventArgs e) {
 			if (_bCmbClientFieldToogle) {
-				this.fillLivre();
+				fillLivre();
 			}
 		}
 
 		private void txtLivreField_KeyDown(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
-				this.SearchLivreField();
+				SearchLivreField();
 			}
 		}
 
 		private void btnLivreGo_Click(object sender, EventArgs e) {
-				this.SearchLivreField();
+				SearchLivreField();
 		}
 
 		private void cmbLivreField_SelectedValueChanged(object sender, EventArgs e) {
 			if (_bCmbClientFieldToogle) {
-				this.fillRecapitulatif();
+				fillRecapitulatif();
 			}
 		}
 
@@ -287,7 +283,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				MessageBox.Show("Tous les champs ne sont pas remplis!");
 				return;
 			}
-			_dashboardAdminManager.saveEmprunt(this, CGlobalCache.ActualBibliotheque, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue, (DemandeReservationBO)cmbDemandeReservationField.SelectedValue);
+			_dashboardAdminManager.SaveEmprunt(this, CGlobalCache.ActualBibliotheque, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue, (DemandeReservationBO)cmbDemandeReservationField.SelectedValue);
 		}
 		
 		private void actualBibliothequeChange(object value, EventArgs e) {

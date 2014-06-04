@@ -1,34 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Properties;
 using WCF.Proxies;
 using WebsBO;
 
 namespace WindowsFormsApplication1.Livre {
 	public partial class SearchLivre : Form {
-		private FrmMdi _frmMdi;
-		private delegate List<LivreBO> ASyncGuiSelectLstLivreByString(String pToken, String pString);
 		private LivreBO _livreSelected;
 
-		private FrmMdi FrmMdi {
-			get { return _frmMdi; }
-			set { _frmMdi = value; }
-		}
+		private FrmMdi FrmMdi { get; set; }
 
 		public SearchLivre() {
 			InitializeComponent();
 		}
 
 		public SearchLivre(FrmMdi frmMdi) : this() {
-			this._frmMdi = _frmMdi;
+			FrmMdi = frmMdi;
 		}
 		
 		private void RaiseFind() {
@@ -46,7 +36,7 @@ namespace WindowsFormsApplication1.Livre {
 		private void FindByTitre(String pSearchText) {
 			//List<LivreBO> lstLivre = CGlobalCache.LstLivreByBibliotheque.FindAll(xx => xx.RefLivre.Titre.Contains(pSearchText)).ToList();
 
-			Predicate<LivreBO> searchPredicacte = (xx) => { return xx.RefLivre.Titre.Contains(pSearchText); };
+			Predicate<LivreBO> searchPredicacte = xx => xx.RefLivre.Titre.Contains(pSearchText);
 			FindByTitreResult(searchPredicacte);
 		}
 
@@ -57,7 +47,7 @@ namespace WindowsFormsApplication1.Livre {
 		private void FindByIsbn(String pSearchText) {
 			//List<LivreBO> lstLivre = CGlobalCache.LstLivreByBibliotheque.FindAll(xx => xx.RefLivre.ISBN.Contains(pSearchText)).ToList();
 			
-			Predicate<LivreBO> searchPredicacte = (xx) => { return xx.RefLivre.ISBN.Contains(pSearchText); };
+			Predicate<LivreBO> searchPredicacte = xx => xx.RefLivre.ISBN.Contains(pSearchText);
 			FindByTitreResult(searchPredicacte);
 		}
 
@@ -72,19 +62,22 @@ namespace WindowsFormsApplication1.Livre {
 			var grpLivreAll = CGlobalCache.LstLivreSelectAll.FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
 			
 			// Jointure des resultats entre la bibliothèque locale et les autres
-			var query = grpLivreLocal.Join(grpLivreAll, livreLocal => livreLocal.refLivreId, livreAll => livreAll.refLivreId, (livre1, livre2) => new { countLocal = livre1.count, countAll = livre2.count, refLivreId = livre1.refLivreId});
+			var query = grpLivreLocal.Join(grpLivreAll, livreLocal => livreLocal.refLivreId, livreAll => livreAll.refLivreId, (livre1, livre2) => new { countLocal = livre1.count, countAll = livre2.count, livre1.refLivreId});
 			
 			// Création de la liste de résultat
 			var lstLivre = new List<dynamic>();
-			foreach (var livre in query) {
+			foreach (var livre in query)
+			{
 				//lstSearchResult.Items.Add(CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)));
 				//lstSearchResult.Items.Add(new { toto.count, CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)).Titre });
 				LivreBO objLivreAll = CGlobalCache.LstLivreSelectAll.FirstOrDefault(xx => xx.RefLivre.RefLivreId.Equals(livre.refLivreId));
 				
 				// Ajout des éléments de la liste de résultat
-				lstLivre.Add(new { Locale = livre.countLocal, Total = livre.countAll, ISBN = objLivreAll.RefLivre.ISBN, Titre = objLivreAll.ToString() });
+				if (objLivreAll != null) {
+					lstLivre.Add(new {Locale = livre.countLocal, Total = livre.countAll, objLivreAll.RefLivre.ISBN, Titre = objLivreAll.ToString()});
+				}
 			}
-			
+
 			// Affichage du résultat de la recherche
 			dataGridSearchResult.DataSource = null;
 			dataGridSearchResult.DataSource = lstLivre;
@@ -133,7 +126,7 @@ namespace WindowsFormsApplication1.Livre {
 
 		private void radioISBN_CheckedChanged(object sender, EventArgs e) {
 			if (((RadioButton)sender).Checked) {
-				String pattern = @"[^0-9]";
+				const string pattern = @"[^0-9]";
 				if (Regex.Matches(txtSearch.Text, pattern).Count > 0) {
 					txtSearch.Text = Regex.Replace(txtSearch.Text, pattern, @"");
 				}
@@ -142,7 +135,7 @@ namespace WindowsFormsApplication1.Livre {
 
 		private void btnCancel_Click(object sender, EventArgs e) {
 			//this.Close();
-			this.Dispose();
+			Dispose();
 		}
 
 		private void SearchLivre_Load(object sender, EventArgs e) {
@@ -162,18 +155,17 @@ namespace WindowsFormsApplication1.Livre {
 
 		private void btnSelection_Click(object sender, EventArgs e) {
 			if (CGlobalCache.LstNewDemandeReservationByClient.FirstOrDefault(xx => xx.RefLivre.RefLivreId == _livreSelected.RefLivre.RefLivreId) != null) {
-				MessageBox.Show("Ce livre est déjà dans votre liste de demande de réservation");
+				MessageBox.Show(Resources.SearchLivre_btnSelection_Click_Ce_livre_est_déjà_dans_votre_liste_de_demande_de_réservation);
 				return;
 			}
-			DialogResult result = MessageBox.Show(String.Format(@"Demande de réservation pour: ""{0}""", _livreSelected.RefLivre.Titre), "Demande de réservation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly, false);
-			if (result == System.Windows.Forms.DialogResult.OK) {
-				if (!InsertDemandeReservation()) {
-					MessageBox.Show("Erreur lors de l'enregistrement de la demande de réservation");
-					return;
-				}
-				//this.Close();
-				this.Dispose();
+			var result = MessageBox.Show(String.Format(@"Demande de réservation pour: ""{0}""", _livreSelected.RefLivre.Titre), Resources.SearchLivre_btnSelection_Click_Demande_de_réservation, MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly, false);
+			if (result != DialogResult.OK) return;
+			if (!InsertDemandeReservation()) {
+				MessageBox.Show(Resources.SearchLivre_btnSelection_Click_Erreur_lors_de_l_enregistrement_de_la_demande_de_réservation);
+				return;
 			}
+			//this.Close();
+			Dispose();
 		}
 
 		private void dataGridSearchResult_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {

@@ -1,34 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBO;
 
 namespace WebsDAL {
-	public class RefLivreDAL : System.Data.Linq.DataContext {
-		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
+	public class RefLivreDAL : DataContext {
+		private static readonly MappingSource mappingSource = new AttributeMappingSource();
 
 		public RefLivreDAL(String connString) : base(connString, mappingSource) { }
 
 		[Function(Name="[dbo].[RefLivre.SelectAll]")]
 		public ISingleResult<RefLivreBO> RefLivreBO_SelectAll() {
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())));
 			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 
 		[Function(Name="[dbo].[RefLivre.SelectByTitre]")]
 		public ISingleResult<RefLivreBO> RefLivreBO_SelectByTitre([Parameter(DbType="varchar(50)")] String Titre) {
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), Titre);
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), Titre);
 			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 
 		[Function(Name="[dbo].[RefLivre.SelectByISBN]")]
 		public ISingleResult<RefLivreBO> RefLivreBO_SelectByISBN([Parameter(DbType="varchar(13)")] String ISBN) {
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ISBN);
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), ISBN);
 			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 
@@ -43,13 +39,13 @@ namespace WebsDAL {
 			[Parameter(DbType = "date")]			DateTime	Published,
 			[Parameter(DbType = "varchar(250)")]	String		ImageUrl
 			) {
-				IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl);
+				IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), ISBN, Titre, Description, Auteur, Langue, Editeur, Published, ImageUrl);
 				return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 
 		[Function(Name="[dbo].[RefLivre.SelectById]")]
 		public ISingleResult<RefLivreBO> RefLivreBO_SelectById([Parameter(DbType="int")]int refLivreId) {
-			IExecuteResult result = this.ExecuteMethodCall(this,(MethodInfo)MethodInfo.GetCurrentMethod(), refLivreId);
+			IExecuteResult result = ExecuteMethodCall(this,(MethodInfo)MethodBase.GetCurrentMethod(), refLivreId);
 			return ((ISingleResult<RefLivreBO>)result.ReturnValue);
 		}
 	}

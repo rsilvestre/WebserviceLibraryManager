@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsDAL;
 using WebsBO;
 
 namespace WebsBL {
 	public static class EmpruntBL {
+
 		public static List<EmpruntBO> SelectAll() {
 			List<EmpruntBO> lstResult;
 
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					lstResult = empruntDal.EmpruntDAL_SelectAll().ToList();
 				}
 			} catch (Exception Ex) {
@@ -22,9 +21,9 @@ namespace WebsBL {
 		}
 
 		public static EmpruntBO SelectById(Int32 pId) {
-			EmpruntBO result = null;
+			EmpruntBO result;
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					result = (EmpruntBO)empruntDal.EmpruntDAL_SelectById(pId);
 				}
 			} catch (Exception Ex) {
@@ -37,9 +36,9 @@ namespace WebsBL {
 			List<EmpruntBO> lstResult;
 
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					lstResult = empruntDal.EmpruntDAL_SelectForUserByLivreId(pClientId, pLivreId).ToList();
-					foreach (EmpruntBO objEmprunt in lstResult) {
+					foreach (var objEmprunt in lstResult) {
 						objEmprunt.Livre = LivreBL.SelectById(objEmprunt.LivreId);
 					}
 				}
@@ -49,11 +48,11 @@ namespace WebsBL {
 			return lstResult;
 		}
 
-		public static EmpruntBO InsertEmpruntFromReservation(ReservationBO pReservation) {
-			EmpruntBO result = null;
+		public static EmpruntBO InsertEmpruntFromReservation(Int32 pAdministrateurId, Int32 pReservationId) {
+			EmpruntBO result;
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmpruntFromReservation(pReservation.ReservationId);
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmpruntFromReservation(pAdministrateurId, pReservationId);
 				}
 			} catch (Exception Ex) {
 				throw;
@@ -61,11 +60,11 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static EmpruntBO InsertEmpruntFromReservation(Int32 pReservationId) {
-			EmpruntBO result = null;
+		public static EmpruntBO InsertEmprunt(Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId) {
+			EmpruntBO result;
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmpruntFromReservation(pReservationId);
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmprunt(pAdministrateurId, pPersonneId, pLivreId);
 				}
 			} catch (Exception Ex) {
 				throw;
@@ -73,11 +72,23 @@ namespace WebsBL {
 			return result;
 		}
 
-		public static EmpruntBO InsertEmprunt(Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId) {
-			EmpruntBO result = null;
+		public static EmpruntBO InsertRetour(Int32 pAdministrateurId, Int32 pLivreId) {
+			EmpruntBO result;
 			try {
-				using (EmpruntDAL empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertEmprunt(pBibliothequeId, pPersonneId, pLivreId);
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertRetour(pAdministrateurId, pLivreId);
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return result;
+		}
+
+		public static EmpruntBO InsertAnnul(Int32 pAdministrateurId, Int32 pLivreId) {
+			EmpruntBO result;
+			try {
+				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
+					result = (EmpruntBO)empruntDal.EmpruntDAL_InsertAnnul(pAdministrateurId, pLivreId);
 				}
 			} catch (Exception Ex) {
 				throw;

@@ -1,35 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Properties;
 using WebsBO;
 using WindowsFormsApplication1.RefLivre;
 
 namespace WindowsFormsApplication1.Livre {
 	public partial class CreateLivre : Form {
-		private FrmMdi _objFrmMDI;
-		private LivreBO _ObjLivre;
+		private readonly FrmMdi _objFrmMdi;
 
 
 		public CreateLivre() {
 			InitializeComponent();
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			FormBorderStyle = FormBorderStyle.FixedSingle;
 		}
 
 		public CreateLivre(FrmMdi frmMdi) : this() {
-			this._objFrmMDI = frmMdi;
+			_objFrmMdi = frmMdi;
 		}
 
 		/// <summary>
 		/// Commande permettant la recherche de référence de livre sur amazon
 		/// </summary>
 		public void SearchBookOnAmazon() {
-			AddBookFromAmazon frmAddBookFromAmazon = new AddBookFromAmazon(this);
+			var frmAddBookFromAmazon = new AddBookFromAmazon(this);
 			frmAddBookFromAmazon.Show();
 		}
 
@@ -37,8 +31,8 @@ namespace WindowsFormsApplication1.Livre {
 		/// Rempli un objet livre avec des données de référence de livre
 		/// </summary>
 		/// <param name="pObjRefLivre"></param>
-		public void fillForm(RefLivreBO pObjRefLivre) {
-			LivreBO oLivre = new LivreBO();
+		public void FillForm(RefLivreBO pObjRefLivre) {
+			var oLivre = new LivreBO();
 			oLivre.RefLivre = pObjRefLivre;
 			oLivre.Bibliotheque = CGlobalCache.ActualBibliotheque;
 			ObjLivre = (LivreBO)oLivre.Clone();
@@ -46,25 +40,7 @@ namespace WindowsFormsApplication1.Livre {
 			btnCreate.Enabled = true;
 		}
 
-		private LivreBO ObjLivre {
-			get { return _ObjLivre; }
-			set { _ObjLivre = value; }
-		}
-
-		/// <summary>
-		/// Ajout d'une référence de livre à la base de données (DEPRECATED)
-		/// </summary>
-		/// <param name="pObjRefLivre"></param>
-		/// <returns></returns>
-		private Boolean InsertRefLivre(RefLivreBO pObjRefLivre) {
-			Boolean result = false;
-			try {
-				result = _objFrmMDI.InsertLivreFromAmazon(pObjRefLivre);
-			} catch (Exception ex) {
-				throw;
-			}
-			return result;
-		}
+		private LivreBO ObjLivre { get; set; }
 
 		/// <summary>
 		/// Ajoute un livre à la base de données
@@ -82,7 +58,7 @@ namespace WindowsFormsApplication1.Livre {
 
 			// Appel au webservice
 			try {
-				result = _objFrmMDI.InsertLivre(pObjLivre);
+				result = _objFrmMdi.InsertLivre(pObjLivre);
 			} catch (Exception ex) {
 				throw;
 			}
@@ -104,7 +80,7 @@ namespace WindowsFormsApplication1.Livre {
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void refLivreSearch_Click(object sender, EventArgs e) {
-			RefLivre.SearchRefLivre frmSearchRefLivre = new RefLivre.SearchRefLivre(this);
+			var frmSearchRefLivre = new SearchRefLivre(this);
 			frmSearchRefLivre.Show();
 		}
 
@@ -120,10 +96,10 @@ namespace WindowsFormsApplication1.Livre {
 			Boolean bInsert = InsertLivre(ObjLivre);
 			// Vérifie si les données ont bien été sauvées dans la database
 			if (!bInsert) {
-				MessageBox.Show("Erreur lors de l'insertion du livre.");
+				MessageBox.Show(Resources.CreateLivre_btnCreate_Click_Erreur_lors_de_l_insertion_du_livre_);
 				return;
 			}
-			this.Close();
+			Close();
 		}
 
 		/// <summary>

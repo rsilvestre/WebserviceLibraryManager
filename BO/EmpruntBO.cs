@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 namespace WebsBO {
 	[DataContract(Namespace = "urn:WebsBO.EmpruntBO")]
 	public class EmpruntBO {
+
 		private Int32 _EmpruntId;
 		private Int32 _LivreId;
 		private Int32 _ActionId;

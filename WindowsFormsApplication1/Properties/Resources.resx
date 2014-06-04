@@ -114,4 +114,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddBookFromAmazon_FindBookByIsbn_Le_numéro_ISBN_doit_contenir_10_ou_13_chiffres" xml:space="preserve">
+    <value>Le numéro ISBN doit contenir 10 ou 13 chiffres</value>
+  </data>
+  <data name="LoginForm_ConnectionResult_Mauvais_nom_d_utilisateur_ou_de_mot_de_passe" xml:space="preserve">
+    <value>Mauvais nom d'utilisateur ou de mot de passe</value>
+  </data>
+  <data name="LoginForm_InitConnection_Les_champs_Nom_d_utilisateur_et_Mot_de_passe_doivent_etre_remplis_" xml:space="preserve">
+    <value>Les champs Nom d'utilisateur et Mot de passe doivent etre remplis!</value>
+  </data>
+  <data name="SearchLivre_btnSelection_Click_Ce_livre_est_déjà_dans_votre_liste_de_demande_de_réservation" xml:space="preserve">
+    <value>Ce livre est déjà dans votre liste de demande de réservation</value>
+  </data>
+  <data name="SearchLivre_btnSelection_Click_Erreur_lors_de_l_enregistrement_de_la_demande_de_réservation" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement de la demande de réservation</value>
+  </data>
+  <data name="SearchLivre_btnSelection_Click_Demande_de_réservation" xml:space="preserve">
+    <value>Demande de réservation</value>
+  </data>
+  <data name="CreateLivre_btnCreate_Click_Erreur_lors_de_l_insertion_du_livre_" xml:space="preserve">
+    <value>Erreur lors de l'insertion du livre.</value>
+  </data>
+  <data name="FrmMdi_ShowClientDashboard_Vous_avez_deja_un_Dashboard_ouvert" xml:space="preserve">
+    <value>Vous avez déjà un Dashboard ouvert</value>
+  </data>
 </root>

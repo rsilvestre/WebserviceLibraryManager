@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBO;
 using WebsDAL;
 
@@ -10,9 +8,9 @@ namespace WebsBL {
 	public static class PersonneBL {
 
 		public static List<PersonneBO> SelectAll() {
-			List<PersonneBO> lstPersonne = null;
+			List<PersonneBO> lstPersonne;
 			try { 
-				using(PersonneDAL pesonneDal = new PersonneDAL(Util.GetConnection())) {
+				using(var pesonneDal = new PersonneDAL(Util.GetConnection())) {
 					lstPersonne = pesonneDal.PersonneBO_SelectAll().ToList();
 				}
 			} catch (Exception Ex){
@@ -24,8 +22,8 @@ namespace WebsBL {
 		public static PersonneBO SelectById(Int32 pId) {
 			PersonneBO objPersonne = null;
 			try {
-				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
-					List<PersonneBO> lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
+				using (var personneDal = new PersonneDAL(Util.GetConnection())) {
+					var lstPersonne = personneDal.PersonneBO_SelectById(pId).ToList();
 					if (lstPersonne.Count() == 1) {
 						objPersonne = lstPersonne[0];
 						objPersonne.Client = ClientBL.SelectById(objPersonne.PersonneId);
@@ -41,7 +39,7 @@ namespace WebsBL {
 		public static List<PersonneBO> SelectByName(String pName) {
 			List<PersonneBO> lstPersonne;
 			try {
-				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
+				using (var personneDal = new PersonneDAL(Util.GetConnection())) {
 					lstPersonne = personneDal.PersonneBO_SelectByName(pName).ToList();
 				}
 			} catch (Exception Ex) {
@@ -53,7 +51,7 @@ namespace WebsBL {
 		public static List<PersonneBO> SelectByInfo(String pInfo) {
 			List<PersonneBO> lstPersonne;
 			try {
-				using (PersonneDAL personneDal = new PersonneDAL(Util.GetConnection())) {
+				using (var personneDal = new PersonneDAL(Util.GetConnection())) {
 					lstPersonne = personneDal.PersonneBO_SelectByInfo(pInfo).ToList();
 				}
 			} catch (Exception Ex) {

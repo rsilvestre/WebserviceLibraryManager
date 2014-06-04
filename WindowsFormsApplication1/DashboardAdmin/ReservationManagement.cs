@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebsBO;
-using System.Reflection;
 using WCF.Proxies;
 using System.Runtime.Remoting.Messaging;
 using System.Net;
@@ -27,7 +22,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		public ReservationManagement(DashboardAdminManager dashboardAdminManager) : this() {
-			this._dashboardAdminManager = dashboardAdminManager;
+			_dashboardAdminManager = dashboardAdminManager;
 		}
 
 		#region private
@@ -63,12 +58,12 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			} catch (Exception ex) {
 				throw;
 			}
-			this.refreshDataGrid();
-			this.refreshField();
+			refreshDataGrid();
+			refreshField();
 		}
 
 		private void refreshField() {
-			foreach (Panel panel in this.Controls.OfType<Panel>()) {
+			foreach (Panel panel in Controls.OfType<Panel>()) {
 				foreach (TextBox textBox in panel.Controls.OfType<TextBox>()) {
 					textBox.Text = "";
 				}
@@ -97,7 +92,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (_demandeReservationSelected == null) {
 				return;
 			}
-			this.getPersonne();
+			getPersonne();
 			txtClientId.Text = _demandeReservationSelected.ClientId.ToString();
 			txtRefLivreTitre.Text = _demandeReservationSelected.RefLivre.Titre;
 			txtReservationDate.Text = _demandeReservationSelected.DemandeReservationId.ToString();
@@ -107,12 +102,12 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			
 			Action<String> GetImage = (imageUrl) => { 
 				// Create a web request to the URL for the picture
-				System.Net.WebRequest webRequest = HttpWebRequest.Create(imageUrl);
+				WebRequest webRequest = HttpWebRequest.Create(imageUrl);
 				// Execute the request synchronuously
 				HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
 
 				// Create an image from the stream returned by the web request
-				picBook.Image = new System.Drawing.Bitmap(webResponse.GetResponseStream());
+				picBook.Image = new Bitmap(webResponse.GetResponseStream());
 			};
 
 			GetImage(_demandeReservationSelected.RefLivre.ImageUrl);
@@ -151,7 +146,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 		
 		private void actualBibliothequeChange(object value, EventArgs e) {
-			BibliothequeBO objBibliothequeBO = (BibliothequeBO) value;
+			var objBibliothequeBo = (BibliothequeBO) value;
 			refreshDataGrid();
 		}
 
@@ -163,7 +158,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			_demandeReservationSelected = _lstDemandeReservation.FirstOrDefault(xx => xx.DemandeReservationId.Equals(objDataGridView.Rows[e.RowIndex].Cells[0].Value));
 			objDataGridView.Rows[e.RowIndex].Selected = true;
 			btnAnnuler.Enabled = true;
-			this.showDetailSelection();
+			showDetailSelection();
 		}
 
 		private void dataGridDemandeReservation_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
@@ -171,19 +166,19 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void btnEmprunter_Click(object sender, EventArgs e) {
-			this._dashboardAdminManager.switchToEmpruntManagement(_demandeReservationSelected);
+			_dashboardAdminManager.SwitchToEmpruntManagement(_demandeReservationSelected);
 		}
 
 		#endregion callback
 	}
 
 	public class DemandeReservationCombo {
-        private String _title;
-        private String _lstDemandeReservation;
+        private readonly String _title;
+        private readonly String _lstDemandeReservation;
 
         public DemandeReservationCombo(string pTitle, String pLstDemandeReservation) {
-            this._title = pTitle;
-            this._lstDemandeReservation = pLstDemandeReservation;
+            _title = pTitle;
+            _lstDemandeReservation = pLstDemandeReservation;
         }
 
         public string Title {

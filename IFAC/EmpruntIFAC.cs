@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
@@ -16,13 +15,16 @@ namespace WebsIFAC {
 		EmpruntBO SelectEmpruntById(String Token, int pId);
 
 		[OperationContract]
-		EmpruntBO InsertEmpruntFromReservation(String Token, ReservationBO pReservation);
+		EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pAdministrateurId, Int32 pReservationId);
 
 		[OperationContract]
-		EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pReservationId);
+		EmpruntBO InsertEmprunt(String Token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId);
 
 		[OperationContract]
-		EmpruntBO InsertEmprunt(String Token, Int32 pBibliothequeId, Int32 pPersonneId, Int32 pLivreId);
+		EmpruntBO InsertRetour(String Token, Int32 pAdministrateurId, Int32 pLivreId);
+
+		[OperationContract]
+		EmpruntBO InsertAnnul(String Token, Int32 pAdministrateurId, Int32 pLivreId);
 	}
 
 }

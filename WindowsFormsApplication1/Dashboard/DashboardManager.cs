@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Transitions;
 using WCF.Proxies;
@@ -36,7 +32,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		public DashboardManager(FrmMdi frmMdi) : this() {
-			this._frmMdi = frmMdi;
+			_frmMdi = frmMdi;
 		}
 
 		private void loadReservation() {
@@ -100,7 +96,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		private void loadFicheLivre(DemandeReservationBO pDemandeReservation) {
-			this.createFicheLivreReservation();
+			createFicheLivreReservation();
 			
 			RefLivreIFACClient refLivreIFac = new RefLivreIFACClient();
 			
@@ -123,7 +119,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		private void loadFicheLivre(LivreBO livreBO) {
-			this.createFicheLivre();
+			createFicheLivre();
 			LivreIFACClient livreIFac = new LivreIFACClient();
 			
 			AsyncGuiFicheDeLivreSelectForClientById asyncExecute = livreIFac.SelectFicheLivreForClientByLivreId;
@@ -151,7 +147,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			}
 
 			if (_ficheDeLivreReservation != null) {
-				this.Controls.Remove(_ficheDeLivreReservation);
+				Controls.Remove(_ficheDeLivreReservation);
 				_ficheDeLivreReservation = null;
 			}
 
@@ -164,7 +160,7 @@ namespace WindowsFormsApplication1.Dashboard {
 
 			_ficheDeLivre = new FicheDeLivre(this);
 			_ficheDeLivre.Location = new Point(882, 56);
-			this.Controls.Add(_ficheDeLivre);
+			Controls.Add(_ficheDeLivre);
 
 			t1.run();
 		}
@@ -175,7 +171,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			}
 
 			if (_ficheDeLivre != null) {
-				this.Controls.Remove(_ficheDeLivre);
+				Controls.Remove(_ficheDeLivre);
 				_ficheDeLivre = null;
 			}
 
@@ -188,7 +184,7 @@ namespace WindowsFormsApplication1.Dashboard {
 
 			_ficheDeLivreReservation = new FicheDeLivreReservation(this);
 			_ficheDeLivreReservation.Location = new Point(882, 56);
-			this.Controls.Add(_ficheDeLivreReservation);
+			Controls.Add(_ficheDeLivreReservation);
 
 			t1.run();
 		}
@@ -198,7 +194,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		private void cleanListBoxSelected(ListBox actualListBox) {
-			foreach (Panel panel in this.Controls.OfType<Panel>()) {
+			foreach (Panel panel in Controls.OfType<Panel>()) {
 				foreach (ListBox listBox2 in panel.Controls.OfType<ListBox>().Where(xx => xx.GetHashCode() != actualListBox.GetHashCode())) {
 					listBox2.ClearSelected();
 				}
@@ -210,19 +206,19 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		private void DashboardManager_Load(object sender, EventArgs e) {
-			_dashboardWidth = this.Width;
+			_dashboardWidth = Width;
 			_lblBibliothequeLocationX = lblBibliotheque.Location.X ;
 			_lblBibliothequeTitleLocationX = lblBibliothequeTitle.Location.X;
 			_lblDtLastLocationX = lblDtLastVisite.Location.X;
 			_lblDtLastVisiteTitleLocationX = lblDtLastVisiteTitle.Location.X;
 
-			CGlobalCache.actualLstDemandeReservationEventHandlser += this.loadReservation;
+			CGlobalCache.actualLstDemandeReservationEventHandlser += loadReservation;
 
-			this.loadDecoration();
+			loadDecoration();
 
-			this.loadNouveaute();
+			loadNouveaute();
 
-			this.loadReservation();
+			loadReservation();
 		}
 
 		private void LivreEmprunt_MouseDown(object sender, MouseEventArgs e) {
@@ -233,7 +229,7 @@ namespace WindowsFormsApplication1.Dashboard {
 				return;
 			}
 
-			this.cleanListBoxSelected(listBox);
+			cleanListBoxSelected(listBox);
 
 			if (e.Button == MouseButtons.Right) {
 				//select the item under the mouse pointer
@@ -241,8 +237,8 @@ namespace WindowsFormsApplication1.Dashboard {
 				_livreSelected = (LivreBO)listBox.SelectedItem;
 				
 			}
-			if (e.Button == System.Windows.Forms.MouseButtons.Left) {
-				this.loadFicheLivre((LivreBO)listBox.SelectedItem);
+			if (e.Button == MouseButtons.Left) {
+				loadFicheLivre((LivreBO)listBox.SelectedItem);
 			}
 		}
 
@@ -254,10 +250,10 @@ namespace WindowsFormsApplication1.Dashboard {
 				return;
 			}
 
-			this.cleanListBoxSelected(listBox);
+			cleanListBoxSelected(listBox);
 
-			if (e.Button == System.Windows.Forms.MouseButtons.Left) {
-				this.loadFicheLivre((DemandeReservationBO)listBox.SelectedItem);
+			if (e.Button == MouseButtons.Left) {
+				loadFicheLivre((DemandeReservationBO)listBox.SelectedItem);
 			}
 		}
 
@@ -271,7 +267,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		private void DashboardManager_FormClosing(object sender, FormClosingEventArgs e) {
-			this._frmMdi.ChildFormDecrement();
+			_frmMdi.ChildFormDecrement();
 		}
 
 	}

@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Properties;
 using WCF.Proxies;
 using WebsBO;
 
 namespace WindowsFormsApplication1.Login {
 	public partial class LoginForm : Form {
-		private FrmSplashScreen _frmSplashScreen;
-		private Boolean _Connect;
+		private readonly FrmSplashScreen _frmSplashScreen;
 
 		private delegate SessionManagerBO ASyncGuiSessionOpenSession(String pUsername, String pPassword);
 
@@ -24,26 +16,23 @@ namespace WindowsFormsApplication1.Login {
 		}
 
 		public LoginForm(FrmSplashScreen frmSplashScreen) : this() {
-			this._frmSplashScreen = frmSplashScreen;
+			_frmSplashScreen = frmSplashScreen;
 		}
 
 		internal void EnableConnect(bool p) {
 			throw new NotImplementedException();
 		}
 
-		public Boolean Connect {
-			get { return _Connect; }
-			set { _Connect = value; }
-		}
+		public bool Connect { get; set; }
 
 		private void InitConnection() {
 			String usernameStr = txtUsername.Text, passwordStr = txtPassword.Text;
 			if (usernameStr == "" || passwordStr == "") {
-				MessageBox.Show("Les champs Nom d'utilisateur et Mot de passe doivent etre remplis!");
+				MessageBox.Show(Resources.LoginForm_InitConnection_Les_champs_Nom_d_utilisateur_et_Mot_de_passe_doivent_etre_remplis_);
 				return;
 			}
 			try {
-				SessionManagerIFACClient objSessionIFac = new SessionManagerIFACClient();
+				var objSessionIFac = new SessionManagerIFACClient();
 				//SessionBO objSessionBo = objSessionIFac.OpenSession(pUsername, pPassword);
 				ASyncGuiSessionOpenSession selectGuiSampleSessionDelegate = objSessionIFac.OpenSession;
 				selectGuiSampleSessionDelegate.BeginInvoke(usernameStr, passwordStr, ConnectionResult, null);
@@ -56,7 +45,7 @@ namespace WindowsFormsApplication1.Login {
 			var sampleSessionDelegate = (ASyncGuiSessionOpenSession)((AsyncResult)result).AsyncDelegate;
 			SessionManagerBO objSessionBo = sampleSessionDelegate.EndInvoke(result);
 			if (objSessionBo == null || objSessionBo.Token == null) {
-				MessageBox.Show("Mauvais nom d'utilisateur ou de mot de passe");
+				MessageBox.Show(Resources.LoginForm_ConnectionResult_Mauvais_nom_d_utilisateur_ou_de_mot_de_passe);
 				return;
 			}
 			CGlobalCache.SessionManager = objSessionBo;

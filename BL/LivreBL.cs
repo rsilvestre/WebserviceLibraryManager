@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBO;
 using WebsDAL;
 
 namespace WebsBL {
 	public static class LivreBL {
 		public static List<LivreBO> SelectAll() {
-			List<LivreBO> result = null;
+			List<LivreBO> result;
 
 			try {
-				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
 					result = livreProxy.LivreDAL_SelectAll().ToList();
 					if (result.Count > 0) {
-						foreach (LivreBO oLivreBO in result) {
+						foreach (var oLivreBO in result) {
 							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
 							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(oLivreBO.BibliothequeId);
 						}
@@ -30,8 +28,8 @@ namespace WebsBL {
 			LivreBO result = null;
 
 			try {
-				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
-					List<LivreBO> lstLivre = livreProxy.LivreDAL_SelectById(pLivreId).ToList();
+				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
+					var lstLivre = livreProxy.LivreDAL_SelectById(pLivreId).ToList();
 					if (lstLivre.Count == 1) {
 						result = lstLivre[0];
 						result.RefLivre = RefLivreBL.SelectById(lstLivre[0].RefLivreId);
@@ -45,15 +43,15 @@ namespace WebsBL {
 		}
 
 		public static List<LivreBO> SelectByBibliotheque(BibliothequeBO pBibliotheque) {
-			List<LivreBO> result = null;
+			List<LivreBO> result;
 
 			try {
-				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
 					result = livreProxy.LivreDAL_SelectByBibliothequeId(pBibliotheque.BibliothequeId).ToList();
 					if (result.Count > 0) {
-						foreach (LivreBO oLivreBO in result) {
-							oLivreBO.RefLivre = RefLivreBL.SelectById(oLivreBO.RefLivreId);
-							oLivreBO.Bibliotheque = BibliothequeBL.SelectById(oLivreBO.BibliothequeId);
+						foreach (var oLivreBo in result) {
+							oLivreBo.RefLivre = RefLivreBL.SelectById(oLivreBo.RefLivreId);
+							oLivreBo.Bibliotheque = BibliothequeBL.SelectById(oLivreBo.BibliothequeId);
 						}
 					}
 				}
@@ -67,12 +65,13 @@ namespace WebsBL {
 			FicheLivreBO result = null;
 
 			try {
-				LivreBO objLivre = LivreBL.SelectById(pLivreId);
+				var objLivre = LivreBL.SelectById(pLivreId);
 				if (objLivre != null) {
-					result = new FicheLivreBO();
-					result.RefLivre = objLivre.RefLivre;
-					result.LstEmprunt = EmpruntBL.SelectForClientByLivreId(pClientId, pLivreId);
-					result.LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objLivre.RefLivre.RefLivreId);
+					result = new FicheLivreBO {
+						RefLivre = objLivre.RefLivre,
+						LstEmprunt = EmpruntBL.SelectForClientByLivreId(pClientId, pLivreId),
+						LstDemandeReservation = DemandeReservationBL.SelectForClientByRefLivreId(pClientId, objLivre.RefLivre.RefLivreId)
+					};
 				}
 			} catch (Exception ex) {
 				throw;
@@ -83,7 +82,7 @@ namespace WebsBL {
 		public static LivreBO InsertLivre(LivreBO pObjLivre, Int32 AdministrateurId) {
 			LivreBO oLivreBOResult;
 			try {
-				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
 					oLivreBOResult = (LivreBO)livreProxy.LivreDAL_InsertLivre(
 						pObjLivre.BibliothequeId,
 						pObjLivre.RefLivreId,
@@ -108,13 +107,13 @@ namespace WebsBL {
 		}
 
 		public static List<LivreBO> SelectByInfo(String pLivreInfo, Int32 pBibliothequeId) {
-			List<LivreBO> lstLivre = null;
+			List<LivreBO> lstLivre;
 
 			try {
-				using (LivreDAL livreProxy = new LivreDAL(Util.GetConnection())) {
+				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
 					lstLivre = livreProxy.LivreDAL_SelectByInfo(pLivreInfo, pBibliothequeId).ToList();
 					if (lstLivre.Count > 0) {
-						foreach (LivreBO objLivre in lstLivre) {
+						foreach (var objLivre in lstLivre) {
 							objLivre.RefLivre = RefLivreBL.SelectById(objLivre.RefLivreId);
 							objLivre.Bibliotheque = BibliothequeBL.SelectById(objLivre.BibliothequeId);
 						}
