@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using WebsBO;
 
@@ -19,6 +17,9 @@ namespace WebsIFAC {
 
 		[OperationContract]
 		List<ReservationBO> SelectEnCoursValidByInfo(String token, String pInfo);
+
+		[OperationContract]
+		ReservationBO SelectEnCoursValidByReservationId(String token, Int32 pDemandeReservationId);
 	}
 
 }

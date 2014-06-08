@@ -209,7 +209,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstReservationEnCours.Name = "lstReservationEnCours";
 			this.lstReservationEnCours.Size = new System.Drawing.Size(254, 160);
 			this.lstReservationEnCours.TabIndex = 22;
-			this.lstReservationEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstReservationEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreDemandeReservation_MouseDown);
 			// 
 			// lstReservationPasse
 			// 
@@ -218,7 +218,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstReservationPasse.Name = "lstReservationPasse";
 			this.lstReservationPasse.Size = new System.Drawing.Size(254, 160);
 			this.lstReservationPasse.TabIndex = 21;
-			this.lstReservationPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstReservationPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreDemandeReservation_MouseDown);
 			// 
 			// lstEmpruntPasse
 			// 
@@ -227,7 +227,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstEmpruntPasse.Name = "lstEmpruntPasse";
 			this.lstEmpruntPasse.Size = new System.Drawing.Size(254, 160);
 			this.lstEmpruntPasse.TabIndex = 20;
-			this.lstEmpruntPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstEmpruntPasse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
 			// 
 			// lstEmpruntEnCours
 			// 
@@ -236,7 +236,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstEmpruntEnCours.Name = "lstEmpruntEnCours";
 			this.lstEmpruntEnCours.Size = new System.Drawing.Size(254, 160);
 			this.lstEmpruntEnCours.TabIndex = 20;
-			this.lstEmpruntEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstEmpruntEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
 			// 
 			// panel2
 			// 
@@ -266,7 +266,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstNewLivreNetwork.Name = "lstNewLivreNetwork";
 			this.lstNewLivreNetwork.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreNetwork.TabIndex = 19;
-			this.lstNewLivreNetwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
+			this.lstNewLivreNetwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// lstNewLivreLocal
 			// 
@@ -275,7 +275,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstNewLivreLocal.Name = "lstNewLivreLocal";
 			this.lstNewLivreLocal.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreLocal.TabIndex = 0;
-			this.lstNewLivreLocal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreEmprunt_MouseDown);
+			this.lstNewLivreLocal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
 			// 
 			// contextMenuStrip1
 			// 

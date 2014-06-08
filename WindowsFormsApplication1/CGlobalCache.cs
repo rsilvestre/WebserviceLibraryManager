@@ -67,8 +67,8 @@ namespace WindowsFormsApplication1 {
 		public static List<LivreStatusBO> LstLivreStatusSelectAll { get; set; }
 		public static List<BibliothequeBO> LstBibliothequeSelectAll { get; set; }
 		public static SessionManagerBO SessionManager { get; set; }
-		public static List<DemandeReservationBO> LstNewDemandeReservationByClient { get; set; }
-		public static List<DemandeReservationBO> LstOldDemandeReservationByClient { get; set; }
+		public static ObservableCollection<DemandeReservationBO> LstNewDemandeReservationByClient { get; set; }
+		public static ObservableCollection<DemandeReservationBO> LstOldDemandeReservationByClient { get; set; }
 		public static ObservableCollection<DemandeReservationBO> LstDemandeReservationSelectAll { get; set; } 
 		public static ObservableCollection<ReservationBO> LstReservationSelectAll { get; set; } 
 
@@ -255,7 +255,7 @@ namespace WindowsFormsApplication1 {
 		
 		public static void NewDemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
-			LstNewDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
+			LstNewDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleCliDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllNewDemandeReservation"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
@@ -263,7 +263,7 @@ namespace WindowsFormsApplication1 {
 		
 		public static void OldDemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
-			LstOldDemandeReservationByClient = sampleCliDelegate.EndInvoke(result);
+			LstOldDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleCliDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllOldDemandeReservation"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
@@ -404,7 +404,7 @@ namespace WindowsFormsApplication1 {
 			ASyncGuiDemandeReservationSelectByClient selectGuiSampleDemandeReservationNewDelegate = demandeReservationIFacSelectNew.SelectNewByClient;
 			selectGuiSampleDemandeReservationNewDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, result => {
 				var sampleEmpDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
-				LstNewDemandeReservationByClient = sampleEmpDelegate.EndInvoke(result);
+				LstNewDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleEmpDelegate.EndInvoke(result));
 				demandeReservationIFacSelectNew.Close();
 			}, null);
 
@@ -412,7 +412,7 @@ namespace WindowsFormsApplication1 {
 			ASyncGuiDemandeReservationSelectByClient selectGuiSampleDemandeReservationOldDelegate = demandeReservationIFacSelectNew.SelectNewByClient;
 			selectGuiSampleDemandeReservationOldDelegate.BeginInvoke(SessionManager.Token, SessionManager.Personne.Client, result => {
 				var sampleEmpDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
-				LstNewDemandeReservationByClient = sampleEmpDelegate.EndInvoke(result);
+				LstNewDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleEmpDelegate.EndInvoke(result));
 				demandeReservationIFacSelectOld.Close();
 			}, null);
 		}

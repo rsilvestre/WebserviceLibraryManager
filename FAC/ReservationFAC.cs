@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBL;
 using WebsBO;
 using WebsIFAC;
@@ -47,6 +45,17 @@ namespace WebsFAC {
 			}
 			try {
 				return ReservationBL.SelectEnCoursValidByInfo(pInfo);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public ReservationBO SelectEnCoursValidByReservationId(String token, Int32 pDemandeReservationId){
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return ReservationBL.SelectEnCoursValidByReservationId(pDemandeReservationId);
 			} catch (Exception Ex) {
 				throw;
 			}

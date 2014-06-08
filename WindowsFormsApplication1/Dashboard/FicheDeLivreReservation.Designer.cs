@@ -31,11 +31,12 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
 			this.panel3 = new System.Windows.Forms.Panel();
-			this.btnAnnuler = new System.Windows.Forms.Button();
 			this.label3 = new System.Windows.Forms.Label();
 			this.lblNewReservationStatus = new System.Windows.Forms.Label();
 			this.lblOldReservationStatus = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.btnAnnuler = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -115,6 +116,7 @@
 			// panel3
 			// 
 			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel3.Controls.Add(this.label2);
 			this.panel3.Controls.Add(this.btnAnnuler);
 			this.panel3.Controls.Add(this.label3);
 			this.panel3.Controls.Add(this.lblNewReservationStatus);
@@ -124,18 +126,6 @@
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(524, 144);
 			this.panel3.TabIndex = 23;
-			// 
-			// btnAnnuler
-			// 
-			this.btnAnnuler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnAnnuler.Location = new System.Drawing.Point(291, 80);
-			this.btnAnnuler.Name = "btnAnnuler";
-			this.btnAnnuler.Size = new System.Drawing.Size(118, 27);
-			this.btnAnnuler.TabIndex = 23;
-			this.btnAnnuler.Text = "Annuler";
-			this.btnAnnuler.UseVisualStyleBackColor = true;
-			this.btnAnnuler.Visible = false;
-			this.btnAnnuler.Click += new System.EventHandler(this.btnAnnuler_Click);
 			// 
 			// label3
 			// 
@@ -177,6 +167,26 @@
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Réservation passée";
 			// 
+			// btnAnnuler
+			// 
+			this.btnAnnuler.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnAnnuler.Location = new System.Drawing.Point(416, 86);
+			this.btnAnnuler.Name = "btnAnnuler";
+			this.btnAnnuler.Size = new System.Drawing.Size(75, 23);
+			this.btnAnnuler.TabIndex = 23;
+			this.btnAnnuler.Text = "Annuler";
+			this.btnAnnuler.UseVisualStyleBackColor = true;
+			this.btnAnnuler.Click += new System.EventHandler(this.btnAnnuler_Click_1);
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(301, 91);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(115, 13);
+			this.label2.TabIndex = 24;
+			this.label2.Text = "Annuler la réservation :";
+			// 
 			// FicheDeLivreReservation
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +220,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label lblNewReservationStatus;
+		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button btnAnnuler;
 	}
 }

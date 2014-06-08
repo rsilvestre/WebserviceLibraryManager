@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using WebsBO;
 
@@ -13,6 +11,9 @@ namespace WebsIFAC {
 		List<DemandeAnnulationBO> SelectById(String Token, Int32 pDemandeAnnulationId);
 
 		[OperationContract]
-		DemandeAnnulationBO InsertDemandeAnnulation(String token, Int32 pAdministrateurId, Int32 pDemandeReservationId);
+		DemandeAnnulationBO InsertDemandeAnnulationByAdmininistrateur(String token, Int32 pAdministrateurId, Int32 pDemandeReservationId);
+
+		[OperationContract]
+		DemandeAnnulationBO InsertDemandeAnnulationByClient(String token, Int32 pClientId, Int32 pDemandeReservationId);
 	}
 }

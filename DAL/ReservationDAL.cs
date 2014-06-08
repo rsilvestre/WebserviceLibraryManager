@@ -33,5 +33,11 @@ namespace WebsDAL {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pInfo);
 			return ((ISingleResult<ReservationBO>)(result.ReturnValue));
 		}
+
+		[Function(Name="[dbo].[Reservation.SelectEnCoursValidByReservationId]")]
+		public ISingleResult<ReservationBO> ReservationDAL_SelectEnCoursValidByReservationId([Parameter(DbType = "int")] Int32 pDemandeReservationId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pDemandeReservationId);
+			return ((ISingleResult<ReservationBO>)(result.ReturnValue));
+		}
 	}
 }

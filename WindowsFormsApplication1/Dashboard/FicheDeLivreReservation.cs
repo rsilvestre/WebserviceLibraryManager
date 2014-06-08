@@ -8,7 +8,7 @@ using System.Net;
 
 namespace WindowsFormsApplication1.Dashboard {
 	public partial class FicheDeLivreReservation : UserControl {
-		private DashboardManager _dashboardManager;
+		private readonly DashboardManager _dashboardManager;
 
 		public FicheDeLivreReservation() {
 			InitializeComponent();
@@ -19,6 +19,9 @@ namespace WindowsFormsApplication1.Dashboard {
 		}
 
 		internal void setFicheDeLivre(FicheLivreBO ficheLivre) {
+			if (ficheLivre == null){
+				return;
+			}
 			lblTitre.Text = ficheLivre.RefLivre.Titre;
 			webDescription.DocumentText = ficheLivre.RefLivre.Description;
 			lblAuteurs.Text = ficheLivre.RefLivre.Auteur;
@@ -41,24 +44,28 @@ namespace WindowsFormsApplication1.Dashboard {
 
 		private void Annulation(List<DemandeReservationBO> LstDemandeReservation) {
 			Boolean bAnnuller = false;
-			String NewDemandeReservation = "", OldDemandeReservation = "";
+			String newDemandeReservation = "", oldDemandeReservation = "";
 			foreach (DemandeReservationBO objDr in LstDemandeReservation.OrderByDescending(xx => xx.CreatedAt)) {
 				if (objDr.Valide == 1) {
-					NewDemandeReservation += ((NewDemandeReservation == "") ? "": "\n" ) + "Réservation depuis: " + objDr.CreatedAt.ToShortDateString();
+					newDemandeReservation += ((newDemandeReservation == "") ? "": "\n" ) + "En cours: " + objDr.CreatedAt.ToShortDateString();
 					bAnnuller = true;
 				} else { 
-					OldDemandeReservation += ((OldDemandeReservation == "") ? "": "\n" ) + "Ancienne réservation: " + objDr.CreatedAt.ToShortDateString();
+					oldDemandeReservation += ((oldDemandeReservation == "") ? "": "\n" ) + "Passée: " + objDr.CreatedAt.ToShortDateString();
 				}
 			}
-			lblOldReservationStatus.Text = OldDemandeReservation;
-			lblNewReservationStatus.Text = NewDemandeReservation;
+			lblOldReservationStatus.Text = oldDemandeReservation;
+			lblNewReservationStatus.Text = newDemandeReservation;
 			if (bAnnuller) {
-				btnAnnuler.Visible = true;
+
 			}
 		}
 
-		private void btnAnnuler_Click(object sender, EventArgs e) {
-			_dashboardManager.AnnuleDemandeReservation();
+		#region callback
+
+		private void btnAnnuler_Click_1(object sender, EventArgs e) {
+			_dashboardManager.AnnuleDemandeReservation((objDemandeAnnulation) => MessageBox.Show(String.Format(@"Votre demande de résevation {0} a bien été annulée", objDemandeAnnulation.DemandeReservation)));
 		}
+
+		#endregion callback
 	}
 }

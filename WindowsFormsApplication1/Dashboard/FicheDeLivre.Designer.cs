@@ -29,14 +29,13 @@
 			this.lblPublication = new System.Windows.Forms.Label();
 			this.webDescription = new System.Windows.Forms.WebBrowser();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.panel3 = new System.Windows.Forms.Panel();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.lblEmpruntStatus = new System.Windows.Forms.Label();
-			this.lblReservationStatus = new System.Windows.Forms.Label();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.lblEmpruntStatus = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.panel3 = new System.Windows.Forms.Panel();
+			this.lblReservationStatus = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -105,26 +104,34 @@
 			this.panel1.Size = new System.Drawing.Size(578, 213);
 			this.panel1.TabIndex = 18;
 			// 
+			// lblBibliotheque
+			// 
+			this.lblBibliotheque.AutoSize = true;
+			this.lblBibliotheque.Location = new System.Drawing.Point(144, 186);
+			this.lblBibliotheque.Name = "lblBibliotheque";
+			this.lblBibliotheque.Size = new System.Drawing.Size(75, 13);
+			this.lblBibliotheque.TabIndex = 18;
+			this.lblBibliotheque.Text = "lblBibliotheque";
+			// 
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panel2.Controls.Add(this.lblEmpruntStatus);
-			this.panel2.Controls.Add(this.label3);
 			this.panel2.Controls.Add(this.label2);
 			this.panel2.Location = new System.Drawing.Point(3, 222);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(286, 250);
 			this.panel2.TabIndex = 19;
 			// 
-			// panel3
+			// lblEmpruntStatus
 			// 
-			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel3.Controls.Add(this.lblReservationStatus);
-			this.panel3.Controls.Add(this.label1);
-			this.panel3.Location = new System.Drawing.Point(295, 222);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(286, 250);
-			this.panel3.TabIndex = 20;
+			this.lblEmpruntStatus.AutoSize = true;
+			this.lblEmpruntStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblEmpruntStatus.Location = new System.Drawing.Point(5, 44);
+			this.lblEmpruntStatus.Name = "lblEmpruntStatus";
+			this.lblEmpruntStatus.Size = new System.Drawing.Size(56, 20);
+			this.lblEmpruntStatus.TabIndex = 20;
+			this.lblEmpruntStatus.Text = "Status";
 			// 
 			// label2
 			// 
@@ -136,35 +143,15 @@
 			this.label2.TabIndex = 18;
 			this.label2.Text = "Emprunt";
 			// 
-			// label1
+			// panel3
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(95, 11);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(94, 20);
-			this.label1.TabIndex = 19;
-			this.label1.Text = "Réservation";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(5, 44);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(68, 20);
-			this.label3.TabIndex = 19;
-			this.label3.Text = "Status : ";
-			// 
-			// lblEmpruntStatus
-			// 
-			this.lblEmpruntStatus.AutoSize = true;
-			this.lblEmpruntStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblEmpruntStatus.Location = new System.Drawing.Point(65, 44);
-			this.lblEmpruntStatus.Name = "lblEmpruntStatus";
-			this.lblEmpruntStatus.Size = new System.Drawing.Size(53, 20);
-			this.lblEmpruntStatus.TabIndex = 20;
-			this.lblEmpruntStatus.Text = "status";
+			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel3.Controls.Add(this.lblReservationStatus);
+			this.panel3.Controls.Add(this.label1);
+			this.panel3.Location = new System.Drawing.Point(295, 222);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(286, 250);
+			this.panel3.TabIndex = 20;
 			// 
 			// lblReservationStatus
 			// 
@@ -176,14 +163,15 @@
 			this.lblReservationStatus.TabIndex = 20;
 			this.lblReservationStatus.Text = "Status";
 			// 
-			// lblBibliotheque
+			// label1
 			// 
-			this.lblBibliotheque.AutoSize = true;
-			this.lblBibliotheque.Location = new System.Drawing.Point(144, 186);
-			this.lblBibliotheque.Name = "lblBibliotheque";
-			this.lblBibliotheque.Size = new System.Drawing.Size(75, 13);
-			this.lblBibliotheque.TabIndex = 18;
-			this.lblBibliotheque.Text = "lblBibliotheque";
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(95, 11);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(94, 20);
+			this.label1.TabIndex = 19;
+			this.label1.Text = "Réservation";
 			// 
 			// FicheDeLivre
 			// 
@@ -218,7 +206,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label lblEmpruntStatus;
-		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label lblReservationStatus;
 		private System.Windows.Forms.Label lblBibliotheque;

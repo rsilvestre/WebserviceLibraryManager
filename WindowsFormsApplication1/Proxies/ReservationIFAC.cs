@@ -50,6 +50,16 @@ namespace WCF.Proxies
         System.IAsyncResult BeginSelectEnCoursValidByInfo(string token, string pInfo, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.ReservationBO> EndSelectEnCoursValidByInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/ReservationIFAC/ReservationIFAC/SelectEnCoursValidByReservationId", ReplyAction="urn:WebsIFAC/ReservationIFAC/ReservationIFAC/SelectEnCoursValidByReservationIdRes" +
+            "ponse")]
+        WebsBO.ReservationBO SelectEnCoursValidByReservationId(string token, int pDemandeReservationId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/ReservationIFAC/ReservationIFAC/SelectEnCoursValidByReservationId", ReplyAction="urn:WebsIFAC/ReservationIFAC/ReservationIFAC/SelectEnCoursValidByReservationIdRes" +
+            "ponse")]
+        System.IAsyncResult BeginSelectEnCoursValidByReservationId(string token, int pDemandeReservationId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.ReservationBO EndSelectEnCoursValidByReservationId(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -144,6 +154,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.ReservationBO> EndSelectEnCoursValidByInfo(System.IAsyncResult result)
         {
             return base.Channel.EndSelectEnCoursValidByInfo(result);
+        }
+        
+        public WebsBO.ReservationBO SelectEnCoursValidByReservationId(string token, int pDemandeReservationId)
+        {
+            return base.Channel.SelectEnCoursValidByReservationId(token, pDemandeReservationId);
+        }
+        
+        public System.IAsyncResult BeginSelectEnCoursValidByReservationId(string token, int pDemandeReservationId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginSelectEnCoursValidByReservationId(token, pDemandeReservationId, callback, asyncState);
+        }
+        
+        public WebsBO.ReservationBO EndSelectEnCoursValidByReservationId(System.IAsyncResult result)
+        {
+            return base.Channel.EndSelectEnCoursValidByReservationId(result);
         }
     }
 }

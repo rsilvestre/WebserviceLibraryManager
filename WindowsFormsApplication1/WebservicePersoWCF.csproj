@@ -43,9 +43,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Transitions">
-      <HintPath>..\Transitions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CGlobalCache.cs" />
@@ -235,6 +232,10 @@
     <ProjectReference Include="..\BO\WebsBO.csproj">
       <Project>{129cde71-effb-404b-b5ee-fcfb53d4b867}</Project>
       <Name>WebsBO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Transitions\Transitions.csproj">
+      <Project>{95cde461-0720-4c3b-b5e1-d188391fb7c0}</Project>
+      <Name>Transitions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

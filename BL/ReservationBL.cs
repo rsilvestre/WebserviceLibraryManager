@@ -66,5 +66,22 @@ namespace WebsBL {
 			}
 			return result;
 		}
+
+		public static ReservationBO SelectEnCoursValidByReservationId(Int32 pDemandeReservationId) {
+			ReservationBO result = null;
+			try {
+				using (var reservationDal = new ReservationDAL(Util.GetConnection())) {
+					var lstResult = reservationDal.ReservationDAL_SelectEnCoursValidByReservationId(pDemandeReservationId).ToList();
+					if (lstResult.Count() == 1){
+						result = lstResult[0];
+						result.Emprunt = EmpruntBL.SelectById(result.EmpruntId);
+						result.DemandeReservation = DemandeReservationBL.SelectById(result.DemandeReservationId);
+					}
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return result;
+		}
 	}
 }

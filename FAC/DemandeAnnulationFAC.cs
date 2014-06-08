@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using WebsBO;
 using WebsBL;
 using WebsIFAC;
@@ -19,12 +17,23 @@ namespace WebsFAC {
 			}
 		}
 
-		public DemandeAnnulationBO InsertDemandeAnnulation(String token, Int32 pAdministrateurId, Int32 pDemandeReservationId){
+		public DemandeAnnulationBO InsertDemandeAnnulationByAdmininistrateur(String token, Int32 pAdministrateurId, Int32 pDemandeReservationId){
 			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
-				return DemandeAnnulationBL.InsertDemandeAnnulation(pAdministrateurId, pDemandeReservationId);
+				return DemandeAnnulationBL.InsertDemandeAnnulationByAdmininistrateur(pAdministrateurId, pDemandeReservationId);
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
+		public DemandeAnnulationBO InsertDemandeAnnulationByClient(String token, Int32 pClientId, Int32 pDemandeReservationId){
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
+				return null;
+			}
+			try {
+				return DemandeAnnulationBL.InsertDemandeAnnulationByClient(pClientId, pDemandeReservationId);
 			} catch (Exception ex) {
 				throw;
 			}

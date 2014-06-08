@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebsBO {
 	[DataContract(Namespace = "urn:WebsBO.EmpruntBO")]
@@ -12,6 +10,7 @@ namespace WebsBO {
 		private Int32 _LivreId;
 		private Int32 _ActionId;
 		private String _State;
+		private String _Transition;
 		private DateTime _CreatedAt;
 		private Int32 ?_AdministrateurId;
 		private Int32 ?_ClientId;
@@ -22,11 +21,12 @@ namespace WebsBO {
 
 		public EmpruntBO() { }
 
-		public EmpruntBO(Int32 pEmpruntId, Int32 pLivreId, Int32 pActionId, String pState, DateTime pCreatedAt, Int32 pAdministrateurId, Int32 pClientId) {
+		public EmpruntBO(Int32 pEmpruntId, Int32 pLivreId, Int32 pActionId, String pState, String pTransition,DateTime pCreatedAt, Int32 pAdministrateurId, Int32 pClientId) {
 			EmpruntId = pEmpruntId;
 			LivreId = pLivreId;
 			ActionId = pActionId;
 			State = pState;
+			Transition = pTransition;
 			CreatedAt = pCreatedAt;
 			AdministrateurId = pAdministrateurId;
 			ClientId = pClientId;
@@ -96,6 +96,12 @@ namespace WebsBO {
 		public PersonneBO Personne{
 			get { return _personne; }
 			set { _personne = value; }
+		}
+		
+		[DataMember(Name="Transition")]
+		public string Transition{
+			get { return _Transition; }
+			set { _Transition = value; }
 		}
 	}
 }

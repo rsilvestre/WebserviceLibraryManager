@@ -45,7 +45,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		internal DemandeAnnulationBO SaveAnnuleReservation(AdministrateurBO pAdministrateurBo, DemandeReservationBO pDemandeReservationBo){
 			var demandeAnnulationIFac = new DemandeAnnulationIFACClient();
 			//throw new NotImplementedException();
-			return demandeAnnulationIFac.InsertDemandeAnnulation(CGlobalCache.SessionManager.Token, pAdministrateurBo.AdministrateurId, pDemandeReservationBo.DemandeReservationId);
+			return demandeAnnulationIFac.InsertDemandeAnnulationByAdmininistrateur(CGlobalCache.SessionManager.Token, pAdministrateurBo.AdministrateurId, pDemandeReservationBo.DemandeReservationId);
 		}
 
 		public EmpruntBO SaveAnnuleReservation(AdministrateurBO pAdministrateurBo, ReservationBO pReservationBo) {
