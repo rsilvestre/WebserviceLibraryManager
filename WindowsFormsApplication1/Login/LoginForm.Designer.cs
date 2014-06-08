@@ -48,7 +48,6 @@
 			this.txtUsername.Name = "txtUsername";
 			this.txtUsername.Size = new System.Drawing.Size(100, 20);
 			this.txtUsername.TabIndex = 1;
-			this.txtUsername.Text = "rsilvestre";
 			this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtGeneric_KeyDown);
 			// 
 			// txtPassword

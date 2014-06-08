@@ -33,5 +33,11 @@ namespace WebsDAL {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pInfo);
 			return ((ISingleResult<PersonneBO>)(result.ReturnValue));
 		}
+
+		[Function(Name = "[dbo].[Personne.SelectByLivreEmpruntId]")]
+		public ISingleResult<PersonneBO> PersonneBO_SelectByLivreEmpruntId([Parameter(DbType="int")] Int32 pEmpruntId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pEmpruntId);
+			return ((ISingleResult<PersonneBO>)(result.ReturnValue));
+		}
 	}
 }

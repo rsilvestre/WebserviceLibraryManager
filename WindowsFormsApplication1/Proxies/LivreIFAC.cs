@@ -18,42 +18,42 @@ namespace WCF.Proxies
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAllResponse")]
-        System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string Token);
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string token);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAll", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectAllResponse")]
-        System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectAll(string token, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfoResponse")]
-        System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string Token, string pLivreInfo, int pBibliothequeId);
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string token, string pLivreInfo, int pBibliothequeId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfo", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByInfoResponse")]
-        System.IAsyncResult BeginSelectByInfo(string Token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectByInfo(string token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByInfo(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliotheque", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliothequeResponse")]
-        System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque);
+        System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string token, WebsBO.BibliothequeBO pBibliotheque);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliotheque", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectByBibliothequeResponse")]
-        System.IAsyncResult BeginSelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectByBibliotheque(string token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByBibliotheque(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectFicheLivreForClientByLivreId", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectFicheLivreForClientByLivreIdResponse")]
-        WebsBO.FicheLivreBO SelectFicheLivreForClientByLivreId(string Token, int pClientId, int pLivreId);
+        WebsBO.FicheLivreBO SelectFicheLivreForClientByLivreId(string token, int pClientId, int pLivreId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectFicheLivreForClientByLivreId", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/SelectFicheLivreForClientByLivreIdResponse")]
-        System.IAsyncResult BeginSelectFicheLivreForClientByLivreId(string Token, int pClientId, int pLivreId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSelectFicheLivreForClientByLivreId(string token, int pClientId, int pLivreId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.FicheLivreBO EndSelectFicheLivreForClientByLivreId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId);
+        WebsBO.LivreBO InsertLivre(string token, WebsBO.LivreBO pObjLivre, int pAdministrateurId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivre", ReplyAction="urn:WebsIFAC/LivreIFAC/LivreIFAC/InsertLivreResponse")]
-        System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginInsertLivre(string token, WebsBO.LivreBO pObjLivre, int pAdministrateurId, System.AsyncCallback callback, object asyncState);
         
         WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result);
     }
@@ -92,14 +92,14 @@ namespace WCF.Proxies
         {
         }
         
-        public System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string Token)
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectAll(string token)
         {
-            return base.Channel.SelectAll(Token);
+            return base.Channel.SelectAll(token);
         }
         
-        public System.IAsyncResult BeginSelectAll(string Token, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectAll(string token, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectAll(Token, callback, asyncState);
+            return base.Channel.BeginSelectAll(token, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectAll(System.IAsyncResult result)
@@ -107,14 +107,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectAll(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string Token, string pLivreInfo, int pBibliothequeId)
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByInfo(string token, string pLivreInfo, int pBibliothequeId)
         {
-            return base.Channel.SelectByInfo(Token, pLivreInfo, pBibliothequeId);
+            return base.Channel.SelectByInfo(token, pLivreInfo, pBibliothequeId);
         }
         
-        public System.IAsyncResult BeginSelectByInfo(string Token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectByInfo(string token, string pLivreInfo, int pBibliothequeId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectByInfo(Token, pLivreInfo, pBibliothequeId, callback, asyncState);
+            return base.Channel.BeginSelectByInfo(token, pLivreInfo, pBibliothequeId, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByInfo(System.IAsyncResult result)
@@ -122,14 +122,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectByInfo(result);
         }
         
-        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque)
+        public System.Collections.Generic.List<WebsBO.LivreBO> SelectByBibliotheque(string token, WebsBO.BibliothequeBO pBibliotheque)
         {
-            return base.Channel.SelectByBibliotheque(Token, pBibliotheque);
+            return base.Channel.SelectByBibliotheque(token, pBibliotheque);
         }
         
-        public System.IAsyncResult BeginSelectByBibliotheque(string Token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectByBibliotheque(string token, WebsBO.BibliothequeBO pBibliotheque, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectByBibliotheque(Token, pBibliotheque, callback, asyncState);
+            return base.Channel.BeginSelectByBibliotheque(token, pBibliotheque, callback, asyncState);
         }
         
         public System.Collections.Generic.List<WebsBO.LivreBO> EndSelectByBibliotheque(System.IAsyncResult result)
@@ -137,14 +137,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectByBibliotheque(result);
         }
         
-        public WebsBO.FicheLivreBO SelectFicheLivreForClientByLivreId(string Token, int pClientId, int pLivreId)
+        public WebsBO.FicheLivreBO SelectFicheLivreForClientByLivreId(string token, int pClientId, int pLivreId)
         {
-            return base.Channel.SelectFicheLivreForClientByLivreId(Token, pClientId, pLivreId);
+            return base.Channel.SelectFicheLivreForClientByLivreId(token, pClientId, pLivreId);
         }
         
-        public System.IAsyncResult BeginSelectFicheLivreForClientByLivreId(string Token, int pClientId, int pLivreId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginSelectFicheLivreForClientByLivreId(string token, int pClientId, int pLivreId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSelectFicheLivreForClientByLivreId(Token, pClientId, pLivreId, callback, asyncState);
+            return base.Channel.BeginSelectFicheLivreForClientByLivreId(token, pClientId, pLivreId, callback, asyncState);
         }
         
         public WebsBO.FicheLivreBO EndSelectFicheLivreForClientByLivreId(System.IAsyncResult result)
@@ -152,14 +152,14 @@ namespace WCF.Proxies
             return base.Channel.EndSelectFicheLivreForClientByLivreId(result);
         }
         
-        public WebsBO.LivreBO InsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId)
+        public WebsBO.LivreBO InsertLivre(string token, WebsBO.LivreBO pObjLivre, int pAdministrateurId)
         {
-            return base.Channel.InsertLivre(Token, pObjLivre, AdministrateurId);
+            return base.Channel.InsertLivre(token, pObjLivre, pAdministrateurId);
         }
         
-        public System.IAsyncResult BeginInsertLivre(string Token, WebsBO.LivreBO pObjLivre, int AdministrateurId, System.AsyncCallback callback, object asyncState)
+        public System.IAsyncResult BeginInsertLivre(string token, WebsBO.LivreBO pObjLivre, int pAdministrateurId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginInsertLivre(Token, pObjLivre, AdministrateurId, callback, asyncState);
+            return base.Channel.BeginInsertLivre(token, pObjLivre, pAdministrateurId, callback, asyncState);
         }
         
         public WebsBO.LivreBO EndInsertLivre(System.IAsyncResult result)

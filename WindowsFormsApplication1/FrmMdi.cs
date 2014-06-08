@@ -73,7 +73,7 @@ namespace WindowsFormsApplication1 {
 				libraryToolStripMenuItem.Visible = false;
 			}
 			
-			CGlobalCache.actualBibliothequeChangeEventHandler += ActualBibliothequeChange;
+			CGlobalCache.ActualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 		}
 
 		private void FrmMdi_Load(object sender, EventArgs e) {

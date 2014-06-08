@@ -9,6 +9,7 @@ namespace WebsBO {
 	public class DemandeAnnulationBO {
 		private Int32 _DemandeReservationId;
 		private DateTime _CreatedAt;
+		private DemandeReservationBO _demandeReservation;
 
 		public DemandeAnnulationBO() { }
 
@@ -28,7 +29,11 @@ namespace WebsBO {
 			get { return _DemandeReservationId; }
 			set { _DemandeReservationId = value; }
 		}
-
-
+		
+		[DataMember(Name = "DemandeReservation")]
+		public DemandeReservationBO DemandeReservation{
+			get { return _demandeReservation; }
+			set { _demandeReservation = value; }
+		}
 	}
 }

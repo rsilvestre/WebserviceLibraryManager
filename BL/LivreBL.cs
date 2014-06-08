@@ -80,10 +80,10 @@ namespace WebsBL {
 		}
 
 		public static LivreBO InsertLivre(LivreBO pObjLivre, Int32 AdministrateurId) {
-			LivreBO oLivreBOResult;
+			LivreBO oLivreBoResult;
 			try {
 				using (var livreProxy = new LivreDAL(Util.GetConnection())) {
-					oLivreBOResult = (LivreBO)livreProxy.LivreDAL_InsertLivre(
+					oLivreBoResult = (LivreBO)livreProxy.LivreDAL_InsertLivre(
 						pObjLivre.BibliothequeId,
 						pObjLivre.RefLivreId,
 						pObjLivre.RefLivre.ISBN,
@@ -97,13 +97,13 @@ namespace WebsBL {
 						AdministrateurId
 						).ToList()[0];
 					
-						oLivreBOResult.RefLivre = RefLivreBL.SelectById(oLivreBOResult.RefLivreId);
-						oLivreBOResult.Bibliotheque = BibliothequeBL.SelectById(oLivreBOResult.BibliothequeId);
+						oLivreBoResult.RefLivre = RefLivreBL.SelectById(oLivreBoResult.RefLivreId);
+						oLivreBoResult.Bibliotheque = BibliothequeBL.SelectById(oLivreBoResult.BibliothequeId);
 				}
 			} catch (Exception ex) {
 				throw;
 			}
-			return oLivreBOResult;
+			return oLivreBoResult;
 		}
 
 		public static List<LivreBO> SelectByInfo(String pLivreInfo, Int32 pBibliothequeId) {

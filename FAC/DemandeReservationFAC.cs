@@ -8,8 +8,8 @@ using WebsIFAC;
 
 namespace WebsFAC {
 	public class DemandeReservationFAC : DemandeReservationIFAC	{
-		public List<DemandeReservationBO> SelectById(String Token, int pDemandeReservationId) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public DemandeReservationBO SelectById(String token, int pDemandeReservationId) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -19,8 +19,19 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<DemandeReservationBO> SelectNewByClient(String Token, ClientBO pClient) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<DemandeReservationBO> SelectAll(String token) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return DemandeReservationBL.SelectAll();
+			} catch (Exception ex) {
+				throw;
+			}
+		}
+
+		public List<DemandeReservationBO> SelectNewByClient(String token, ClientBO pClient) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -30,8 +41,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<DemandeReservationBO> SelectOldByClient(String Token, ClientBO pClient) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<DemandeReservationBO> SelectOldByClient(String token, ClientBO pClient) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -41,8 +52,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public DemandeReservationBO InsertDemandeReservation(String Token, DemandeReservationBO pDemandeReservation) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public DemandeReservationBO InsertDemandeReservation(String token, DemandeReservationBO pDemandeReservation) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {

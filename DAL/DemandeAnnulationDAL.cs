@@ -16,5 +16,11 @@ namespace WebsDAL {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)MethodBase.GetCurrentMethod()), DemandeAnnulationId);
 			return ((ISingleResult<DemandeAnnulationBO>)result.ReturnValue);
 		}
+
+		[Function(Name="[dbo].[DemandeAnnulation.InsertDemandeAnnulation]")]
+		public ISingleResult<DemandeAnnulationBO> DemandeAnnulationDAL_InsertDemandeAnnulation([Parameter(DbType = "int")] Int32 pAdministrateurId, [Parameter(DbType = "int")] Int32 pDemandeReservationId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)MethodBase.GetCurrentMethod()), pAdministrateurId, pDemandeReservationId);
+			return ((ISingleResult<DemandeAnnulationBO>)result.ReturnValue);
+		}
 	}
 }

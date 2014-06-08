@@ -6,23 +6,26 @@ using WebsBO;
 
 namespace WebsBL {
 	public static class DemandeReservationBL {
-		public static List<DemandeReservationBO> SelectById(Int32 pDemandeReservationId) {
-			List<DemandeReservationBO> lstDemandeReservation = null;
+		public static DemandeReservationBO SelectById(Int32 pDemandeReservationId) {
+			DemandeReservationBO demandeReservation = null;
 
 			try {
 				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
-					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectById(pDemandeReservationId).ToList();
-					foreach (var objDemandeReservation in lstDemandeReservation) {
-						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
-						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
+					var lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectById(pDemandeReservationId).ToList();
+					if (lstDemandeReservation.Count == 1){
+						demandeReservation = lstDemandeReservation[0];
+						demandeReservation.Client = ClientBL.SelectById(demandeReservation.ClientId);
+						demandeReservation.RefLivre = RefLivreBL.SelectById(demandeReservation.RefLivreId);
+						demandeReservation.Personne = PersonneBL.SelectById(demandeReservation.ClientId);
 					}
 				}
 			} catch (Exception ex) {
 				throw;
 			}
 
-			return lstDemandeReservation;
+			return demandeReservation;
 		}
+
 		public static List<DemandeReservationBO> SelectForClientByRefLivreId(Int32 pClientId, Int32 pRefLivreId) {
 			List<DemandeReservationBO> lstDemandeReservation;
 
@@ -32,6 +35,26 @@ namespace WebsBL {
 					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
+						objDemandeReservation.Personne = PersonneBL.SelectById(objDemandeReservation.ClientId);
+					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return lstDemandeReservation;
+		}
+
+		public static List<DemandeReservationBO> SelectAll() {
+			List<DemandeReservationBO> lstDemandeReservation;
+
+			try {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectAll().ToList();
+					foreach (var objDemandeReservation in lstDemandeReservation){
+						objDemandeReservation.Client = ClientBL.SelectById(objDemandeReservation.ClientId);
+						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
+						objDemandeReservation.Personne = PersonneBL.SelectById(objDemandeReservation.ClientId);
 					}
 				}
 			} catch (Exception ex) {
@@ -50,6 +73,7 @@ namespace WebsBL {
 					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = pClient;
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
+						objDemandeReservation.Personne = PersonneBL.SelectById(objDemandeReservation.ClientId);
 					}
 				}
 			} catch (Exception ex) {
@@ -68,6 +92,7 @@ namespace WebsBL {
 					foreach (var objDemandeReservation in lstDemandeReservation) {
 						objDemandeReservation.Client = pClient;
 						objDemandeReservation.RefLivre = RefLivreBL.SelectById(objDemandeReservation.RefLivreId);
+						objDemandeReservation.Personne = PersonneBL.SelectById(objDemandeReservation.ClientId);
 					}
 				}
 			} catch (Exception ex) {
@@ -87,6 +112,7 @@ namespace WebsBL {
 						objDemandeReservation = lstDemandeReservation[0];
 						objDemandeReservation.Client = pDemandeReservation.Client;
 						objDemandeReservation.RefLivre = pDemandeReservation.RefLivre;
+						objDemandeReservation.Personne = PersonneBL.SelectById(objDemandeReservation.ClientId);
 					}
 				}
 			} catch (Exception ex) {
@@ -94,6 +120,25 @@ namespace WebsBL {
 			}
 
 			return objDemandeReservation;
+		}
+
+		internal static List<DemandeReservationBO> SelectByEmpruntId(Int32 pEmpruntId) {
+			List<DemandeReservationBO> lstDemandeReservation = null;
+
+			try {
+				using (var demandeReservationDal = new DemandeReservationDAL(Util.GetConnection())) {
+					lstDemandeReservation = demandeReservationDal.DemandeReservationDAL_SelectByEmpruntId(pEmpruntId).ToList();
+					foreach (var demandeReservationBo in lstDemandeReservation){
+						demandeReservationBo.Client = ClientBL.SelectById(demandeReservationBo.ClientId);
+						demandeReservationBo.RefLivre = RefLivreBL.SelectById(demandeReservationBo.RefLivreId);
+						demandeReservationBo.Personne = PersonneBL.SelectById(demandeReservationBo.ClientId);
+					}
+				}
+			} catch (Exception ex) {
+				throw;
+			}
+
+			return lstDemandeReservation;
 		}
 	}
 }

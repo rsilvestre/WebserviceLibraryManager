@@ -8,8 +8,8 @@ using WebsIFAC;
 
 namespace WebsFAC {
 	public class EmpruntFAC : EmpruntIFAC {
-		public List<EmpruntBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public List<EmpruntBO> SelectAll(String token) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -19,8 +19,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public EmpruntBO SelectEmpruntById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public EmpruntBO SelectEmpruntById(String token, Int32 pId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -30,19 +30,30 @@ namespace WebsFAC {
 			}
 		}
 
-		public EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pAdministrateurId, Int32 pReservationId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public List<EmpruntBO> SelectEmpruntByClientId(String token, Int32 pClientId) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
-				return EmpruntBL.InsertEmpruntFromReservation(pAdministrateurId, pReservationId);
+				return EmpruntBL.SelectByClientId(pClientId);
 			} catch (Exception Ex) {
 				throw;
 			}
 		}
 
-		public EmpruntBO InsertEmprunt(String Token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public EmpruntBO ConvertReservation(String token, Int32 pAdministrateurId, Int32 pReservationId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return EmpruntBL.ConvertReservation(pAdministrateurId, pReservationId);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public EmpruntBO InsertEmprunt(String token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -52,8 +63,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public EmpruntBO InsertRetour(String Token, Int32 pAdministrateurId, Int32 pLivreId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public EmpruntBO InsertRetour(String token, Int32 pAdministrateurId, Int32 pLivreId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
@@ -63,12 +74,12 @@ namespace WebsFAC {
 			}
 		}
 
-		public EmpruntBO InsertAnnul(String Token, Int32 pAdministrateurId, Int32 pLivreId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public EmpruntBO InsertAnnul(String token, Int32 pAdministrateurId, Int32 pReservationId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return EmpruntBL.InsertAnnul(pAdministrateurId, pLivreId);
+				return EmpruntBL.InsertAnnul(pAdministrateurId, pReservationId);
 			} catch (Exception Ex) {
 				throw;
 			}

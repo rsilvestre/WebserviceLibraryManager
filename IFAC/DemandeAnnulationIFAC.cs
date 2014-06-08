@@ -11,5 +11,8 @@ namespace WebsIFAC {
 		
 		[OperationContract]
 		List<DemandeAnnulationBO> SelectById(String Token, Int32 pDemandeAnnulationId);
+
+		[OperationContract]
+		DemandeAnnulationBO InsertDemandeAnnulation(String token, Int32 pAdministrateurId, Int32 pDemandeReservationId);
 	}
 }

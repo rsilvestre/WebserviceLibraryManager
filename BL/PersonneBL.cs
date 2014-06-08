@@ -59,5 +59,20 @@ namespace WebsBL {
 			}
 			return lstPersonne;
 		}
+
+		public static PersonneBO SelectByLivreEmpruntId( Int32 pEmpruntId) {
+			PersonneBO objPersonne = null;
+			try {
+				using (var personneDal = new PersonneDAL(Util.GetConnection())) {
+					var lstPersonne = personneDal.PersonneBO_SelectByLivreEmpruntId(pEmpruntId).ToList().ToList();
+					if (lstPersonne.Count() == 1){
+						objPersonne = lstPersonne[0];
+					}
+				}
+			} catch (Exception Ex) {
+				throw;
+			}
+			return objPersonne;
+		}
 	}
 }

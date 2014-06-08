@@ -13,6 +13,8 @@ namespace WebsBO {
 		private Int32 _ActionId;
 		private Int32 _DemandeReservationId;
 		private DateTime _CreatedAt;
+		private EmpruntBO _emprunt;
+		private DemandeReservationBO _demandeReservation;
 
 		public ReservationBO() { }
 
@@ -60,6 +62,17 @@ namespace WebsBO {
 			get { return _ReservationId; }
 			set { _ReservationId = value; }
 		}
-
+		
+		[DataMember(Name="Emprunt")]
+		public EmpruntBO Emprunt{
+			get { return _emprunt; }
+			set { _emprunt = value; }
+		}
+		
+		[DataMember(Name="DemandeReservation")]
+		public DemandeReservationBO DemandeReservation{
+			get { return _demandeReservation; }
+			set { _demandeReservation = value; }
+		}
 	}
 }

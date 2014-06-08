@@ -12,7 +12,7 @@ namespace WindowsFormsApplication1.Livre {
 		}
 
 		public void SetForm(LivreBO pLivre) {
-			CGlobalCache.actualBibliothequeChangeEventHandler += ActualBibliothequeChange;
+			CGlobalCache.ActualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 			cmbBibliotheque.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
 			cmbBibliotheque.SelectedItem = CGlobalCache.ActualBibliotheque;
 

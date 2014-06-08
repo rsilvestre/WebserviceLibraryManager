@@ -9,22 +9,25 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace = "urn:WebsIFAC/EmpruntIFAC")]
 	public interface EmpruntIFAC {
 		[OperationContract]
-		List<EmpruntBO> SelectAll(String Token);
+		List<EmpruntBO> SelectAll(String token);
 
 		[OperationContract]
-		EmpruntBO SelectEmpruntById(String Token, int pId);
+		EmpruntBO SelectEmpruntById(String token, Int32 pId);
 
 		[OperationContract]
-		EmpruntBO InsertEmpruntFromReservation(String Token, Int32 pAdministrateurId, Int32 pReservationId);
+		List<EmpruntBO> SelectEmpruntByClientId(String token, Int32 pClientId);
 
 		[OperationContract]
-		EmpruntBO InsertEmprunt(String Token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId);
+		EmpruntBO ConvertReservation(String token, Int32 pAdministrateurId, Int32 pReservationId);
 
 		[OperationContract]
-		EmpruntBO InsertRetour(String Token, Int32 pAdministrateurId, Int32 pLivreId);
+		EmpruntBO InsertEmprunt(String token, Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId);
 
 		[OperationContract]
-		EmpruntBO InsertAnnul(String Token, Int32 pAdministrateurId, Int32 pLivreId);
+		EmpruntBO InsertRetour(String token, Int32 pAdministrateurId, Int32 pLivreId);
+
+		[OperationContract]
+		EmpruntBO InsertAnnul(String token, Int32 pAdministrateurId, Int32 pReservationId);
 	}
 
 }

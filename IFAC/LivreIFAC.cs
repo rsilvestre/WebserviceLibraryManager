@@ -9,17 +9,17 @@ namespace WebsIFAC {
 	[ServiceContract(Namespace = "urn:WebsIFAC/LivreIFAC")]
 	public interface LivreIFAC {
 		[OperationContract]
-		List<LivreBO> SelectAll(String Token);
+		List<LivreBO> SelectAll(String token);
 		[OperationContract]
-		List<LivreBO> SelectByInfo(String Token, String pLivreInfo, Int32 pBibliothequeId);
+		List<LivreBO> SelectByInfo(String token, String pLivreInfo, Int32 pBibliothequeId);
 
 		[OperationContract]
-		List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque);
+		List<LivreBO> SelectByBibliotheque(String token, BibliothequeBO pBibliotheque);
 
 		[OperationContract]
-		FicheLivreBO SelectFicheLivreForClientByLivreId(String Token, Int32 pClientId, Int32 pLivreId);
+		FicheLivreBO SelectFicheLivreForClientByLivreId(String token, Int32 pClientId, Int32 pLivreId);
 
 		[OperationContract]
-		LivreBO InsertLivre(String Token, LivreBO pObjLivre, Int32 AdministrateurId);
+		LivreBO InsertLivre(String token, LivreBO pObjLivre, Int32 pAdministrateurId);
 	}
 }

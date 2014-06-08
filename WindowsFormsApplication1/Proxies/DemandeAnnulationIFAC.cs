@@ -24,6 +24,16 @@ namespace WCF.Proxies
         System.IAsyncResult BeginSelectById(string Token, int pDemandeAnnulationId, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> EndSelectById(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/InsertDemandeAnnulation", ReplyAction="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/InsertDemandeAnnulationR" +
+            "esponse")]
+        WebsBO.DemandeAnnulationBO InsertDemandeAnnulation(string token, int pAdministrateurId, int pDemandeReservationId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/InsertDemandeAnnulation", ReplyAction="urn:WebsIFAC/DemandeAnnulationIFAC/DemandeAnnulationIFAC/InsertDemandeAnnulationR" +
+            "esponse")]
+        System.IAsyncResult BeginInsertDemandeAnnulation(string token, int pAdministrateurId, int pDemandeReservationId, System.AsyncCallback callback, object asyncState);
+        
+        WebsBO.DemandeAnnulationBO EndInsertDemandeAnnulation(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -73,6 +83,21 @@ namespace WCF.Proxies
         public System.Collections.Generic.List<WebsBO.DemandeAnnulationBO> EndSelectById(System.IAsyncResult result)
         {
             return base.Channel.EndSelectById(result);
+        }
+        
+        public WebsBO.DemandeAnnulationBO InsertDemandeAnnulation(string token, int pAdministrateurId, int pDemandeReservationId)
+        {
+            return base.Channel.InsertDemandeAnnulation(token, pAdministrateurId, pDemandeReservationId);
+        }
+        
+        public System.IAsyncResult BeginInsertDemandeAnnulation(string token, int pAdministrateurId, int pDemandeReservationId, System.AsyncCallback callback, object asyncState)
+        {
+            return base.Channel.BeginInsertDemandeAnnulation(token, pAdministrateurId, pDemandeReservationId, callback, asyncState);
+        }
+        
+        public WebsBO.DemandeAnnulationBO EndInsertDemandeAnnulation(System.IAsyncResult result)
+        {
+            return base.Channel.EndInsertDemandeAnnulation(result);
         }
     }
 }

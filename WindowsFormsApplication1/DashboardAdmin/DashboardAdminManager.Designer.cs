@@ -178,6 +178,7 @@
 			this.btnRetourManagement.TabIndex = 2;
 			this.btnRetourManagement.Text = "Retour";
 			this.btnRetourManagement.UseVisualStyleBackColor = true;
+			this.btnRetourManagement.Click += new System.EventHandler(this.btnRetourManagement_Click);
 			// 
 			// btnLivreManagement
 			// 
@@ -187,6 +188,7 @@
 			this.btnLivreManagement.TabIndex = 4;
 			this.btnLivreManagement.Text = "Livre";
 			this.btnLivreManagement.UseVisualStyleBackColor = true;
+			this.btnLivreManagement.Click += new System.EventHandler(this.btnLivreManagement_Click);
 			// 
 			// cmbBibliotheque
 			// 

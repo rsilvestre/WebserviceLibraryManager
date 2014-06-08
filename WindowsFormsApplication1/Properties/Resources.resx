@@ -138,4 +138,34 @@
   <data name="FrmMdi_ShowClientDashboard_Vous_avez_deja_un_Dashboard_ouvert" xml:space="preserve">
     <value>Vous avez déjà un Dashboard ouvert</value>
   </data>
+  <data name="EmpruntManagement_btnValider_Click_Tous_les_champs_ne_sont_pas_remplis_" xml:space="preserve">
+    <value>Tous les champs ne sont pas remplis!</value>
+  </data>
+  <data name="EmpruntManagement_SearchLivreField_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_" xml:space="preserve">
+    <value>Erreur lors de la récupération des informations sur le livre demandé.</value>
+  </data>
+  <data name="EmpruntManagement_btnValider_Click_Echec_lors_de_l_enregistrement_de_l_emprunt" xml:space="preserve">
+    <value>Echec lors de l'enregistrement de l'emprunt</value>
+  </data>
+  <data name="ReservationManagement_GetPersonne_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_" xml:space="preserve">
+    <value>Erreur lors de la récupération des informations sur le livre demandé.</value>
+  </data>
+  <data name="DashboardManager_loadFicheLivre_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_" xml:space="preserve">
+    <value>Erreur lors de la récupération des informations sur le livre demandé.</value>
+  </data>
+  <data name="DashboardManager_totoToolStripMenuItem_Click_Le_livre_n_a_pas_pu_etre_ajoute_dans_votre_liste_de_demande" xml:space="preserve">
+    <value>Le livre n'a pas pu etre ajouté dans votre liste de demande</value>
+  </data>
+  <data name="EmpruntManagement_btnValider_Click_Vous_avez_trop_de_livre_empruntes__Seul_3_maximum_sont_authorizes" xml:space="preserve">
+    <value>Vous avez trop de livre empruntés. Seul 3 maximum sont authorizés</value>
+  </data>
+  <data name="EmpruntManagement_SearchReservationField_Erreur_lors_de_la_recuperation_des_informations_sur_la_reservation_demandee" xml:space="preserve">
+    <value>Erreur lors de la récupération des informations sur la réservation demandée</value>
+  </data>
+  <data name="ReservationManagement_cmbReservationToogle_SelectedIndexChanged_Erreur_lors_de_la_recuperation_des_reservations" xml:space="preserve">
+    <value>Erreur lors de la récupération des réservations</value>
+  </data>
+  <data name="ReservationManagement_btnAnnuler_Click_Erreur_lors_de_votre_demande_d_annulation" xml:space="preserve">
+    <value>Erreur lors de votre demande d'annulation</value>
+  </data>
 </root>

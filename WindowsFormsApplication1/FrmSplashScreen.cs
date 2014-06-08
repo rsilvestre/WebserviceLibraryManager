@@ -65,7 +65,7 @@ namespace WindowsFormsApplication1 {
 				Close();
 			}
 			progressBar.Minimum = 0;
-			progressBar.Maximum = CGlobalCache._iLock;
+			progressBar.Maximum = CGlobalCache.Lock;
 			progressBar.Step = 1;
 		}
 

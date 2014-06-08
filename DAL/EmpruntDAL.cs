@@ -7,9 +7,9 @@ using WebsBO;
 namespace WebsDAL {
 	public class EmpruntDAL : DataContext {
 
-		private static readonly MappingSource mappingSource = new AttributeMappingSource();
+		private static readonly MappingSource MappingSource = new AttributeMappingSource();
 
-		public EmpruntDAL(String ConnString) : base(ConnString, mappingSource) { }
+		public EmpruntDAL(String connString) : base(connString, MappingSource) { }
 
 		[Function(Name="[dbo].[Emprunt.SelectAll]")]
 		public ISingleResult<EmpruntBO> EmpruntDAL_SelectAll() {
@@ -18,19 +18,25 @@ namespace WebsDAL {
 		}
 
 		[Function(Name="[dbo].[Emprunt.SelectById]")]
-		public ISingleResult<EmpruntBO> EmpruntDAL_SelectById([Parameter(DbType = "int")] Int32 EmpruntId) {
-			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), EmpruntId);
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectById([Parameter(DbType = "int")] Int32 pEmpruntId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pEmpruntId);
+			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
+		}
+
+		[Function(Name="[dbo].[Emprunt.SelectByClientId]")]
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectByClientId([Parameter(DbType = "int")] Int32 pClientId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pClientId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
 		
 		[Function(Name="[dbo].[Emprunt.SelectForUserByLivreId]")]
-		public ISingleResult<EmpruntBO> EmpruntDAL_SelectForUserByLivreId([Parameter(DbType = "int")] Int32 ClientId, [Parameter(DbType = "int")] Int32 LivreId) {
-			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), ClientId, LivreId);
+		public ISingleResult<EmpruntBO> EmpruntDAL_SelectForUserByLivreId([Parameter(DbType = "int")] Int32 pClientId, [Parameter(DbType = "int")] Int32 pLivreId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pClientId, pLivreId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
 		
-		[Function(Name="[dbo].[Emprunt.InsertEmpruntFromReservation]")]
-		public ISingleResult<EmpruntBO> EmpruntDAL_InsertEmpruntFromReservation([Parameter(DbType = "int")]Int32 pAdministrateurId, [Parameter(DbType = "int")]Int32 pReservationId) {
+		[Function(Name="[dbo].[Emprunt.ConvertReservation]")]
+		public ISingleResult<EmpruntBO> EmpruntDAL_ConvertReservation([Parameter(DbType = "int")]Int32 pAdministrateurId, [Parameter(DbType = "int")]Int32 pReservationId) {
 			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pAdministrateurId, pReservationId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
@@ -48,8 +54,8 @@ namespace WebsDAL {
 		}
 		
 		[Function(Name="[dbo].[emprunt.InsertAnnul]")]
-		public ISingleResult<EmpruntBO> EmpruntDAL_InsertAnnul([Parameter(DbType = "int")]Int32 pAdministrateurId, [Parameter(DbType = "int")]Int32 pLivreId) {
-			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pAdministrateurId, pLivreId);
+		public ISingleResult<EmpruntBO> EmpruntDAL_InsertAnnul([Parameter(DbType = "int")]Int32 pAdministrateurId, [Parameter(DbType = "int")]Int32 pReservationId) {
+			IExecuteResult result = ExecuteMethodCall(this, ((MethodInfo)(MethodBase.GetCurrentMethod())), pAdministrateurId, pReservationId);
 			return ((ISingleResult<EmpruntBO>)(result.ReturnValue));
 		}
 	}

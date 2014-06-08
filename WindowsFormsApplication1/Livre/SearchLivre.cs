@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1.Livre {
 			// Recherche dans le bibliotheque locale
 			var grpLivreLocal = CGlobalCache.LstLivreByBibliotheque.FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
 			// Recherche dans toutes les bibliothèques (locale comprise)
-			var grpLivreAll = CGlobalCache.LstLivreSelectAll.FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
+			var grpLivreAll = CGlobalCache.LstLivreSelectAll.ToList().FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
 			
 			// Jointure des resultats entre la bibliothèque locale et les autres
 			var query = grpLivreLocal.Join(grpLivreAll, livreLocal => livreLocal.refLivreId, livreAll => livreAll.refLivreId, (livre1, livre2) => new { countLocal = livre1.count, countAll = livre2.count, livre1.refLivreId});

@@ -9,8 +9,8 @@ using WebsBL;
 namespace WebsFAC {
 	public class LivreFAC : LivreIFAC {
 
-		public List<LivreBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<LivreBO> SelectAll(String token) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -20,8 +20,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<LivreBO> SelectByBibliotheque(String Token, BibliothequeBO pBibliotheque) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<LivreBO> SelectByBibliotheque(String token, BibliothequeBO pBibliotheque) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -31,8 +31,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public FicheLivreBO SelectFicheLivreForClientByLivreId(String Token, Int32 pClientId, Int32 pLivreId) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public FicheLivreBO SelectFicheLivreForClientByLivreId(String token, Int32 pClientId, Int32 pLivreId) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -42,20 +42,20 @@ namespace WebsFAC {
 			}
 		}
 
-		public LivreBO InsertLivre(String Token, LivreBO pObjLivre, Int32 AdministrateurId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public LivreBO InsertLivre(String token, LivreBO pObjLivre, Int32 pAdministrateurId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {
-				return LivreBL.InsertLivre(pObjLivre, AdministrateurId);
+				return LivreBL.InsertLivre(pObjLivre, pAdministrateurId);
 			} catch (Exception ex) {
 				throw;
 			}
 		}
 
 
-		public List<LivreBO> SelectByInfo(string Token, String pLivreInfo, Int32 pBibliothequeId) {
-			if (!Autorization.Validate(Token, Autorization.Role.ADMIN)) {
+		public List<LivreBO> SelectByInfo(string token, String pLivreInfo, Int32 pBibliothequeId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
 				return null;
 			}
 			try {

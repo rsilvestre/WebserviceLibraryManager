@@ -13,9 +13,12 @@ namespace WebsBO {
 		private Int32 _ActionId;
 		private String _State;
 		private DateTime _CreatedAt;
-		private Int32 _AdministrateurId;
-		private Int32 _ClientId;
+		private Int32 ?_AdministrateurId;
+		private Int32 ?_ClientId;
 		private LivreBO _Livre;
+		private List<DemandeReservationBO> _lstDemandeReservation;
+		private ClientBO _Client;
+		private PersonneBO _personne;
 
 		public EmpruntBO() { }
 
@@ -36,13 +39,13 @@ namespace WebsBO {
 		}
 
 		[DataMember(Name="ClientId")]
-		public Int32 ClientId {
+		public Int32? ClientId {
 			get { return _ClientId; }
 			set { _ClientId = value; }
 		}
 		
 		[DataMember(Name="AdministrateurId")]
-		public Int32 AdministrateurId {
+		public Int32? AdministrateurId {
 			get { return _AdministrateurId; }
 			set { _AdministrateurId = value; }
 		}
@@ -77,5 +80,22 @@ namespace WebsBO {
 			set { _EmpruntId = value; }
 		}
 
+		[DataMember(Name = "LstDemandeReservation")]
+		public List<DemandeReservationBO> LstDemandeReservation{
+			get { return _lstDemandeReservation; }
+			set { _lstDemandeReservation = value; }
+		}
+		
+		[DataMember(Name = "Client")]
+		public ClientBO Client{
+			get { return _Client; }
+			set { _Client = value; }
+		}
+		
+		[DataMember(Name="Personne")]
+		public PersonneBO Personne{
+			get { return _personne; }
+			set { _personne = value; }
+		}
 	}
 }

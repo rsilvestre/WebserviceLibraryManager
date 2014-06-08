@@ -14,6 +14,7 @@ namespace WebsBO {
 		private RefLivreBO _RefLivre;
 		private DateTime _CreatedAt;
 		private Int32 _Valide;
+		private PersonneBO _personne;
 
 		public DemandeReservationBO() { }
 
@@ -75,6 +76,12 @@ namespace WebsBO {
 		public Int32 DemandeReservationId {
 			get { return _DemandeReservationId; }
 			set { _DemandeReservationId = value; }
+		}
+		
+		[DataMember(Name = "Personne")]
+		public PersonneBO Personne{
+			get { return _personne; }
+			set { _personne = value; }
 		}
 
 		public override string ToString() {

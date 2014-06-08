@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
+using WindowsFormsApplication1.Properties;
 using Transitions;
 using WCF.Proxies;
 using WebsBO;
 
 namespace WindowsFormsApplication1.Dashboard {
 	public partial class DashboardManager : Form {
-		private FrmMdi _frmMdi;
+		private readonly FrmMdi _frmMdi;
 		private LivreBO _livreSelected;
 		private FicheDeLivre _ficheDeLivre;
 		private FicheDeLivreReservation _ficheDeLivreReservation;
 
-		private const int ADD_DASHBOARD_FICHE_DE_LIVRE = 596;
-		private const int ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION = 544;
 		private int _dashboardWidth;
 		private int _lblBibliothequeLocationX;
 		private int _lblBibliothequeTitleLocationX;
@@ -25,7 +23,7 @@ namespace WindowsFormsApplication1.Dashboard {
 
 		private FicheLivreBO _actualFicheLivre;
 
-		private delegate FicheLivreBO AsyncGuiFicheDeLivreSelectForClientById(String Token, Int32 pClientId, Int32 pLivreId);
+		private delegate FicheLivreBO AsyncGuiFicheDeLivreSelectForClientById(String token, Int32 pClientId, Int32 pLivreId);
 
 		public DashboardManager() {
 			InitializeComponent();
@@ -35,24 +33,34 @@ namespace WindowsFormsApplication1.Dashboard {
 			_frmMdi = frmMdi;
 		}
 
-		private void loadReservation() {
-			List<DemandeReservationBO> lstDemandeReservationEnCours = CGlobalCache.LstNewDemandeReservationByClient;
-			lstReservationEnCours.Items.Clear();
-			lstReservationEnCours.Items.AddRange(lstDemandeReservationEnCours.ToArray());
-
-			List<DemandeReservationBO> lstDemandeReservationPasse = CGlobalCache.LstOldDemandeReservationByClient;
-			lstReservationPasse.Items.Clear();
-			lstReservationPasse.Items.AddRange(lstDemandeReservationPasse.ToArray());
+		private void LoadEmprunt(){
+			var lstEmprunt = CGlobalCache.LstEmpruntByClient;
+			lstEmpruntEnCours.Items.Clear();
+			var toto = lstEmprunt.GroupBy(xx => xx.LivreId).Select(xx => new { xx.Key, state = xx.Min(p => p.State)}).ToList();
+			var query = CGlobalCache.LstLivreSelectAll.Join(toto.Where(xx => xx.state == "emp"), bo => bo.LivreId, arg => arg.Key, (key1, key2) => key1.RefLivre );
+			var query2 = CGlobalCache.LstLivreSelectAll.Join(toto.Where(xx => xx.state == "reg"), bo => bo.LivreId, arg => arg.Key, (key1, key2) => key1.RefLivre );
+			lstEmpruntEnCours.Items.AddRange(items: Enumerable.ToArray(source: query));
+			lstEmpruntPasse.Items.AddRange(items: Enumerable.ToArray(source: query2));
 		}
 
-		private void loadDecoration() {
-			PersonneBO personne = CGlobalCache.SessionManager.Personne;
+		private void LoadReservation() {
+			var lstDemandeReservationEnCours = CGlobalCache.LstNewDemandeReservationByClient;
+			lstReservationEnCours.Items.Clear();
+			lstReservationEnCours.Items.AddRange(items: lstDemandeReservationEnCours.ToArray());
+
+			var lstDemandeReservationPasse = CGlobalCache.LstOldDemandeReservationByClient;
+			lstReservationPasse.Items.Clear();
+			lstReservationPasse.Items.AddRange(items: lstDemandeReservationPasse.ToArray());
+		}
+
+		private void LoadDecoration() {
+			var personne = CGlobalCache.SessionManager.Personne;
 			lblName.Text = personne.ToString();
 			lblDtLastVisite.Text = "";
 			lblBibliotheque.Text = personne.Client.Bibliotheque.BibliothequeName;
 		}
 
-		private void loadNouveaute() {
+		private void LoadNouveaute() {
 			/*
 			foreach (LivreBO objLivre in CGlobalCache.LstLivreByBibliotheque.FindAll(xx => {TimeSpan diff = DateTime.Now - xx.CreatedAt; return diff.Days < 10;})) {
 				lstNewLivreLocal.Items.Add(objLivre.ToString());
@@ -60,19 +68,19 @@ namespace WindowsFormsApplication1.Dashboard {
 			*/
 
 			// Select Uniq in a list !!!
-			List<LivreBO> lstUniqLocalLivre = CGlobalCache.LstLivreByBibliotheque.GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
+			var lstUniqLocalLivre = CGlobalCache.LstLivreByBibliotheque.GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
 			lstNewLivreLocal.Items.Clear();
 			lstNewLivreLocal.Items.AddRange(lstUniqLocalLivre.ToArray());
 
 			// Select Uniq in a list !!!
-			Int32 bibliothequeId = CGlobalCache.SessionManager.Personne.Client.BibliothequeId;
-			List<LivreBO> lstUniqNetworkLivre = CGlobalCache.LstLivreSelectAll.FindAll(xx => xx.BibliothequeId != bibliothequeId).GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
+			var bibliothequeId = CGlobalCache.SessionManager.Personne.Client.BibliothequeId;
+			var lstUniqNetworkLivre = CGlobalCache.LstLivreSelectAll.ToList().FindAll(xx => xx.BibliothequeId != bibliothequeId).GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
 			lstNewLivreNetwork.Items.Clear();
 			lstNewLivreNetwork.Items.AddRange(lstUniqNetworkLivre.ToArray());
 		}
 
 		private Boolean InsertDemandeReservation() {
-			Boolean bResult = false;
+			var bResult = false;
 			DemandeReservationBO objDemandeReservation = new DemandeReservationBO(), demandeReservationResult;
 			objDemandeReservation.Client = CGlobalCache.SessionManager.Personne.Client;
 			objDemandeReservation.RefLivre = _livreSelected.RefLivre;
@@ -95,10 +103,10 @@ namespace WindowsFormsApplication1.Dashboard {
 			return bResult;
 		}
 
-		private void loadFicheLivre(DemandeReservationBO pDemandeReservation) {
-			createFicheLivreReservation();
+		private void LoadFicheLivre(DemandeReservationBO pDemandeReservation) {
+			CreateFicheLivreReservation();
 			
-			RefLivreIFACClient refLivreIFac = new RefLivreIFACClient();
+			var refLivreIFac = new RefLivreIFACClient();
 			
 			AsyncGuiFicheDeLivreSelectForClientById asyncExecute = refLivreIFac.SelectFicheLivreForClientByRefLivreId;
 			try {
@@ -106,42 +114,34 @@ namespace WindowsFormsApplication1.Dashboard {
 					var samplePersDelegate = (AsyncGuiFicheDeLivreSelectForClientById)((AsyncResult)xx).AsyncDelegate;
 					_actualFicheLivre = samplePersDelegate.EndInvoke(xx);
 					_ficheDeLivreReservation.setFicheDeLivre(_actualFicheLivre);
-					if (refLivreIFac != null) {
-						refLivreIFac.Close();
-					}
-				}, null);
-			} catch(Exception ex) {
-				if (refLivreIFac != null) {
 					refLivreIFac.Close();
-				}
-				MessageBox.Show("Erreur lors de la récupération des informations sur le livre demandé.");
+				}, null);
+			} catch(Exception) {
+				refLivreIFac.Close();
+				MessageBox.Show(Resources.DashboardManager_loadFicheLivre_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_);
 			}
 		}
 
-		private void loadFicheLivre(LivreBO livreBO) {
-			createFicheLivre();
-			LivreIFACClient livreIFac = new LivreIFACClient();
+		private void LoadFicheLivre(LivreBO pLivreBo) {
+			CreateFicheLivre();
+			var livreIFac = new LivreIFACClient();
 			
 			AsyncGuiFicheDeLivreSelectForClientById asyncExecute = livreIFac.SelectFicheLivreForClientByLivreId;
 			try {
-				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, CGlobalCache.SessionManager.Personne.Client.ClientId, livreBO.LivreId, xx => {
+				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, CGlobalCache.SessionManager.Personne.Client.ClientId, pLivreBo.LivreId, xx => {
 					var samplePersDelegate = (AsyncGuiFicheDeLivreSelectForClientById)((AsyncResult)xx).AsyncDelegate;
 					_actualFicheLivre = samplePersDelegate.EndInvoke(xx);
 					_ficheDeLivre.setFicheDeLivre(_actualFicheLivre);
-					if (livreIFac != null) {
-						livreIFac.Close();
-					}
-				}, null);
-			} catch(Exception ex) {
-				if (livreIFac != null) {
 					livreIFac.Close();
-				}
-				MessageBox.Show("Erreur lors de la récupération des informations sur le livre demandé.");
+				}, null);
+			} catch(Exception) {
+				livreIFac.Close();
+				MessageBox.Show(Resources.DashboardManager_loadFicheLivre_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_);
 			}
 
 		}
 
-		private void createFicheLivre() {
+		private void CreateFicheLivre() {
 			if (_ficheDeLivre != null) {
 				return;
 			}
@@ -150,22 +150,22 @@ namespace WindowsFormsApplication1.Dashboard {
 				Controls.Remove(_ficheDeLivreReservation);
 				_ficheDeLivreReservation = null;
 			}
+			
+			_ficheDeLivre = new FicheDeLivre(this){Location = new Point(882, 56)};
 
-			Transition t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
-			t1.add(this, "Width", _dashboardWidth + ADD_DASHBOARD_FICHE_DE_LIVRE);
-			t1.add(lblBibliotheque, "Left", _lblBibliothequeLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE);
-			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE);
-			t1.add(lblDtLastVisite, "Left", _lblDtLastLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE);
-			t1.add(lblDtLastVisiteTitle, "Left", _lblDtLastVisiteTitleLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE);
+			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
+			t1.add(this, "Width", _dashboardWidth + _ficheDeLivre.Width + 10);
+			t1.add(lblBibliotheque, "Left", _lblBibliothequeLocationX + _ficheDeLivre.Width + 10);
+			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + _ficheDeLivre.Width + 10);
+			t1.add(lblDtLastVisite, "Left", _lblDtLastLocationX + _ficheDeLivre.Width + 10);
+			t1.add(lblDtLastVisiteTitle, "Left", _lblDtLastVisiteTitleLocationX + _ficheDeLivre.Width + 10);
 
-			_ficheDeLivre = new FicheDeLivre(this);
-			_ficheDeLivre.Location = new Point(882, 56);
 			Controls.Add(_ficheDeLivre);
 
 			t1.run();
 		}
 
-		private void createFicheLivreReservation() {
+		private void CreateFicheLivreReservation() {
 			if (_ficheDeLivreReservation != null) {
 				return;
 			}
@@ -175,29 +175,26 @@ namespace WindowsFormsApplication1.Dashboard {
 				_ficheDeLivre = null;
 			}
 
-			Transition t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
-			t1.add(this, "Width", _dashboardWidth + ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION);
-			t1.add(lblBibliotheque, "Left", _lblBibliothequeLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION);
-			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION);
-			t1.add(lblDtLastVisite, "Left", _lblDtLastLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION);
-			t1.add(lblDtLastVisiteTitle, "Left", _lblDtLastVisiteTitleLocationX + ADD_DASHBOARD_FICHE_DE_LIVRE_RESERVATION);
+			_ficheDeLivreReservation = new FicheDeLivreReservation(this){Location = new Point(882, 56)};
 
-			_ficheDeLivreReservation = new FicheDeLivreReservation(this);
-			_ficheDeLivreReservation.Location = new Point(882, 56);
+			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
+			t1.add(this, "Width", _dashboardWidth + _ficheDeLivreReservation.Width + 10);
+			t1.add(lblBibliotheque, "Left", _lblBibliothequeLocationX + _ficheDeLivreReservation.Width + 10);
+			t1.add(lblBibliothequeTitle, "Left", _lblBibliothequeTitleLocationX + _ficheDeLivreReservation.Width + 10);
+			t1.add(lblDtLastVisite, "Left", _lblDtLastLocationX + _ficheDeLivreReservation.Width + 10);
+			t1.add(lblDtLastVisiteTitle, "Left", _lblDtLastVisiteTitleLocationX + _ficheDeLivreReservation.Width + 10);
 			Controls.Add(_ficheDeLivreReservation);
 
 			t1.run();
 		}
 
-		private void loadReservation(DemandeReservationBO value, EventArgs e) {
-			loadReservation();
+		private void LoadReservation(DemandeReservationBO value, EventArgs e) {
+			LoadReservation();
 		}
 
-		private void cleanListBoxSelected(ListBox actualListBox) {
-			foreach (Panel panel in Controls.OfType<Panel>()) {
-				foreach (ListBox listBox2 in panel.Controls.OfType<ListBox>().Where(xx => xx.GetHashCode() != actualListBox.GetHashCode())) {
-					listBox2.ClearSelected();
-				}
+		private void CleanListBoxSelected(IDisposable actualListBox){
+			foreach (var listBox2 in Controls.OfType<Panel>().SelectMany(panel => panel.Controls.OfType<ListBox>().Where(xx => xx.GetHashCode() != actualListBox.GetHashCode()))){
+				listBox2.ClearSelected();
 			}
 		}
 
@@ -212,24 +209,26 @@ namespace WindowsFormsApplication1.Dashboard {
 			_lblDtLastLocationX = lblDtLastVisite.Location.X;
 			_lblDtLastVisiteTitleLocationX = lblDtLastVisiteTitle.Location.X;
 
-			CGlobalCache.actualLstDemandeReservationEventHandlser += loadReservation;
+			CGlobalCache.ActualLstDemandeReservationEventHandlser += LoadReservation;
 
-			loadDecoration();
+			LoadDecoration();
 
-			loadNouveaute();
+			LoadNouveaute();
 
-			loadReservation();
+			LoadReservation();
+
+			LoadEmprunt();
 		}
 
 		private void LivreEmprunt_MouseDown(object sender, MouseEventArgs e) {
-			ListBox listBox = (ListBox)sender;
+			var listBox = (ListBox)sender;
 
 			listBox.SelectedIndex = listBox.IndexFromPoint(e.Location);
 			if (listBox.SelectedIndex == -1) {
 				return;
 			}
 
-			cleanListBoxSelected(listBox);
+			CleanListBoxSelected(listBox);
 
 			if (e.Button == MouseButtons.Right) {
 				//select the item under the mouse pointer
@@ -238,22 +237,22 @@ namespace WindowsFormsApplication1.Dashboard {
 				
 			}
 			if (e.Button == MouseButtons.Left) {
-				loadFicheLivre((LivreBO)listBox.SelectedItem);
+				LoadFicheLivre((LivreBO)listBox.SelectedItem);
 			}
 		}
 
 		private void LivreStatus_MouseDown(object sender, MouseEventArgs e) {
-			ListBox listBox = (ListBox)sender;
+			var listBox = (ListBox)sender;
 
 			listBox.SelectedIndex = listBox.IndexFromPoint(e.Location);
 			if (listBox.SelectedIndex == -1) {
 				return;
 			}
 
-			cleanListBoxSelected(listBox);
+			CleanListBoxSelected(listBox);
 
 			if (e.Button == MouseButtons.Left) {
-				loadFicheLivre((DemandeReservationBO)listBox.SelectedItem);
+				LoadFicheLivre((DemandeReservationBO)listBox.SelectedItem);
 			}
 		}
 
@@ -262,7 +261,7 @@ namespace WindowsFormsApplication1.Dashboard {
 				return;
 			}
 			if (!InsertDemandeReservation()) {
-				MessageBox.Show("Le livre n'a pas pu etre ajouté dans votre liste de demande");
+				MessageBox.Show(Resources.DashboardManager_totoToolStripMenuItem_Click_Le_livre_n_a_pas_pu_etre_ajoute_dans_votre_liste_de_demande);
 			}
 		}
 

@@ -8,8 +8,8 @@ using WebsBO;
 
 namespace WebsFAC {
 	public class PersonneFAC : PersonneIFAC {
-		public List<PersonneBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<PersonneBO> SelectAll(String token) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -19,8 +19,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public PersonneBO SelectById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public PersonneBO SelectById(String token, Int32 pId) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -30,8 +30,8 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<PersonneBO> SelectByName(String Token, String pName) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<PersonneBO> SelectByName(String token, String pName) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -41,12 +41,23 @@ namespace WebsFAC {
 			}
 		}
 
-		public List<PersonneBO> SelectByInfo(String Token, String pInfo) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<PersonneBO> SelectByInfo(String token, String pInfo) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
 				return PersonneBL.SelectByInfo(pInfo);
+			} catch (Exception Ex) {
+				throw;
+			}
+		}
+
+		public PersonneBO SelectByLivreEmpruntId(String token, Int32 pEmpruntId) {
+			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+				return null;
+			}
+			try {
+				return PersonneBL.SelectByLivreEmpruntId(pEmpruntId);
 			} catch (Exception Ex) {
 				throw;
 			}

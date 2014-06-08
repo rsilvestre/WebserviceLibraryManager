@@ -79,6 +79,74 @@ namespace WindowsFormsApplication1.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de la récupération des informations sur le livre demandé..
+        /// </summary>
+        internal static string DashboardManager_loadFicheLivre_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_ {
+            get {
+                return ResourceManager.GetString("DashboardManager_loadFicheLivre_Erreur_lors_de_la_recuperation_des_informations_s" +
+                        "ur_le_livre_demande_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le livre n&apos;a pas pu etre ajouté dans votre liste de demande.
+        /// </summary>
+        internal static string DashboardManager_totoToolStripMenuItem_Click_Le_livre_n_a_pas_pu_etre_ajoute_dans_votre_liste_de_demande {
+            get {
+                return ResourceManager.GetString("DashboardManager_totoToolStripMenuItem_Click_Le_livre_n_a_pas_pu_etre_ajoute_dans" +
+                        "_votre_liste_de_demande", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Echec lors de l&apos;enregistrement de l&apos;emprunt.
+        /// </summary>
+        internal static string EmpruntManagement_btnValider_Click_Echec_lors_de_l_enregistrement_de_l_emprunt {
+            get {
+                return ResourceManager.GetString("EmpruntManagement_btnValider_Click_Echec_lors_de_l_enregistrement_de_l_emprunt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tous les champs ne sont pas remplis!.
+        /// </summary>
+        internal static string EmpruntManagement_btnValider_Click_Tous_les_champs_ne_sont_pas_remplis_ {
+            get {
+                return ResourceManager.GetString("EmpruntManagement_btnValider_Click_Tous_les_champs_ne_sont_pas_remplis_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vous avez trop de livre empruntés. Seul 3 maximum sont authorizés.
+        /// </summary>
+        internal static string EmpruntManagement_btnValider_Click_Vous_avez_trop_de_livre_empruntes__Seul_3_maximum_sont_authorizes {
+            get {
+                return ResourceManager.GetString("EmpruntManagement_btnValider_Click_Vous_avez_trop_de_livre_empruntes__Seul_3_maxi" +
+                        "mum_sont_authorizes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de la récupération des informations sur le livre demandé..
+        /// </summary>
+        internal static string EmpruntManagement_SearchLivreField_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_ {
+            get {
+                return ResourceManager.GetString("EmpruntManagement_SearchLivreField_Erreur_lors_de_la_recuperation_des_information" +
+                        "s_sur_le_livre_demande_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de la récupération des informations sur la réservation demandée.
+        /// </summary>
+        internal static string EmpruntManagement_SearchReservationField_Erreur_lors_de_la_recuperation_des_informations_sur_la_reservation_demandee {
+            get {
+                return ResourceManager.GetString("EmpruntManagement_SearchReservationField_Erreur_lors_de_la_recuperation_des_infor" +
+                        "mations_sur_la_reservation_demandee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vous avez déjà un Dashboard ouvert.
         /// </summary>
         internal static string FrmMdi_ShowClientDashboard_Vous_avez_deja_un_Dashboard_ouvert {
@@ -103,6 +171,35 @@ namespace WindowsFormsApplication1.Properties {
             get {
                 return ResourceManager.GetString("LoginForm_InitConnection_Les_champs_Nom_d_utilisateur_et_Mot_de_passe_doivent_etr" +
                         "e_remplis_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de votre demande d&apos;annulation.
+        /// </summary>
+        internal static string ReservationManagement_btnAnnuler_Click_Erreur_lors_de_votre_demande_d_annulation {
+            get {
+                return ResourceManager.GetString("ReservationManagement_btnAnnuler_Click_Erreur_lors_de_votre_demande_d_annulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de la récupération des réservations.
+        /// </summary>
+        internal static string ReservationManagement_cmbReservationToogle_SelectedIndexChanged_Erreur_lors_de_la_recuperation_des_reservations {
+            get {
+                return ResourceManager.GetString("ReservationManagement_cmbReservationToogle_SelectedIndexChanged_Erreur_lors_de_la" +
+                        "_recuperation_des_reservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur lors de la récupération des informations sur le livre demandé..
+        /// </summary>
+        internal static string ReservationManagement_GetPersonne_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_ {
+            get {
+                return ResourceManager.GetString("ReservationManagement_GetPersonne_Erreur_lors_de_la_recuperation_des_informations" +
+                        "_sur_le_livre_demande_", resourceCulture);
             }
         }
         
