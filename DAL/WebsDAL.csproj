@@ -47,6 +47,7 @@
     <Compile Include="AdministrateurClientDAL.cs" />
     <Compile Include="AdministrateurDAL.cs" />
     <Compile Include="BibliothequeDAL.cs" />
+    <Compile Include="ItemDAL.cs" />
     <Compile Include="ClientDAL.cs" />
     <Compile Include="DemandeAnnulationDAL.cs" />
     <Compile Include="DemandeReservationDAL.cs" />

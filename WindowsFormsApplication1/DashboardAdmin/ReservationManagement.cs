@@ -82,15 +82,19 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void RefreshDataGridWithDemandeReservationValid(){
-			var lstReservation = CGlobalCache.LstDemandeReservationSelectAll;
-			var grpAllBibliotheque = lstReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
-			var query = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
+			//var lstReservation = CGlobalCache.LstDemandeReservationSelectAll;
+			//var grpAllBibliotheque = lstReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
+			//var query = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
 
 			var lstDemandeReservation = CGlobalCache.LstDemandeReservationSelectAll;
-			var lstDemandeReservationValideByBibliotheque = lstDemandeReservation.ToList().FindAll(xx => xx.Client.BibliothequeId.Equals(CGlobalCache.ActualBibliotheque.BibliothequeId)).Where(yy => yy.Valide.Equals(1));
-			
+			var lstDemandeReservationValideByBibliotheque = lstDemandeReservation.ToList().FindAll(xx => xx.Client.BibliothequeId.Equals(CGlobalCache.ActualBibliotheque.BibliothequeId)).Where(yy => yy.Valide.Equals(1)).ToList();
+
+			var lstReservationLocal = CGlobalCache.LstReservationSelectAll.Where(xx => xx.DemandeReservation.Client.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
+
+			var lstDemandeReservationUnExpectedReservation = lstDemandeReservationValideByBibliotheque.Where(demandeReservationBo => lstReservationLocal.FirstOrDefault(xx => xx.DemandeReservationId == demandeReservationBo.DemandeReservationId) == null).ToList();
+
 			var tmpClientDatas = new List<dynamic>();
-			foreach (var objDemandeReservationByBibliotheque in lstDemandeReservationValideByBibliotheque){
+			foreach (var objDemandeReservationByBibliotheque in lstDemandeReservationUnExpectedReservation){
 				tmpClientDatas.Add(new {Demande = objDemandeReservationByBibliotheque.DemandeReservationId, Creation = objDemandeReservationByBibliotheque.CreatedAt.ToShortDateString(), ClientId = objDemandeReservationByBibliotheque.Personne.PersonneMatricule, Client=objDemandeReservationByBibliotheque.Personne.ToString(), Titre = objDemandeReservationByBibliotheque.RefLivre.ToString() });
 			}
 
@@ -101,6 +105,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 			dataGridDemandeReservation.ClearSelection();
 			btnAnnuler.Enabled = false;
+			btnEmprunter.Enabled = false;
 
 		}
 
@@ -119,7 +124,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 			var lstReservation = CGlobalCache.LstReservationSelectAll.ToList();
 			var maxReservation = lstReservation.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId), ReservationId = dd.Max(rr => rr.ReservationId)});
-			var lstReservationByBibliotheque = maxReservation.Select(dataInMaxActionResult => new { Key = dataInMaxActionResult.ReservationId, Value = CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)}).Where(inPredicate).ToList();
+			var lstReservationByBibliotheque = maxReservation.Select(dataInMaxActionResult => new { Key = dataInMaxActionResult.ReservationId, Value = CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)}).Where(inPredicate).ToList();
 			
 			var tmpClientDatas = new List<dynamic>();
 			foreach (var objReservationByBibliotheque in lstReservationByBibliotheque){
@@ -133,6 +138,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 			dataGridDemandeReservation.ClearSelection();
 			btnAnnuler.Enabled = false;
+			btnEmprunter.Enabled = false;
 		}
 
 		private void RefreshDataGridWithDemandeReservation() {
@@ -140,7 +146,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				return;
 			}
 
-			var lstDemandeReservation = _lstDemandeReservation.FindAll(xx => xx.Client.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId);
+			var lstDemandeReservation = _lstDemandeReservation.FindAll(xx => xx.Client.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId && xx.Valide == 1);
 			var lstDemandeReservationSource = lstDemandeReservation.Select(selection => new { Id = selection.DemandeReservationId, selection.Client.ClientId, selection.RefLivre.Titre, Date = selection.CreatedAt.ToShortDateString() }).ToList();
 			
 			dataGridDemandeReservation.DataSource = null;
@@ -150,6 +156,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 			dataGridDemandeReservation.ClearSelection();
 			btnAnnuler.Enabled = false;
+			btnEmprunter.Enabled = false;
 		}
 
 		private void ShowDetailSelection() {
@@ -160,7 +167,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (_demandeReservationSelected != null){
 				ShowDetailSelectionFinal(new{
 					_demandeReservationSelected.Client,
-					_demandeReservationSelected.ClientId,
+					_demandeReservationSelected.Personne.PersonneMatricule,
+					isAdministrateur = _demandeReservationSelected.Personne.Administrateur != null,
+					_demandeReservationSelected.Client.Bibliotheque.BibliothequeName,
 					_demandeReservationSelected.RefLivre.Titre,
 					ReservationId = _demandeReservationSelected.DemandeReservationId,
 					_demandeReservationSelected.CreatedAt,
@@ -170,7 +179,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (_reservationSelected != null){
 				ShowDetailSelectionFinal(new{
 					_reservationSelected.DemandeReservation.Client,
-					_reservationSelected.DemandeReservation.ClientId,
+					_reservationSelected.DemandeReservation.Personne.PersonneMatricule,
+					isAdministrateur = _reservationSelected.DemandeReservation.Personne.Administrateur != null,
+					_reservationSelected.DemandeReservation.Client.Bibliotheque.BibliothequeName,
 					_reservationSelected.DemandeReservation.RefLivre.Titre,
 					_reservationSelected.ReservationId,
 					_reservationSelected.CreatedAt,
@@ -182,7 +193,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 		private void ShowDetailSelectionFinal(dynamic selection){
 			GetPersonne(selection.Client);
-			txtClientId.Text = selection.ClientId.ToString(CultureInfo.InvariantCulture);
+			txtClientId.Text = selection.PersonneMatricule.ToString(CultureInfo.InvariantCulture);
+			cbAdministrateur.Checked = (selection.isAdministrateur);
+			lblBibliotheque.Text = selection.BibliothequeName;
 			txtRefLivreTitre.Text = selection.Titre;
 			txtReservationDate.Text = selection.ReservationId.ToString(CultureInfo.InvariantCulture);
 			var diffTimeSpan = DateTime.Now - selection.CreatedAt;
@@ -195,7 +208,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				var webResponse = (HttpWebResponse)webRequest.GetResponse();
 
 				// Create an image from the stream returned by the web request
+				// ReSharper disable AssignNullToNotNullAttribute
 				picBook.Image = new Bitmap(webResponse.GetResponseStream());
+				// ReSharper restore AssignNullToNotNullAttribute
 			};
 
 			getImage(selection.ImageUrl);
@@ -211,6 +226,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 					var objPersonne = samplePersDelegate.EndInvoke(xx);
 					if (objPersonne != null) {
 						txtClientName.Text = objPersonne.ToString();
+						cbAdministrateur.Checked = (objPersonne.Administrateur != null);
 					}
 					personneIFac.Close();
 				}, null);
@@ -247,10 +263,12 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (objDataGridView.Columns[0].Name.Equals("Demande")){
 				_reservationSelected = null;
 				_demandeReservationSelected = CGlobalCache.LstDemandeReservationSelectAll.FirstOrDefault(xx => xx.DemandeReservationId.Equals(objDataGridView.Rows[e.RowIndex].Cells[0].Value));
+				btnEmprunter.Enabled = false;
 			}
 			if (objDataGridView.Columns[0].Name.Equals("Reservation")){
 				_demandeReservationSelected = null;
 				_reservationSelected = CGlobalCache.LstReservationSelectAll.ToList().Find(xx => xx.ReservationId.Equals(objDataGridView.Rows[e.RowIndex].Cells[0].Value));
+				btnEmprunter.Enabled = true;
 			}
 			btnAnnuler.Enabled = true;
 			ShowDetailSelection();
@@ -261,8 +279,8 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void btnEmprunter_Click(object sender, EventArgs e) {
-			throw new NotImplementedException();
-			//_dashboardAdminManager.SwitchToEmpruntManagement(_demandeReservationSelected);
+			//throw new NotImplementedException();
+			_dashboardAdminManager.SwitchToEmpruntManagement(_reservationSelected);
 		}
 
 		private void btnAnnuler_Click(object sender, EventArgs e){

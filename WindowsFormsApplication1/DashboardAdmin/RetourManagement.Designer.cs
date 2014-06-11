@@ -51,6 +51,7 @@
 			this.cmbLivreField = new System.Windows.Forms.ComboBox();
 			this.cmbClientField = new System.Windows.Forms.ComboBox();
 			this.btnLivreGo = new System.Windows.Forms.Button();
+			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -92,6 +93,7 @@
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.cbAdministrateur);
 			this.panel2.Controls.Add(this.lblAlert);
 			this.panel2.Controls.Add(this.lblLivreReference);
 			this.panel2.Controls.Add(this.txtLivreReference);
@@ -340,6 +342,16 @@
 			this.btnLivreGo.UseVisualStyleBackColor = true;
 			this.btnLivreGo.Click += new System.EventHandler(this.btnLivreGo_Click);
 			// 
+			// cbAdministrateur
+			// 
+			this.cbAdministrateur.AutoCheck = false;
+			this.cbAdministrateur.AutoSize = true;
+			this.cbAdministrateur.Location = new System.Drawing.Point(201, 10);
+			this.cbAdministrateur.Name = "cbAdministrateur";
+			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
+			this.cbAdministrateur.TabIndex = 23;
+			this.cbAdministrateur.UseVisualStyleBackColor = true;
+			// 
 			// RetourManagement
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,5 +406,6 @@
 		private System.Windows.Forms.ComboBox cmbLivreField;
 		private System.Windows.Forms.ComboBox cmbClientField;
 		private System.Windows.Forms.Button btnLivreGo;
+		private System.Windows.Forms.CheckBox cbAdministrateur;
 	}
 }

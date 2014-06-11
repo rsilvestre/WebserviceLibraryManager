@@ -10,11 +10,11 @@ namespace WebsBL {
 			List<ReservationBO> lstResult;
 
 			try {
-				using (var ReservationDal = new ReservationDAL(Util.GetConnection())) {
-					lstResult = ReservationDal.ReservationDAL_SelectAll().ToList();
+				using (var reservationDal = new ReservationDAL(Util.GetConnection())) {
+					lstResult = reservationDal.ReservationDAL_SelectAll().ToList();
 					foreach (var reservationBo in lstResult){
 						reservationBo.Emprunt = EmpruntBL.SelectById(reservationBo.EmpruntId);
-						reservationBo.DemandeReservation = DemandeReservationBL.SelectById(reservationBo.DemandeReservationId);
+						reservationBo.DemandeReservation = DemandeReservationBL.SelectById(reservationBo.DemandeReservationId, reservationBo.Emprunt);
 					}
 				}
 			} catch (Exception Ex) {
@@ -26,8 +26,8 @@ namespace WebsBL {
 		public static ReservationBO SelectById(Int32 pId) {
 			ReservationBO result;
 			try {
-				using (var ReservationDal = new ReservationDAL(Util.GetConnection())) {
-					result = (ReservationBO)ReservationDal.ReservationDAL_SelectById(pId);
+				using (var reservationDal = new ReservationDAL(Util.GetConnection())) {
+					result = (ReservationBO)reservationDal.ReservationDAL_SelectById(pId);
 				}
 			} catch (Exception Ex) {
 				throw;

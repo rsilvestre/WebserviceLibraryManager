@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="AdministrateurFAC.cs" />
     <Compile Include="BibliothequeFAC.cs" />
+    <Compile Include="ItemFAC.cs" />
     <Compile Include="ClientFAC.cs" />
     <Compile Include="DemandeAnnulationFAC.cs" />
     <Compile Include="DemandeReservationFAC.cs" />

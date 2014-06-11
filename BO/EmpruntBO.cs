@@ -95,7 +95,13 @@ namespace WebsBO {
 		[DataMember(Name="Personne")]
 		public PersonneBO Personne{
 			get { return _personne; }
-			set { _personne = value; }
+			set{
+				_personne = value;
+				if (value == null){
+					return;
+				}
+				Client = Personne.Client;
+			}
 		}
 		
 		[DataMember(Name="Transition")]

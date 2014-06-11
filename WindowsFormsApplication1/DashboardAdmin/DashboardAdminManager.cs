@@ -54,6 +54,11 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			return empruntIFac.InsertAnnul(CGlobalCache.SessionManager.Token, pAdministrateurBo.AdministrateurId, pReservationBo.ReservationId);
 		}
 
+		public ItemBO SelectItemByEmpruntId(EmpruntBO pEmprunt){
+			var itemIFacClient = new ItemIFACClient();
+			return itemIFacClient.SelectByEmpruntId(CGlobalCache.SessionManager.Token, pEmprunt.EmpruntId);
+		}
+
 		#region private method
 
 		private void LoadDecoration() {
@@ -63,11 +68,13 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void InitComponent() {
-			cmbBibliotheque.Items.AddRange(items: CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
+			cmbBibliotheque.DataSource = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToList();
 			CGlobalCache.ActualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 			CGlobalCache.LstLivreSelectAll.CollectionChanged += LstSelectAll_CollectionChanged;
 			CGlobalCache.LstDemandeReservationSelectAll.CollectionChanged += LstSelectAll_CollectionChanged;
 			CGlobalCache.LstReservationSelectAll.CollectionChanged += LstSelectAll_CollectionChanged;
+			CGlobalCache.LstEmpruntSelectAll.CollectionChanged += Lst_CollectionChanged;
+			CGlobalCache.LstItemSelectByAministrateurId.CollectionChanged += Lst_CollectionChanged;
 			btnLivreManagement.Enabled = CGlobalCache.ActualBibliotheque != null;
 		}
 
@@ -83,26 +90,48 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			var result = "";
 			
 			result += "Livre:\n" + StatLivre(lstBibliotheque, objActualBibliotheque) + "\n\n";
+			result += "Emprunt:\n" + StatEmprunt(lstBibliotheque, objActualBibliotheque) + "\n\n";
 			result += "Réservation:\n" + StatReservation(lstBibliotheque, objActualBibliotheque) + "\n\n";
 			result += "Demande de Réservation:\n" + StatDemandeReservation(lstBibliotheque, objActualBibliotheque) + "\n\n";
+			result += "Chiffre d'affaire:\n" + StatItem(objActualBibliotheque) + "\n\n";
 			result += "Référence:\n" + StatRefLivre(lstBibliotheque, objActualBibliotheque) + "\n\n";
 
-			lblStat.Text = result;
+			txtStat.Text = result;
+		}
+
+		private static string StatItem(BibliothequeBO objActualBibliotheque) {
+			var lstItem = CGlobalCache.LstItemSelectByAministrateurId;
+			String refItemManaged = "", refItemBibliotheque = "";
+
+			var lstItemTotal = lstItem.GroupBy(xx => xx.AdministrateurId).Select(yy => new {yy.Key, Count = yy.Sum(d => d.Montant)}).ToList();
+			var firstOrDefault = lstItemTotal.FirstOrDefault(xx => true);
+			refItemManaged += string.Format("dans vos bibliothèques: {0:C}", ((null == firstOrDefault) ? 0 : firstOrDefault.Count));
+
+
+			if (objActualBibliotheque != null) {
+				var lstItemByBibliotheque = lstItem.GroupBy(xx => xx.Livre.BibliothequeId).Select(yy => new{yy.Key, Count = yy.Sum(d => d.Montant)});
+				var result = lstItemByBibliotheque.FirstOrDefault(xx => xx.Key == objActualBibliotheque.BibliothequeId);
+				refItemBibliotheque += String.Format("dans la bibliothèque {0}: {1:C}",  objActualBibliotheque.BibliothequeName, ((null == result)? 0 : result.Count));
+			} else {
+				refItemBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+			}
+			
+			return refItemManaged + "\n" + refItemBibliotheque + "\n";
 		}
 
 		private static string StatRefLivre(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
 			// Référence de livre
 			var lstLivre = CGlobalCache.LstLivreSelectAll;
 			String refLivreAll = "", refLivreManaged = "", refLivreBibliotheque = "";
-			var reflivreUniq = lstLivre.GroupBy(xx => xx.RefLivreId).Select(grp => grp.First());
+			var reflivreUniq = lstLivre.GroupBy(xx => xx.RefLivreId).Select(grp => grp.First()).ToList();
 			refLivreAll += "Toutes les références: " + reflivreUniq.Count().ToString(CultureInfo.InvariantCulture);
-			var grpAllBibliotheque = reflivreUniq.GroupBy(yy => yy.BibliothequeId).Select(grp => new { bibliothequeId = grp.Key, count = grp.Count() });
-			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			var count = query.Sum(result => result.count);
-			refLivreManaged += "dans vos bibliothèques: " + count;
+			var grpAllBibliotheque = reflivreUniq.GroupBy(yy => yy.BibliothequeId).Select(grp => new { bibliothequeId = grp.Key, Count = grp.Count() }).ToList();
+			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+
+			refLivreManaged += string.Format("dans vos bibliothèques: {0}", query.Sum(result => result.Count));
 			if (objActualBibliotheque != null) {
 				var result = grpAllBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				refLivreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString(CultureInfo.InvariantCulture) ;
+				refLivreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.Count : 0).ToString(CultureInfo.InvariantCulture) ;
 			} else {
 				refLivreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
@@ -110,49 +139,89 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			return refLivreAll + "\n" + refLivreManaged + "\n" + refLivreBibliotheque + "\n";
 		}
 
-		private static string StatReservation(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
+		private static string StatEmprunt(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
 			// Réservation
 			var lstEmprunt = CGlobalCache.LstEmpruntSelectAll;
-			String reservationAll = "", reservationManaged = "", reservationBibliotheque = "";
-			var lstAllReservation = lstEmprunt.GroupBy(xx => xx.LivreId).Select(yy => new{yy.Key, state = yy.Min(q => q.State)}).Where(zz => zz.state == "res").ToList();
-			reservationAll += "Toutes les réservations: " + lstAllReservation.Count.ToString(CultureInfo.InvariantCulture);
-			var grpAllBibliotheque = lstAllReservation.GroupBy(xx => xx.Key).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
-			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			var count = query.Sum(result => result.count);
-			reservationManaged += "dans vos bibliothèques: " + count;
+			
+			var maxActionId = lstEmprunt.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
+
+			var clientEmpruntEnCours = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
+			
+			String empruntAll = "", empruntManaged = "", empruntBibliotheque = "";
+
+			empruntAll += "Tous les emprunts: " + clientEmpruntEnCours.Count.ToString(CultureInfo.InvariantCulture);
+			var grpAllBibliotheque = clientEmpruntEnCours.GroupBy(xx => xx.Livre.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() }).ToList();
+			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+			
+			empruntManaged += string.Format("dans vos bibliothèques: {0}", query.Sum(result => result.Count));
 			if (objActualBibliotheque != null) {
 				var result = grpAllBibliotheque.FirstOrDefault(xx =>xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				reservationBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString(CultureInfo.InvariantCulture) ;
+				empruntBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.Count : 0).ToString(CultureInfo.InvariantCulture) ;
 			} else {
-				reservationBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+				empruntBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return reservationAll + "\n" + reservationManaged + "\n" + reservationBibliotheque + "\n";
+			return empruntAll + "\n" + empruntManaged + "\n" + empruntBibliotheque + "\n";
+		}
+
+		private static string StatReservation(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
+			// Réservation
+			String reservationAll = "", reservationManagedValid = "", reservationManagedUnValid = "", reservationBibliothequeValid = "", reservationBibliothequeUnValid = "";
+			var lstEmprunt = CGlobalCache.LstEmpruntSelectAll;
+			var bibliothequeBos = lstBibliotheque as IList<BibliothequeBO> ?? lstBibliotheque.ToList();
+			
+			var maxActionId = lstEmprunt.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
+			var clientEmpruntEnCours = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "res").ToList();
+			
+			reservationAll += "Toutes les réservations: " + clientEmpruntEnCours.Count.ToString(CultureInfo.InvariantCulture);
+			var grpAllBibliothequeValid = clientEmpruntEnCours.FindAll(xx => (DateTime.Now - xx.CreatedAt).Days <= 15).GroupBy(xx => xx.Livre.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() }).ToList();
+			
+			var queryValid = bibliothequeBos.Join(grpAllBibliothequeValid, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+			
+			var grpAllBibliothequeUnValid = clientEmpruntEnCours.FindAll(xx => (DateTime.Now - xx.CreatedAt).Days > 15).GroupBy(xx => xx.Livre.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() }).ToList();
+			var queryUnValid = bibliothequeBos.Join(grpAllBibliothequeUnValid, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+
+			reservationManagedValid += string.Format("dans vos bibliothèques: {0}", queryValid.Sum(result => result.Count));
+			
+			reservationManagedUnValid += string.Format("dans vos bibliothèques: {0}", queryUnValid.Sum(result => result.Count));
+			
+			if (objActualBibliotheque != null) {
+				var resultValid = grpAllBibliothequeValid.FirstOrDefault(xx =>xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
+				reservationBibliothequeValid += String.Format("dans la bibliothèque {0}: {1}", objActualBibliotheque.BibliothequeName, ((resultValid != null)?resultValid.Count : 0).ToString(CultureInfo.InvariantCulture));
+				
+				var resultUnValid = grpAllBibliothequeUnValid.FirstOrDefault(xx =>xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
+				reservationBibliothequeUnValid += String.Format("dans la bibliothèque {0}: {1}", objActualBibliotheque.BibliothequeName, ((resultUnValid != null)?resultUnValid.Count : 0).ToString(CultureInfo.InvariantCulture));
+			} else {
+				reservationBibliothequeValid += "Vous n'avez pas choisi de bibliothèque à gérer";
+				reservationBibliothequeUnValid += "Vous n'avez pas choisi de bibliothèque à gérer";
+			}
+
+			return String.Format("{0}\n\nValide:\n{1}\n{2}\n\nHors délais:\n{3}\n{4}\n",reservationAll, reservationManagedValid, reservationBibliothequeValid, reservationManagedUnValid, reservationBibliothequeUnValid);
 		}
 
 		private static string StatDemandeReservation(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) {
 			// Demande de réservation
 			var lstReservation = CGlobalCache.LstDemandeReservationSelectAll;
-			String reservationAll = "", reservationManaged = "", reservationBibliotheque = "", reservationBibliothequeDepasse = "";
-			reservationAll += "Toutes les demandes de réservation: " + lstReservation.Count(xx => xx.Valide == 1).ToString(CultureInfo.InvariantCulture);
-			var grpAllBibliotheque = lstReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
-			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			var count = query.Sum(result => result.count);
-			reservationManaged += "dans vos bibliothèques: " + count;
+			String demandeReservationAll = "", demandeReservationManaged = "", demandeReservationBibliotheque = "";
+			demandeReservationAll += "Toutes les demandes de réservation: " + lstReservation.Count(xx => xx.Valide == 1).ToString(CultureInfo.InvariantCulture);
+			var grpAllBibliotheque = lstReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() }).ToList();
+			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+
+			demandeReservationManaged += string.Format("dans vos bibliothèques: {0}", query.Sum(result => result.Count));
 			if (objActualBibliotheque != null) {
-				var lstOldReservation = CGlobalCache.LstOldDemandeReservationByClient;
-				var grpAllOldBibliotheque = lstOldReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
+				//var lstOldReservation = CGlobalCache.LstOldDemandeReservationByClient;
+				//var grpAllOldBibliotheque = lstOldReservation.Where(condition => condition.Valide == 1).GroupBy(xx => xx.Client.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() });
 
 				var newReservation = grpAllBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				var oldReservation = grpAllOldBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
+				//var oldReservation = grpAllOldBibliotheque.FirstOrDefault(xx => xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
 
-				reservationBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((newReservation != null)?newReservation.count : 0).ToString(CultureInfo.InvariantCulture);
-				reservationBibliothequeDepasse += "dépassée dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((oldReservation != null)?oldReservation.count : 0).ToString(CultureInfo.InvariantCulture);
+				demandeReservationBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((newReservation != null)?newReservation.Count : 0).ToString(CultureInfo.InvariantCulture);
+				//demandeReservationBibliothequeDepasse += "dépassée dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((oldReservation != null)?oldReservation.Count : 0).ToString(CultureInfo.InvariantCulture);
 			} else {
-				reservationBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
+				demandeReservationBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return reservationAll + "\n" + reservationManaged + "\n" + reservationBibliotheque + "\n" + reservationBibliothequeDepasse + "\n";
+			return String.Format("{0}\n{1}\n{2}\n", demandeReservationAll,  demandeReservationManaged, demandeReservationBibliotheque);
 		}
 
 		private static String StatLivre(IEnumerable<BibliothequeBO> lstBibliotheque, BibliothequeBO objActualBibliotheque) { 
@@ -160,18 +229,18 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			var lstLivre = CGlobalCache.LstLivreSelectAll;
 			String livreAll = "", livreManaged = "", livreBibliotheque = "";
 			livreAll += "Tous les livres disponibles: " + lstLivre.Count.ToString(CultureInfo.InvariantCulture);
-			var grpAllBibliotheque = lstLivre.GroupBy(xx => xx.BibliothequeId).Select(group => new { bibliothequeId = group.Key, count = group.Count() });
-			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, count = biblio2.count });
-			var count = query.Sum(result => result.count);
-			livreManaged += "dans vos bibliothèques: " + count;
+			var grpAllBibliotheque = lstLivre.GroupBy(xx => xx.BibliothequeId).Select(group => new { bibliothequeId = group.Key, Count = group.Count() }).ToList();
+			var query = lstBibliotheque.Join(grpAllBibliotheque, myBiblio => myBiblio.BibliothequeId, allBiblio => allBiblio.bibliothequeId, (biblio1, biblio2) => new { biblioId = biblio1.BibliothequeId, biblio2.Count });
+
+			livreManaged += string.Format("dans vos bibliothèques: {0}", query.Sum(result => result.Count));
 			if (objActualBibliotheque != null) {
 				var result = grpAllBibliotheque.FirstOrDefault(xx =>xx.bibliothequeId == objActualBibliotheque.BibliothequeId);
-				livreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.count : 0).ToString(CultureInfo.InvariantCulture) ;
+				livreBibliotheque += "dans la bibliothèque " + objActualBibliotheque.BibliothequeName + ": " + ((result != null)?result.Count : 0).ToString(CultureInfo.InvariantCulture) ;
 			} else {
 				livreBibliotheque += "Vous n'avez pas choisi de bibliothèque à gérer";
 			}
 
-			return livreAll + "\n" + livreManaged + "\n" + livreBibliotheque + "\n";
+			return String.Format("{0}\n{1}\n{2}\n", livreAll, livreManaged, livreBibliotheque);
 		}
 
 		private void LoadReservationManagement() {
@@ -276,10 +345,18 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			}
 
 			if (_empruntManagement != null || _retourManagement != null) {
-				Controls.Remove(_empruntManagement);
-				Controls.Remove(_retourManagement);
-				_empruntManagement = null;
-				_retourManagement = null;
+				if (_empruntManagement != null){
+					Controls.Remove(_empruntManagement);
+					Controls.Remove(_retourManagement);
+				}
+				if (_empruntManagement != null) {
+					_empruntManagement.Dispose();
+					_empruntManagement = null;
+				}
+				if (_retourManagement != null) {
+					_retourManagement.Dispose();
+					_retourManagement = null;
+				}
 			}
 
 			_reservationManagement = new ReservationManagement(this) {Location = new Point(panel1.Width + 20, 56)};
@@ -300,10 +377,18 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			}
 
 			if (_reservationManagement != null || _retourManagement != null) {
-				Controls.Remove(_reservationManagement);
-				Controls.Remove(_retourManagement);
-				_reservationManagement = null;
-				_retourManagement = null;
+				if (_reservationManagement != null){
+					Controls.Remove(_reservationManagement);
+					Controls.Remove(_retourManagement);
+				}
+				if (_reservationManagement != null) {
+					_reservationManagement.Dispose();
+					_reservationManagement = null;
+				}
+				if (_retourManagement != null) {
+					_retourManagement.Dispose();
+					_retourManagement = null;
+				}
 			}
 
 			_empruntManagement = new EmpruntManagement(this) {Location = new Point(panel1.Width + 20, 56)};
@@ -324,10 +409,18 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			}
 
 			if (_reservationManagement != null || _empruntManagement != null) {
-				Controls.Remove(_reservationManagement);
-				Controls.Remove(_empruntManagement);
-				_reservationManagement = null;
-				_empruntManagement = null;
+				if (_reservationManagement != null){
+					Controls.Remove(_reservationManagement);
+					Controls.Remove(_empruntManagement);
+				}
+				if (_reservationManagement != null) {
+					_reservationManagement.Dispose();
+					_reservationManagement = null;
+				}
+				if (_empruntManagement != null) {
+					_empruntManagement.Dispose();
+					_empruntManagement = null;
+				}
 			}
 
 			_retourManagement = new RetourManagement(this) {Location = new Point(panel1.Width + 20, 56)};
@@ -350,9 +443,19 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			_empruntManagement = new EmpruntManagement(this, objReservation) {Location = new Point(panel1.Width + 20, 56)};
 
 
-			if (_reservationManagement != null) {
-				Controls.Remove(_reservationManagement);
-				_reservationManagement = null;
+			if (_reservationManagement != null || _retourManagement != null) {
+				if (_reservationManagement != null){
+					Controls.Remove(_reservationManagement);
+					Controls.Remove(_retourManagement);
+				}
+				if (_reservationManagement != null) {
+					_reservationManagement.Dispose();
+					_reservationManagement = null;
+				}
+				if (_retourManagement != null) {
+					_retourManagement.Dispose();
+					_retourManagement = null;
+				}
 			}
 
 			var t1 = new Transition(new TransitionType_EaseInEaseOut(1000));
@@ -373,6 +476,10 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 		void LstSelectAll_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
 			ShowStat();
+		}
+
+		void Lst_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
+			LstSelectAll_CollectionChanged(sender, e);
 		}
 
 		private void DashboardAdminManager_Load(object sender, EventArgs e) {
@@ -412,8 +519,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			LoadRetourManagement();
 		}
 		private void btnLivreManagement_Click(object sender, EventArgs e) {
-			var frmCreateLivre = new CreateLivre(_frmMdi);
-			frmCreateLivre.MdiParent = _frmMdi;
+			var frmCreateLivre = new CreateLivre(_frmMdi) {MdiParent = _frmMdi};
 			frmCreateLivre.Show();
 		}
 

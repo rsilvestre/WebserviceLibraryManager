@@ -53,6 +53,9 @@ namespace WebsBL {
 			try {
 				using (var personneDal = new PersonneDAL(Util.GetConnection())) {
 					lstPersonne = personneDal.PersonneBO_SelectByInfo(pInfo).ToList();
+					foreach (var personneBo in lstPersonne){
+						personneBo.Client = ClientBL.SelectById(personneBo.PersonneId);
+					}
 				}
 			} catch (Exception Ex) {
 				throw;

@@ -27,6 +27,8 @@ svcutil C:\Tmp\WebsIFAC.DemandeReservationIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\Dema
 
 svcutil C:\Tmp\WebsIFAC.ReservationIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\ReservationIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
 
+svcutil C:\Tmp\WebsIFAC.ItemIFAC.wsdl c:\Tmp\*xsd /out:C:\Tmp\ItemIFAC.cs /async /ct:System.Collections.Generic.List`1 /r:C:\VS2013\WebservicePerso\IFAC\bin\Debug\WebsBO.dll /n:*,WCF.Proxies /noConfig
+
 Pause
 del C:\Tmp\*.wsdl
 del C:\Tmp\*.xsd

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="AdministrateurIFAC.cs" />
     <Compile Include="BibliothequeIFAC.cs" />
+    <Compile Include="ItemIFAC.cs" />
     <Compile Include="ClientIFAC.cs" />
     <Compile Include="DemandeAnnulationIFAC.cs" />
     <Compile Include="DemandeReservationIFAC.cs" />

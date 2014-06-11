@@ -42,21 +42,56 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 		#region private
 
-		private void InitComponent() {
+		private void InitComponent(){
+			lblBibliotheque.Text = "";
 			txtLivreField.Enabled = CGlobalCache.ActualBibliotheque != null;
 			btnLivreGo.Enabled = CGlobalCache.ActualBibliotheque != null;
 			CGlobalCache.ActualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 			if (_objReservation != null) {
-				fillReservationControllers();
+				FillReservationControllers();
 			}
 		}
 
-		private void FillCombobox() {
-			throw new NotImplementedException();
-		}
+		private void FillReservationControllers(){
+			_bCmbClientFieldToogle = false;
 
-		private void fillReservationControllers() {
-			throw new NotImplementedException();
+			cmbClientField.Enabled = true;
+			var lstPersonne = new List<PersonneBO>{_objReservation.DemandeReservation.Personne};
+			var tmpClientDatas = lstPersonne.Select(yy => new { Key = yy.PersonneMatricule + ": " + yy.ToString(), Value = yy }).ToList();
+			cmbClientField.DataSource = tmpClientDatas;
+			cmbClientField.DisplayMember = "Key";
+			cmbClientField.ValueMember = "Value";
+			cmbClientField.SelectedValue = _objReservation.DemandeReservation.Personne;
+			
+			cmbReservationField.Enabled = true;
+			var lstReservation = new List<ReservationBO>{_objReservation};
+			var tmpReservationDatas = lstReservation.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
+			cmbReservationField.DataSource = tmpReservationDatas;
+			cmbReservationField.DisplayMember = "Key";
+			cmbReservationField.ValueMember = "Value";
+			cmbReservationField.SelectedValue = _objReservation;
+			
+			cmbLivreField.Enabled = true;
+			var objLivre = new List<LivreBO>{_objReservation.Emprunt.Livre};
+			var tmpLivreDatas = objLivre.Select(yy => new { Key = yy.InternalReference + ": " + yy.ToString(), Value = yy }).ToList();
+			cmbLivreField.DataSource = tmpLivreDatas;
+			cmbLivreField.DisplayMember = "Key";
+			cmbLivreField.ValueMember = "Value";
+			cmbLivreField.SelectedValue = _objReservation.Emprunt.Livre;
+
+			//ActualBibliothequeChange(CGlobalCache.ActualBibliotheque, new EventArgs());
+			InfoToMuchBook(_objReservation.DemandeReservation.Personne);
+
+			FillRecapitulatif();
+
+			txtClientField.Enabled = true;
+			btnClientGo.Enabled = true;
+			txtReservationField.Enabled = true;
+			btnReservationGo.Enabled = true;
+			txtLivreField.Enabled = true;
+			btnLivreGo.Enabled = true;
+
+			_bCmbClientFieldToogle = true;
 		}
 
 		private void SearchClientField() {
@@ -94,9 +129,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 					_lstReservationField = sampleReservationDelegate.EndInvoke(result);
 					if (_lstReservationField.Count(xx => xx.Emprunt.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId) > 0) {
 						_bCmbClientFieldToogle = false;
-						var tmpLivreDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
-						tmpLivreDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
-						cmbReservationField.DataSource = tmpLivreDatas;
+						var tmpReservationDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
+						tmpReservationDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
+						cmbReservationField.DataSource = tmpReservationDatas;
 						cmbReservationField.ValueMember = "Value";
 						cmbReservationField.DisplayMember = "Key";
 						cmbReservationField.Enabled = true;
@@ -121,9 +156,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 					_lstReservationField = sampleReservationDelegate.EndInvoke(result);
 					if (_lstReservationField.Count > 0) {
 						_bCmbClientFieldToogle = false;
-						var tmpLivreDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
-						tmpLivreDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
-						cmbReservationField.DataSource = tmpLivreDatas;
+						var tmpReservationDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
+						tmpReservationDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
+						cmbReservationField.DataSource = tmpReservationDatas;
 						cmbReservationField.ValueMember = "Value";
 						cmbReservationField.DisplayMember = "Key";
 						cmbReservationField.Enabled = true;
@@ -168,30 +203,6 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				MessageBox.Show(Resources.EmpruntManagement_SearchLivreField_Erreur_lors_de_la_recuperation_des_informations_sur_le_livre_demande_);
 			}
 		}
-		
-		private void FillReservation() {
-			if (cmbClientField.SelectedValue == null) {
-				return;
-			}
-			/*
-			var objSelectedPersonne = (PersonneBO)cmbClientField.SelectedValue;
-			var lstDemandeReservation = CGlobalCache.LstNewDemandeReservationByClient.FindAll(xx => xx.ClientId == objSelectedPersonne.PersonneId).ToList();
-			if (lstDemandeReservation.Any()) {
-				_bCmbClientFieldToogle = false;
-				cmbReservationField.DataSource = null;
-				var tmpDemandeReservationDatas = lstDemandeReservation.Select(xx => new { Key = "Id: " + xx.DemandeReservationId + " Date: " + xx.CreatedAt.ToShortDateString(), Value = xx }).ToList();
-				tmpDemandeReservationDatas.Insert(0, new { Key = "", Value = null as DemandeReservationBO });
-				cmbReservationField.DataSource = tmpDemandeReservationDatas;
-				cmbReservationField.DisplayMember = "Key";
-				cmbReservationField.ValueMember = "Value";
-				cmbReservationField.Enabled = (CGlobalCache.ActualBibliotheque != null);
-
-				_bCmbClientFieldToogle = true;
-			} else { 
-				cmbReservationField.DataSource = null;
-				cmbReservationField.Enabled = false;
-			}*/
-		}
 
 		private void FillLivre() {
 			if (cmbReservationField.SelectedValue == null) {
@@ -227,7 +238,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (cmbClientField.SelectedValue != null) {
 				var objPersonne = (PersonneBO)cmbClientField.SelectedValue;
 				txtClientName.Text = objPersonne.ToString();
-				txtClientId.Text = objPersonne.PersonneId.ToString(CultureInfo.InvariantCulture);
+				txtClientId.Text = objPersonne.PersonneMatricule;
+				cbAdministrateur.Checked = (objPersonne.Administrateur != null);
+				lblBibliotheque.Text = objPersonne.Client.Bibliotheque.BibliothequeName;
 			} else {
 				bEnableValidButton = false;
 			}
@@ -244,17 +257,27 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 
 		}
 
-		private void AlertToMuchBook(PersonneBO pPersonneBo){
+		private void InfoToMuchBook(PersonneBO pPersonneBo){
 			//var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.ClientId == pPersonneBo.PersonneId).GroupBy(yy => yy.LivreId).Select(zz => new{zz.Key, value = zz.Max(q => q.State)}).Count(gg => gg.value == "emp");
 			if (pPersonneBo == null) {
 				return;
 			}
-			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
-			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
-			var toCount = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
+			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.ToList().FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
+			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)}).ToList();
+			var toCount = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
 			
 			lblInfo.Visible = true;
 			lblInfo.Text = String.Format(@"Nombre de livre emprunté total {0}", toCount.Count());
+
+			var toCount2 = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId && xx.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId && xx.Livre.BibliothequeId != pPersonneBo.Client.BibliothequeId)).Where(result => result != null && result.State == "emp").ToList();
+
+			if (toCount2.Any()){
+				lblAlert.Visible = true;
+				lblAlert.Text = @"Déjà un livre emprunté dans cette bibliothèque";
+			} else {
+				lblAlert.Visible = false;
+				lblAlert.Text = @"";
+			}
 			//_bTooMuchBook = (empruntNumber >= 3);
 		}
 
@@ -281,10 +304,16 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				var webResponse = (HttpWebResponse)webRequest.GetResponse();
 
 				// Create an image from the stream returned by the web request
+				// ReSharper disable AssignNullToNotNullAttribute
 				picBook.Image = new Bitmap(webResponse.GetResponseStream());
+				// ReSharper restore AssignNullToNotNullAttribute
 			};
-
+			try {
 				getImage(objRefLivre.ImageUrl);
+			} catch (Exception ex) {
+				picBook.Image = null;
+				MessageBox.Show(Resources.EmpruntManagement_FillRecapitulatifLivreField_Impossible_de_recuperer_l_image_sur_le_reseau);
+			}
 		}
 		
 		#endregion private
@@ -316,7 +345,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			var objPersonne = (PersonneBO)((ComboBox)sender).SelectedValue;
 			SearchReservationField(objPersonne);
 			FillRecapitulatif();
-			AlertToMuchBook(objPersonne);
+			InfoToMuchBook(objPersonne);
 		}
 
 		private void txtReservationField_KeyDown(object sender, KeyEventArgs e) {
@@ -366,26 +395,27 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				MessageBox.Show(Resources.EmpruntManagement_btnValider_Click_Vous_avez_trop_de_livre_empruntes__Seul_3_maximum_sont_authorizes);
 				return;
 			}
-			var result = _dashboardAdminManager.SaveEmprunt(CGlobalCache.SessionManager.Personne.Administrateur, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue, (ReservationBO)cmbReservationField.SelectedValue);
-			if (result == null){
+			var resultEmprunt = _dashboardAdminManager.SaveEmprunt(CGlobalCache.SessionManager.Personne.Administrateur, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue, (ReservationBO)cmbReservationField.SelectedValue);
+			if (resultEmprunt == null){
 				MessageBox.Show(Resources.EmpruntManagement_btnValider_Click_Echec_lors_de_l_enregistrement_de_l_emprunt);
 				return;
 			}
-			lblAlert.Visible = true;
-			lblAlert.Text = String.Format(@"Emprunt enregistré ref: {0} !", result.EmpruntId);
+			//lblAlert.Visible = true;
+			CGlobalCache.LstEmpruntSelectAll.Add(resultEmprunt);
+			MessageBox.Show(String.Format(@"Emprunt enregistré ref: {0} !", resultEmprunt.EmpruntId));
 
-			CGlobalCache.ReloadSelectAllEmpruntCache(() => {
-				var selectedValue = cmbClientField.SelectedValue;
-				if (selectedValue == null){
-					return;
-				}
-				AlertToMuchBook((PersonneBO)selectedValue);
-			});
+			var selectedValue = cmbClientField.SelectedValue;
+			if (selectedValue != null) {
+				InfoToMuchBook((PersonneBO)selectedValue);
+			}
+
 			_bCmbClientFieldToogle = false;
 			lblInfo.Visible = true;
 			btnValider.Enabled = false;
 			cmbLivreField.DataSource = null;
 			cmbLivreField.Enabled = false;
+			cmbReservationField.DataSource = null;
+			cmbReservationField.Enabled = false;
 
 		}
 		
@@ -395,6 +425,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			btnLivreGo.Enabled = (objBibliotheque != null);
 			txtReservationField.Enabled = (objBibliotheque != null);
 			btnReservationGo.Enabled = (objBibliotheque != null);
+			if (cmbClientField != null){
+				InfoToMuchBook((PersonneBO)cmbClientField.SelectedValue);
+			}
 			if (txtLivreField.Text.Trim() == ""){
 				cmbLivreField.DataSource = null;
 				cmbLivreField.Enabled = false;

@@ -32,7 +32,6 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.lblStatTitle = new System.Windows.Forms.Label();
-			this.lblStat = new System.Windows.Forms.Label();
 			this.btnStatManagement = new System.Windows.Forms.Button();
 			this.btnEmpruntManagement = new System.Windows.Forms.Button();
 			this.btReservationManagement = new System.Windows.Forms.Button();
@@ -40,6 +39,7 @@
 			this.btnRetourManagement = new System.Windows.Forms.Button();
 			this.btnLivreManagement = new System.Windows.Forms.Button();
 			this.cmbBibliotheque = new System.Windows.Forms.ComboBox();
+			this.txtStat = new System.Windows.Forms.RichTextBox();
 			this.contextMenuStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -105,8 +105,8 @@
 			// 
 			this.panel2.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.txtStat);
 			this.panel2.Controls.Add(this.lblStatTitle);
-			this.panel2.Controls.Add(this.lblStat);
 			this.panel2.Location = new System.Drawing.Point(3, 3);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(307, 365);
@@ -121,15 +121,6 @@
 			this.lblStatTitle.Size = new System.Drawing.Size(105, 20);
 			this.lblStatTitle.TabIndex = 1;
 			this.lblStatTitle.Text = "Statistiques";
-			// 
-			// lblStat
-			// 
-			this.lblStat.AutoSize = true;
-			this.lblStat.Location = new System.Drawing.Point(3, 31);
-			this.lblStat.Name = "lblStat";
-			this.lblStat.Size = new System.Drawing.Size(36, 13);
-			this.lblStat.TabIndex = 0;
-			this.lblStat.Text = "lblStat";
 			// 
 			// btnStatManagement
 			// 
@@ -201,6 +192,16 @@
 			this.cmbBibliotheque.TabIndex = 38;
 			this.cmbBibliotheque.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
+			// txtStat
+			// 
+			this.txtStat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtStat.Location = new System.Drawing.Point(3, 26);
+			this.txtStat.Name = "txtStat";
+			this.txtStat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+			this.txtStat.Size = new System.Drawing.Size(299, 338);
+			this.txtStat.TabIndex = 2;
+			this.txtStat.Text = "";
+			// 
 			// DashboardAdminManager
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,7 +244,7 @@
 		private System.Windows.Forms.Button btnEmpruntManagement;
 		private System.Windows.Forms.Button btReservationManagement;
 		private System.Windows.Forms.Panel panel3;
-		private System.Windows.Forms.Label lblStat;
 		private System.Windows.Forms.Label lblStatTitle;
+		private System.Windows.Forms.RichTextBox txtStat;
 	}
 }

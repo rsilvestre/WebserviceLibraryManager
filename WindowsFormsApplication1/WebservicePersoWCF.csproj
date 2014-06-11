@@ -133,6 +133,7 @@
     <Compile Include="Proxies\DemandeAnnulationIFAC.cs" />
     <Compile Include="Proxies\DemandeReservationIFAC.cs" />
     <Compile Include="Proxies\EmpruntIFAC.cs" />
+    <Compile Include="Proxies\ItemIFAC.cs" />
     <Compile Include="Proxies\LivreIFAC.cs" />
     <Compile Include="Proxies\LivreStatusIFAC.cs" />
     <Compile Include="Proxies\PersonneIFAC.cs" />

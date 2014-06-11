@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1 {
 
 		public delegate void OnReloadCallback();
 
-		public static Int32 Lock = 13;
+		public static Int32 Lock = 15;
 		static readonly AutoResetEvent AutoEvent = new AutoResetEvent(false);
 
 		private delegate List<PersonneBO> AsyncGuiPersonne(String token);
@@ -42,7 +42,9 @@ namespace WindowsFormsApplication1 {
 		private delegate List<DemandeReservationBO> ASyncGuiDemandeReservationSelectAll(String token);
 		private delegate List<EmpruntBO> AyncGuiEmpruntSelectAllByClientId(String token, Int32 pClientId);
 		private delegate List<EmpruntBO> AsyncGuiEmpruntSelectAll(String token); 
-		private delegate List<ReservationBO> AsyncGuiReservationSelectAll(String token); 
+		private delegate List<ReservationBO> AsyncGuiReservationSelectAll(String token);
+		private delegate List<ReservationBO> AsyncGuiReservationSelectEnCoursValidByClientId(String token, Int32 pClientId);
+		private delegate List<ItemBO> AsyncGuiItemSelectByAdministrateurId(String token, Int32 pAdministrateurId);
 
 		private static BibliothequeBO _actualBibliotheque;
 		
@@ -50,7 +52,7 @@ namespace WindowsFormsApplication1 {
 
 		public static List<PersonneBO> LstPersonne { get; set; }
 		public static List<EmpruntBO> LstEmpruntByClient { get; set; }
-		public static List<EmpruntBO> LstEmpruntSelectAll { get; set; }
+		public static ObservableCollection<EmpruntBO> LstEmpruntSelectAll { get; set; }
 		public static List<ClientBO> LstClient { get; set; }
 		public static PersonneBO ObjPersonne { get; set; }
 		public static List<RefLivreBO> LstRefLivreSelectAll { get; set; }
@@ -70,7 +72,8 @@ namespace WindowsFormsApplication1 {
 		public static ObservableCollection<DemandeReservationBO> LstNewDemandeReservationByClient { get; set; }
 		public static ObservableCollection<DemandeReservationBO> LstOldDemandeReservationByClient { get; set; }
 		public static ObservableCollection<DemandeReservationBO> LstDemandeReservationSelectAll { get; set; } 
-		public static ObservableCollection<ReservationBO> LstReservationSelectAll { get; set; } 
+		public static ObservableCollection<ReservationBO> LstReservationSelectAll { get; set; }
+		public static ObservableCollection<ReservationBO> LstReservationSelectEnCoursValidByClientId { get; set; } 
 
 		public static BibliothequeBO ActualBibliotheque { 
 			get { return _actualBibliotheque; } 
@@ -79,7 +82,7 @@ namespace WindowsFormsApplication1 {
 				ActualBibliothequeChangeEventHandler(value, new EventArgs());
 			}
 		}
-		//public static List<PersonneBO> LstPersonneByName { get; set; }
+		public static ObservableCollection<ItemBO> LstItemSelectByAministrateurId { get; set; } 
 
 		private static FrmMdi _ofrmMdi;
 		private static ObservableCollection<LivreBO> _lstLivreSelectAll;
@@ -98,6 +101,7 @@ namespace WindowsFormsApplication1 {
 			BibliothequeIFACClient bibliothequeIFacSelectAll = null;
 			DemandeReservationIFACClient demandeReservationIFacByClient = null;
 			ReservationIFACClient reservationIfacClient = null;
+			ItemIFACClient itemIfacClient = null;
 
 			try {
 				_ofrmMdi = pFrmMdi;
@@ -143,21 +147,22 @@ namespace WindowsFormsApplication1 {
 				AyncGuiEmpruntSelectAllByClientId selectGuiSampleEmpruntDelegate = empruntIFac.SelectEmpruntByClientId;
 				selectGuiSampleEmpruntDelegate.BeginInvoke(SessionManager.Token, SessionManager.PersonneId ,EmpruntResults, null);
 
+				reservationIfacClient = new ReservationIFACClient();
+				AsyncGuiReservationSelectEnCoursValidByClientId selectGuiSampleReservationEnCoursValidByClientIdDelegate = reservationIfacClient.SelectEnCoursValidByClientId;
+				selectGuiSampleReservationEnCoursValidByClientIdDelegate.BeginInvoke(SessionManager.Token, SessionManager.PersonneId, ReservationSelectValidByClientIdResult, null);
 
+				AsyncGuiReservationSelectAll selectGuiSampleReservationDelegate = reservationIfacClient.SelectAll;
+				selectGuiSampleReservationDelegate.BeginInvoke(SessionManager.Token, ReservationResults, null);
 					
-				
+				ASyncGuiDemandeReservationSelectAll selectGuiSampleDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectAll;
+				selectGuiSampleDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, DemandeReservationResults, null);
 
-				if (SessionManager.Personne.Administrateur != null){
-					reservationIfacClient = new ReservationIFACClient();
-					AsyncGuiReservationSelectAll selectGuiSampleReservationDelegate = reservationIfacClient.SelectAll;
-					selectGuiSampleReservationDelegate.BeginInvoke(SessionManager.Token, ReservationResults, null);
-
-					ASyncGuiDemandeReservationSelectAll selectGuiSampleDemandeReservationByClientDelegate = demandeReservationIFacByClient.SelectAll;
-					selectGuiSampleDemandeReservationByClientDelegate.BeginInvoke(SessionManager.Token, DemandeReservationResults, null);
-				} else{
-					_ofrmMdi.SetLoadingText(String.Format(@"{0}", "ReservationSelectAll"));
-					_ofrmMdi.SetLoadingText(String.Format(@"{0}", "DemandeReservationSelectAll"));
-					DecrementILock();
+				if (SessionManager.IsAdministrateur){
+					itemIfacClient = new ItemIFACClient();
+					AsyncGuiItemSelectByAdministrateurId selectGuiSampleItemByAdministrateurId = itemIfacClient.SelectByAdministrateurId;
+					selectGuiSampleItemByAdministrateurId.BeginInvoke(SessionManager.Token, SessionManager.Personne.Administrateur.AdministrateurId, ItemSelectByAdministrateurIdResult, null);
+				} else {
+					_ofrmMdi.SetLoadingText(@"Item");
 					DecrementILock();
 				}
 
@@ -214,6 +219,20 @@ namespace WindowsFormsApplication1 {
 			return bReturn;
 		}
 
+		private static void ItemSelectByAdministrateurIdResult(IAsyncResult result){
+			var sampleItemByAdministrateurId = (AsyncGuiItemSelectByAdministrateurId)((AsyncResult)result).AsyncDelegate;
+			LstItemSelectByAministrateurId = new ObservableCollection<ItemBO>(sampleItemByAdministrateurId.EndInvoke(result));
+			_ofrmMdi.SetLoadingText(String.Format(@"ItemByAdministrateurId"));
+			DecrementILock();
+		}
+
+		private static void ReservationSelectValidByClientIdResult(IAsyncResult result) {
+			var sampleReservationValidByClientId = (AsyncGuiReservationSelectEnCoursValidByClientId)((AsyncResult)result).AsyncDelegate;
+			LstReservationSelectEnCoursValidByClientId = new ObservableCollection<ReservationBO>(sampleReservationValidByClientId.EndInvoke(result));
+			_ofrmMdi.SetLoadingText(String.Format(@"ReservationSelectValidByClientId"));
+			DecrementILock();
+		}
+
 		private static void ReservationResults(IAsyncResult result){
 			var sampleReservationDelegate = (AsyncGuiReservationSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstReservationSelectAll = new ObservableCollection<ReservationBO>(sampleReservationDelegate.EndInvoke(result));
@@ -221,7 +240,7 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 
-		public static void PersonneResults(IAsyncResult result) {
+		private static void PersonneResults(IAsyncResult result) {
 			var samplePersDelegate = (AsyncGuiPersonne)((AsyncResult)result).AsyncDelegate;
 			LstPersonne = samplePersDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllPersonne"));
@@ -229,7 +248,7 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 
-		public static void EmpruntResults(IAsyncResult result) {
+		private static void EmpruntResults(IAsyncResult result) {
 			var sampleEmpDelegate = (AyncGuiEmpruntSelectAllByClientId)((AsyncResult)result).AsyncDelegate;
 			LstEmpruntByClient = sampleEmpDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "EmpruntByClient"));
@@ -237,15 +256,15 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 
-		public static void EmpruntSelectAllResult(IAsyncResult result) {
+		private static void EmpruntSelectAllResult(IAsyncResult result) {
 			var sampleEmpDelegate = (AsyncGuiEmpruntSelectAll)((AsyncResult)result).AsyncDelegate;
-			LstEmpruntSelectAll = sampleEmpDelegate.EndInvoke(result);
+			LstEmpruntSelectAll = new ObservableCollection<EmpruntBO>(sampleEmpDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "EmpruntSelectAll"));
 			//Console.WriteLine(@"Lock: {0}", _iLock);
 			DecrementILock();
 		}
 
-		public static void ClientResults(IAsyncResult result) {
+		private static void ClientResults(IAsyncResult result) {
 			var sampleCliDelegate = (AsyncGuiClient)((AsyncResult)result).AsyncDelegate;
 			LstClient = sampleCliDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllClient"));
@@ -253,7 +272,7 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 		
-		public static void NewDemandeReservationResults(IAsyncResult result) {
+		private static void NewDemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
 			LstNewDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleCliDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllNewDemandeReservation"));
@@ -261,7 +280,7 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 		
-		public static void OldDemandeReservationResults(IAsyncResult result) {
+		private static void OldDemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectByClient)((AsyncResult)result).AsyncDelegate;
 			LstOldDemandeReservationByClient = new ObservableCollection<DemandeReservationBO>(sampleCliDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllOldDemandeReservation"));
@@ -269,7 +288,7 @@ namespace WindowsFormsApplication1 {
 			DecrementILock();
 		}
 		
-		public static void DemandeReservationResults(IAsyncResult result) {
+		private static void DemandeReservationResults(IAsyncResult result) {
 			var sampleCliDelegate = (ASyncGuiDemandeReservationSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstDemandeReservationSelectAll = new ObservableCollection<DemandeReservationBO>(sampleCliDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "AllDemandeReservation"));
@@ -291,35 +310,35 @@ namespace WindowsFormsApplication1 {
 		}
 		*/
 
-		public static void RefLivreSelectAllResult(IAsyncResult result) {
+		private static void RefLivreSelectAllResult(IAsyncResult result) {
 			var sampleRefLivreSelectAllDelegate = (AsyncGuiRefLivreSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstRefLivreSelectAll = sampleRefLivreSelectAllDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "RefLivre"));
 			DecrementILock();
 		}
 
-		public static void LivreSelectAllResult(IAsyncResult result) {
+		private static void LivreSelectAllResult(IAsyncResult result) {
 			var sampleLivreSelectAllDelegate = (AsyncGuiLivreSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstLivreSelectAll = new ObservableCollection<LivreBO>(sampleLivreSelectAllDelegate.EndInvoke(result));
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "Livre"));
 			DecrementILock();
 		}
 
-		public static void LivreSelectByBibliothequeResult(IAsyncResult result) {
+		private static void LivreSelectByBibliothequeResult(IAsyncResult result) {
 			var sampleLivreSelectAllDelegate = (AsyncGuiLivreSelectByBibliotheque)((AsyncResult)result).AsyncDelegate;
 			LstLivreByBibliotheque = sampleLivreSelectAllDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "LivreByBibliotheque"));
 			DecrementILock();
 		}
 
-		public static void LivreStatusSelecAllResult(IAsyncResult result) {
+		private static void LivreStatusSelecAllResult(IAsyncResult result) {
 			var sampleLivreStatusSelectAllDelegate = (ASyncGuiLivreStatusSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstLivreStatusSelectAll = sampleLivreStatusSelectAllDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "LivreStatus"));
 			DecrementILock();
 		}
 
-		public static void BibliothequeSelectAllResult(IAsyncResult result) {
+		private static void BibliothequeSelectAllResult(IAsyncResult result) {
 			var sampleBibliothequeSelectAllDelegate = (ASyncGuiBibliothequeSelectAll)((AsyncResult)result).AsyncDelegate;
 			LstBibliothequeSelectAll = sampleBibliothequeSelectAllDelegate.EndInvoke(result);
 			_ofrmMdi.SetLoadingText(String.Format(@"{0}", "Bibliotheque"));
@@ -390,7 +409,7 @@ namespace WindowsFormsApplication1 {
 			AsyncGuiEmpruntSelectAll selectGuiSampleEmpruntDelegate = empruntIFacSelectAll.SelectAll;
 			selectGuiSampleEmpruntDelegate.BeginInvoke(SessionManager.Token, result => {
 				var sampleEmpDelegate = (AsyncGuiEmpruntSelectAll)((AsyncResult)result).AsyncDelegate;
-				LstEmpruntSelectAll = sampleEmpDelegate.EndInvoke(result);
+				LstEmpruntSelectAll = new ObservableCollection<EmpruntBO>(sampleEmpDelegate.EndInvoke(result));
 				empruntIFacSelectAll.Close();
 				if (cbCallback == null){
 					return;

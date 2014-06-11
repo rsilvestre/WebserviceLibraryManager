@@ -168,4 +168,10 @@
   <data name="ReservationManagement_btnAnnuler_Click_Erreur_lors_de_votre_demande_d_annulation" xml:space="preserve">
     <value>Erreur lors de votre demande d'annulation</value>
   </data>
+  <data name="DashboardManager_AnnuleDemandeReservation_La_demande_n_a_pas_ete_executee" xml:space="preserve">
+    <value>La demande n'a pas été exécutée</value>
+  </data>
+  <data name="EmpruntManagement_FillRecapitulatifLivreField_Impossible_de_recuperer_l_image_sur_le_reseau" xml:space="preserve">
+    <value>Impossible de récupérer l'image sur le réseau</value>
+  </data>
 </root>

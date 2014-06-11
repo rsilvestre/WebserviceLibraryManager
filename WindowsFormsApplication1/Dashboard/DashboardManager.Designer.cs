@@ -204,11 +204,13 @@ namespace WindowsFormsApplication1.Dashboard {
 			// 
 			// lstReservationEnCours
 			// 
+			this.lstReservationEnCours.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.lstReservationEnCours.FormattingEnabled = true;
 			this.lstReservationEnCours.Location = new System.Drawing.Point(12, 55);
 			this.lstReservationEnCours.Name = "lstReservationEnCours";
 			this.lstReservationEnCours.Size = new System.Drawing.Size(254, 160);
 			this.lstReservationEnCours.TabIndex = 22;
+			this.lstReservationEnCours.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstReservationEnCours_DrawItem);
 			this.lstReservationEnCours.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreDemandeReservation_MouseDown);
 			// 
 			// lstReservationPasse
@@ -266,7 +268,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstNewLivreNetwork.Name = "lstNewLivreNetwork";
 			this.lstNewLivreNetwork.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreNetwork.TabIndex = 19;
-			this.lstNewLivreNetwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstNewLivreNetwork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatusOther_MouseDown);
 			// 
 			// lstNewLivreLocal
 			// 
@@ -275,7 +277,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.lstNewLivreLocal.Name = "lstNewLivreLocal";
 			this.lstNewLivreLocal.Size = new System.Drawing.Size(254, 160);
 			this.lstNewLivreLocal.TabIndex = 0;
-			this.lstNewLivreLocal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatus_MouseDown);
+			this.lstNewLivreLocal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LivreStatusLocal_MouseDown);
 			// 
 			// contextMenuStrip1
 			// 
@@ -289,7 +291,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			this.totoToolStripMenuItem.Name = "totoToolStripMenuItem";
 			this.totoToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
 			this.totoToolStripMenuItem.Text = "Réserver un livre";
-			this.totoToolStripMenuItem.Click += new System.EventHandler(this.totoToolStripMenuItem_Click);
+			this.totoToolStripMenuItem.Click += new System.EventHandler(this.demandeReservationToolStripMenuItem_Click);
 			// 
 			// DashboardManager
 			// 

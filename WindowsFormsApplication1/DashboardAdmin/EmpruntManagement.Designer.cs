@@ -37,6 +37,9 @@
 			this.txtReservationField = new System.Windows.Forms.TextBox();
 			this.txtClientField = new System.Windows.Forms.TextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.lblBibliotheque = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.lblAlert = new System.Windows.Forms.Label();
 			this.lblLivreReference = new System.Windows.Forms.Label();
 			this.txtLivreReference = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +57,7 @@
 			this.txtClientName = new System.Windows.Forms.TextBox();
 			this.cmbReservationToogle = new System.Windows.Forms.ComboBox();
 			this.lblInfo = new System.Windows.Forms.Label();
-			this.lblAlert = new System.Windows.Forms.Label();
+			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
@@ -197,6 +200,9 @@
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.cbAdministrateur);
+			this.panel2.Controls.Add(this.lblBibliotheque);
+			this.panel2.Controls.Add(this.label9);
 			this.panel2.Controls.Add(this.lblAlert);
 			this.panel2.Controls.Add(this.lblLivreReference);
 			this.panel2.Controls.Add(this.txtLivreReference);
@@ -217,6 +223,36 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(455, 291);
 			this.panel2.TabIndex = 10;
+			// 
+			// lblBibliotheque
+			// 
+			this.lblBibliotheque.AutoSize = true;
+			this.lblBibliotheque.Location = new System.Drawing.Point(207, 36);
+			this.lblBibliotheque.Name = "lblBibliotheque";
+			this.lblBibliotheque.Size = new System.Drawing.Size(64, 13);
+			this.lblBibliotheque.TabIndex = 22;
+			this.lblBibliotheque.Text = "bibliotheque";
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(132, 36);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(71, 13);
+			this.label9.TabIndex = 14;
+			this.label9.Text = "Bibliotheque :";
+			// 
+			// lblAlert
+			// 
+			this.lblAlert.AutoSize = true;
+			this.lblAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAlert.ForeColor = System.Drawing.Color.Red;
+			this.lblAlert.Location = new System.Drawing.Point(45, 233);
+			this.lblAlert.Name = "lblAlert";
+			this.lblAlert.Size = new System.Drawing.Size(40, 16);
+			this.lblAlert.TabIndex = 21;
+			this.lblAlert.Text = "Alert";
+			this.lblAlert.Visible = false;
 			// 
 			// lblLivreReference
 			// 
@@ -334,7 +370,7 @@
 			this.txtClientId.Location = new System.Drawing.Point(57, 33);
 			this.txtClientId.Name = "txtClientId";
 			this.txtClientId.ReadOnly = true;
-			this.txtClientId.Size = new System.Drawing.Size(85, 20);
+			this.txtClientId.Size = new System.Drawing.Size(69, 20);
 			this.txtClientId.TabIndex = 2;
 			// 
 			// lblClientName
@@ -375,17 +411,15 @@
 			this.lblInfo.Text = "Info";
 			this.lblInfo.Visible = false;
 			// 
-			// lblAlert
+			// cbAdministrateur
 			// 
-			this.lblAlert.AutoSize = true;
-			this.lblAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblAlert.ForeColor = System.Drawing.Color.Red;
-			this.lblAlert.Location = new System.Drawing.Point(45, 233);
-			this.lblAlert.Name = "lblAlert";
-			this.lblAlert.Size = new System.Drawing.Size(40, 16);
-			this.lblAlert.TabIndex = 21;
-			this.lblAlert.Text = "Alert";
-			this.lblAlert.Visible = false;
+			this.cbAdministrateur.AutoCheck = false;
+			this.cbAdministrateur.AutoSize = true;
+			this.cbAdministrateur.Location = new System.Drawing.Point(201, 10);
+			this.cbAdministrateur.Name = "cbAdministrateur";
+			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
+			this.cbAdministrateur.TabIndex = 23;
+			this.cbAdministrateur.UseVisualStyleBackColor = true;
 			// 
 			// EmpruntManagement
 			// 
@@ -446,5 +480,8 @@
 		private System.Windows.Forms.Label lblLivreReference;
 		private System.Windows.Forms.TextBox txtLivreReference;
 		private System.Windows.Forms.Label lblAlert;
+		private System.Windows.Forms.Label lblBibliotheque;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.CheckBox cbAdministrateur;
 	}
 }

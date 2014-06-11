@@ -13,13 +13,8 @@ namespace WebsBL {
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					lstResult = empruntDal.EmpruntDAL_SelectAll().ToList();
-					foreach (var empruntBo in lstResult){
-						empruntBo.Livre = LivreBL.SelectById(empruntBo.LivreId);
-						empruntBo.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(empruntBo.EmpruntId);
-						if (empruntBo.ClientId != null){
-							empruntBo.Client = ClientBL.SelectById((int)empruntBo.ClientId);
-							empruntBo.Personne = PersonneBL.SelectById((int)empruntBo.ClientId);
-						}
+					foreach (var objEmpruntBo in lstResult) {
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
@@ -29,128 +24,126 @@ namespace WebsBL {
 		}
 
 		public static EmpruntBO SelectById(Int32 pId) {
-			EmpruntBO result = null;
+			EmpruntBO objEmpruntBo = null;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					var lstEmpruntBos = empruntDal.EmpruntDAL_SelectById(pId).ToList();
 					if (lstEmpruntBos.Count() == 1){
-						result = lstEmpruntBos[0];
-						result.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(result.EmpruntId);
-						result.Livre = LivreBL.SelectById(result.LivreId);
-						result.Personne = PersonneBL.SelectById((int)result.ClientId);
+						objEmpruntBo = lstEmpruntBos[0];
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return objEmpruntBo;
 		}
 
 		public static List<EmpruntBO> SelectByClientId(Int32 pClientId) {
-			List<EmpruntBO> result;
+			List<EmpruntBO> lstEmpruntBo;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					result = empruntDal.EmpruntDAL_SelectByClientId(pClientId).ToList();
-					foreach (var empruntBo in result){
-						empruntBo.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(empruntBo.EmpruntId);
-						empruntBo.Livre = LivreBL.SelectById(empruntBo.LivreId);
-						empruntBo.Personne = PersonneBL.SelectById((int)empruntBo.ClientId);
+					lstEmpruntBo = empruntDal.EmpruntDAL_SelectByClientId(pClientId).ToList();
+					foreach (var objEmpruntBo in lstEmpruntBo){
+						objEmpruntBo.Livre = LivreBL.SelectById(objEmpruntBo.LivreId);
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return lstEmpruntBo;
 		}
 
 		internal static List<EmpruntBO> SelectForClientByLivreId(int pClientId, int pLivreId) {
-			List<EmpruntBO> lstResult;
+			List<EmpruntBO> lstEmpruntBo;
 
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					lstResult = empruntDal.EmpruntDAL_SelectForUserByLivreId(pClientId, pLivreId).ToList();
-					foreach (var objEmprunt in lstResult) {
-						objEmprunt.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(objEmprunt.EmpruntId);
-						objEmprunt.Livre = LivreBL.SelectById(objEmprunt.LivreId);
-						objEmprunt.Personne = PersonneBL.SelectById((int)objEmprunt.ClientId);
+					lstEmpruntBo = empruntDal.EmpruntDAL_SelectForUserByLivreId(pClientId, pLivreId).ToList();
+					foreach (var objEmpruntBo in lstEmpruntBo) {
+						objEmpruntBo.Livre = LivreBL.SelectById(objEmpruntBo.LivreId);
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return lstResult;
+			return lstEmpruntBo;
 		}
 
 		public static EmpruntBO ConvertReservation(Int32 pAdministrateurId, Int32 pReservationId) {
-			EmpruntBO result = null;
+			EmpruntBO objEmpruntBo = null;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					var lstEmpruntBos = empruntDal.EmpruntDAL_ConvertReservation(pAdministrateurId, pReservationId).ToList();
 					if (lstEmpruntBos.Count() == 1){
-						result = lstEmpruntBos[0];
-						result.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(result.EmpruntId);
-						result.Livre = LivreBL.SelectById(result.LivreId);
-						result.Personne = PersonneBL.SelectById((int)result.ClientId);
+						objEmpruntBo = lstEmpruntBos[0];
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return objEmpruntBo;
 		}
 
 		public static EmpruntBO InsertEmprunt(Int32 pAdministrateurId, Int32 pPersonneId, Int32 pLivreId) {
-			EmpruntBO result = null;
+			EmpruntBO objEmpruntBo = null;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
 					var lstEmpruntBos = empruntDal.EmpruntDAL_InsertEmprunt(pAdministrateurId, pPersonneId, pLivreId).ToList();
 					if (lstEmpruntBos.Count() == 1){
-						result = lstEmpruntBos[0];
-						result.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(result.EmpruntId);
-						result.Livre = LivreBL.SelectById(result.LivreId);
-						result.Personne = PersonneBL.SelectById((int)result.ClientId);
+						objEmpruntBo = lstEmpruntBos[0];
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return objEmpruntBo;
 		}
 
 		public static EmpruntBO InsertRetour(Int32 pAdministrateurId, Int32 pLivreId) {
-			EmpruntBO result = null;
+			EmpruntBO objEmpruntBo = null;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					var lstEmpruntBos = empruntDal.EmpruntDAL_InsertRetour(pAdministrateurId, pLivreId).ToList();
-					if (lstEmpruntBos.Count() == 1){
-						result = lstEmpruntBos[0];
-						result.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(result.EmpruntId);
-						result.Livre = LivreBL.SelectById(result.LivreId);
-						result.Personne = PersonneBL.SelectById((int)result.ClientId);
+					var lstEmpruntBo = empruntDal.EmpruntDAL_InsertRetour(pAdministrateurId, pLivreId).ToList();
+					if (lstEmpruntBo.Count() == 1){
+						objEmpruntBo = lstEmpruntBo[0];
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return objEmpruntBo;
 		}
 
 		public static EmpruntBO InsertAnnul(Int32 pAdministrateurId, Int32 pReservationId) {
-			EmpruntBO result = null;
+			EmpruntBO objEmpruntBo = null;
 			try {
 				using (var empruntDal = new EmpruntDAL(Util.GetConnection())) {
-					var lstEmpruntBos = empruntDal.EmpruntDAL_InsertAnnul(pAdministrateurId, pReservationId).ToList();
-					if (lstEmpruntBos.Count() == 1){
-						result = lstEmpruntBos[0];
-						result.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(result.EmpruntId);
-						result.Livre = LivreBL.SelectById(result.LivreId);
-						result.Personne = PersonneBL.SelectById((int)result.ClientId);
+					var lstEmpruntBo = empruntDal.EmpruntDAL_InsertAnnul(pAdministrateurId, pReservationId).ToList();
+					if (lstEmpruntBo.Count() == 1){
+						objEmpruntBo = lstEmpruntBo[0];
+						FillObjEmpruntBo(objEmpruntBo);
 					}
 				}
 			} catch (Exception Ex) {
 				throw;
 			}
-			return result;
+			return objEmpruntBo;
+		}
+
+		private static void FillObjEmpruntBo(EmpruntBO objEmpruntBo) {
+			objEmpruntBo.Livre = LivreBL.SelectById(objEmpruntBo.LivreId);
+			if (objEmpruntBo.ClientId != null) {
+				objEmpruntBo.Personne = PersonneBL.SelectById((int)objEmpruntBo.ClientId);
+				objEmpruntBo.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(objEmpruntBo.EmpruntId, objEmpruntBo.Personne, objEmpruntBo.Livre);
+			} else {
+				objEmpruntBo.LstDemandeReservation = DemandeReservationBL.SelectByEmpruntId(objEmpruntBo.EmpruntId, objEmpruntBo.Livre);
+			}
 		}
 	}
 }

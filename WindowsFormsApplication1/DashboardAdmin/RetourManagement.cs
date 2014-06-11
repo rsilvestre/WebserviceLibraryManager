@@ -13,13 +13,12 @@ using WebsBO;
 namespace WindowsFormsApplication1.DashboardAdmin {
 	public partial class RetourManagement : UserControl {
 		private bool _bCmbClientFieldToogle;
-		private List<LivreBO> _lstLivreField;
 		private List<PersonneBO> _lstPersonneField;
-		private DashboardAdminManager _dashboardAdminManager;
+		private readonly DashboardAdminManager _dashboardAdminManager;
 
 		private delegate List<PersonneBO> AsyncGuiSelectListPersonne(String token, String pPersonneInfo);
 		private delegate PersonneBO AsyncGuiSelectPersonneFromEmpruntId(String token, Int32 pEmpruntId);
-		private delegate List<LivreBO> AsyncGuiSelectListLivre(String token, String pLivreInfo, Int32 pBibliothequeId);
+
 		public RetourManagement() {
 			InitializeComponent();
 		}
@@ -64,9 +63,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		private void SearchLivreField(){
 			lblAlert.Enabled = false;
 			var txtField = txtLivreField.Text;
-			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.Livre.RefLivre.Titre.Contains(txtField) || xx.Livre.InternalReference.Contains(txtField));
+			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.ToList().FindAll(xx => xx.Livre.RefLivre.Titre.Contains(txtField) || xx.Livre.InternalReference.Contains(txtField));
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
-			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
+			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
 			var lstResult = clientEmprunt.Select(empruntBo => empruntBo.Livre).ToList();
 			if (!lstResult.Any()){
 				cmbLivreField.Enabled = false;
@@ -87,9 +86,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			if (pPersonneBo == null || CGlobalCache.ActualBibliotheque == null){
 				return;
 			}
-			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
+			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.ToList().FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
-			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
+			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
 			var lstResult = clientEmprunt.Select(empruntBo => empruntBo.Livre).ToList();
 			if (!lstResult.Any()){
 				cmbLivreField.Enabled = false;
@@ -112,9 +111,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				return;
 			}
 			//var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.ClientId == pPersonneBo.PersonneId).GroupBy(yy => yy.LivreId).Select(zz => new{zz.Key, value = zz.Max(q => q.State)}).Count(gg => gg.value == "emp");
-			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
+			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.ToList().FindAll(xx => xx.ClientId == pPersonneBo.PersonneId);
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
-			var toCount = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
+			var toCount = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
 			
 			lblInfo.Visible = true;
 			lblInfo.Text = String.Format(@"Nombre de livre emprunté total {0}", toCount.Count());
@@ -128,6 +127,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				var objPersonne = (PersonneBO)cmbClientField.SelectedValue;
 				txtClientName.Text = objPersonne.ToString();
 				txtClientId.Text = objPersonne.PersonneId.ToString(CultureInfo.InvariantCulture);
+				cbAdministrateur.Checked = (objPersonne.Administrateur != null);
 			} else {
 				bEnableValidButton = false;
 				SelectPersonneFromEmpruntLivreId((LivreBO)cmbLivreField.SelectedValue);
@@ -151,25 +151,28 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void SelectPersonneFromEmpruntLivreId(LivreBO pLivreBo){
-			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.FindAll(xx => xx.LivreId == pLivreBo.LivreId);
+			var empruntNumber = CGlobalCache.LstEmpruntSelectAll.ToList().FindAll(xx => xx.LivreId == pLivreBo.LivreId);
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
-			var lstObjEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
+			var lstObjEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
+			
+			if (!lstObjEmprunt.Any()){
+				return;
+			}
+
 			var objEmprunt = lstObjEmprunt.Last(xx => xx.LivreId == pLivreBo.LivreId);
 			if (objEmprunt == null){
 				return;
 			}
-			
 			var personneIFac = new PersonneIFACClient();
 			
 			AsyncGuiSelectPersonneFromEmpruntId asyncExecute = personneIFac.SelectByLivreEmpruntId;
 			try {
-				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, objEmprunt.EmpruntId, xx => {
-					var samplePersDelegate = (AsyncGuiSelectPersonneFromEmpruntId)((AsyncResult)xx).AsyncDelegate;
-					var objPersonneField = samplePersDelegate.EndInvoke(xx);
+				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, objEmprunt.EmpruntId, result => {
+					var samplePersDelegate = (AsyncGuiSelectPersonneFromEmpruntId)((AsyncResult)result).AsyncDelegate;
+					var objPersonneField = samplePersDelegate.EndInvoke(result);
 					if (objPersonneField != null && cmbClientField.SelectedValue!= null && objPersonneField.PersonneId != ((PersonneBO)cmbClientField.SelectedValue).PersonneId) {
 						_bCmbClientFieldToogle = false;
-						var lstPersonne = new List<PersonneBO>();
-						lstPersonne.Add(objPersonneField);
+						var lstPersonne = new List<PersonneBO> {objPersonneField};
 						var tmpClientDatas = lstPersonne.Select(yy => new { Key = yy.PersonneMatricule + ": " + yy.ToString(), Value = yy }).ToList();
 						//tmpClientDatas.Insert(0, new { Key = "", Value = null as PersonneBO });
 						cmbClientField.DataSource = tmpClientDatas;
@@ -179,6 +182,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 						_bCmbClientFieldToogle = true;
 						txtClientName.Text = objPersonneField.ToString();
 						txtClientId.Text = objPersonneField.PersonneId.ToString(CultureInfo.InvariantCulture);
+						cbAdministrateur.Checked = (objPersonneField.Administrateur != null);
 					}
 					personneIFac.Close();
 				}, null);
@@ -269,7 +273,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				cmbLivreField.Enabled = false;
 				return;
 			}
-			//SearchLivreField();
+			SearchLivreField();
 		}
 
 		private void btnValider_Click(object sender, EventArgs e) {
@@ -277,25 +281,33 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				MessageBox.Show(Resources.EmpruntManagement_btnValider_Click_Tous_les_champs_ne_sont_pas_remplis_);
 				return;
 			}
-			var result = _dashboardAdminManager.SaveRetour(CGlobalCache.SessionManager.Personne.Administrateur, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue);
-			if (result == null){
+			var resultEmprunt = _dashboardAdminManager.SaveRetour(CGlobalCache.SessionManager.Personne.Administrateur, (PersonneBO)cmbClientField.SelectedValue, (LivreBO)cmbLivreField.SelectedValue);
+			if (resultEmprunt == null){
 				MessageBox.Show(Resources.EmpruntManagement_btnValider_Click_Echec_lors_de_l_enregistrement_de_l_emprunt);
 				return;
 			}
+			CGlobalCache.LstEmpruntSelectAll.Add(resultEmprunt);
+
+			var objItem = _dashboardAdminManager.SelectItemByEmpruntId(resultEmprunt);
+			if (objItem == null){
+				MessageBox.Show(@"Echec lors de la récupération de l'item lié à l'emprunt");
+				return;
+			}
+			CGlobalCache.LstItemSelectByAministrateurId.Add(objItem);
+
 			lblAlert.Visible = true;
-			lblAlert.Text = String.Format(@"Retour enregistré ref: {0} !", result.EmpruntId);
+			lblAlert.Text = String.Format("Retour enregistré ref: {0}\nEmprunt: {1:C}\nAmende: {2:C}\nMontant à payer: {3:C} !", resultEmprunt.EmpruntId, objItem.Count, objItem.Amende, objItem.Montant);
+			
 			cmbClientField.DataSource = null;
 			cmbLivreField.Enabled = false;
 			cmbLivreField.DataSource = null;
 			cmbLivreField.Enabled = false;
-
-			CGlobalCache.ReloadSelectAllEmpruntCache(() => {
-				var selectedValue = cmbClientField.SelectedValue;
-				if (selectedValue == null){
-					return;
-				}
+			
+			var selectedValue = cmbClientField.SelectedValue;
+			if (selectedValue != null) {
 				AlertToMuchBook((PersonneBO)selectedValue);
-			});
+			}
+
 			_bCmbClientFieldToogle = false;
 			lblInfo.Visible = true;
 			btnValider.Enabled = false;

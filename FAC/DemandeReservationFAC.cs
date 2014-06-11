@@ -18,7 +18,7 @@ namespace WebsFAC {
 		}
 
 		public List<DemandeReservationBO> SelectAll(String token) {
-			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT	)) {
 				return null;
 			}
 			try {

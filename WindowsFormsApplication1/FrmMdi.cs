@@ -238,5 +238,9 @@ namespace WindowsFormsApplication1 {
 			var frmCreateLivre = new SearchLivre(this) {MdiParent = this};
 			frmCreateLivre.Show();
 		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+			MessageBox.Show(this, "Réalisé dans le cadre du cours de gestion de projet sous .Net par Michael Silvestre");
+		}
 	}
 }

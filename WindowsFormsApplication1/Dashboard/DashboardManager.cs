@@ -40,26 +40,51 @@ namespace WindowsFormsApplication1.Dashboard {
 		private void LoadEmprunt(){
 			var lstEmprunt = CGlobalCache.LstEmpruntByClient;
 			lstEmpruntEnCours.Items.Clear();
-			var lstEmpruntEncours = lstEmprunt.FindAll(xx => xx.State == "emp").Select(yy => new { Key = yy.Livre.ToString(), Value = yy }).ToList();
-			var lstEmpruntOutDated = lstEmprunt.FindAll(xx => xx.State == "reg" && xx.Transition != "annul").Select(yy => new { Key = yy.Livre.ToString(), Value = yy }).ToList();
-			//lstEmpruntEnCours.Items.AddRange(items: Enumerable.ToArray(source: query));
-			lstEmpruntEnCours.DataSource = lstEmpruntEncours;
-			lstEmpruntEnCours.DisplayMember = "Key";
+			
+			var maxActionId = lstEmprunt.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)}).ToList();
+
+			var clientEmpruntEnCours = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp").ToList();
+			
+			if (!clientEmpruntEnCours.Any()){
+				lstEmpruntEnCours.DataSource = null;
+				return;
+			}
+			var tmpClientDatasEnCours = clientEmpruntEnCours.Select(yy => new { Key = yy.EmpruntId + ": " + yy.Livre.ToString(), Value = yy }).ToList();
+			lstEmpruntEnCours.DataSource = null;
+			lstEmpruntEnCours.DataSource = tmpClientDatasEnCours;
 			lstEmpruntEnCours.ValueMember = "Value";
-			//lstEmpruntPasse.Items.AddRange(items: Enumerable.ToArray(source: query2));
-			lstEmpruntPasse.DataSource = lstEmpruntOutDated;
-			lstEmpruntPasse.DisplayMember = "Key";
+			lstEmpruntEnCours.DisplayMember = "Key";
+			
+			var clientEmpruntPasse = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "reg" && result.Transition != "annul").ToList();
+			
+			if (!clientEmpruntPasse.Any()){
+				lstEmpruntPasse.DataSource = null;
+				return;
+			}
+			var tmpClientDatasPasse = clientEmpruntPasse.Select(yy => new { Key = yy.EmpruntId + ": " + yy.Livre.ToString(), Value = yy }).ToList();
+			lstEmpruntPasse.DataSource = null;
+			lstEmpruntPasse.DataSource = tmpClientDatasPasse;
 			lstEmpruntPasse.ValueMember = "Value";
+			lstEmpruntPasse.DisplayMember = "Key";
 		}
 
 		private void LoadDemandeReservation() {
-			var lstDemandeReservationEnCours = CGlobalCache.LstNewDemandeReservationByClient.Where(xx => xx.Valide == 1);
-			lstReservationEnCours.Items.Clear();
-			lstReservationEnCours.Items.AddRange(items: lstDemandeReservationEnCours.ToArray());
+			var lstDemandeReservationEnCours = CGlobalCache.LstNewDemandeReservationByClient.Where(xx => xx.Valide == 1).ToList();
+			
+			var maxActionId = CGlobalCache.LstReservationSelectAll.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
+			var clientReservationEmpruntNoReservation = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstReservationSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null).ToList();
+			var lstReservationAndDemandeReservation = lstDemandeReservationEnCours.Where(xx => {
+				var pp = clientReservationEmpruntNoReservation.FirstOrDefault(yy => yy.DemandeReservationId == xx.DemandeReservationId) == null;
+				var qq = clientReservationEmpruntNoReservation.FirstOrDefault(yy => yy.DemandeReservationId == xx.DemandeReservationId && yy.Emprunt.State == "res") != null;
+				return pp || qq;
+			}).ToList();
 
-			var lstDemandeReservationPasse = CGlobalCache.LstOldDemandeReservationByClient.Where(xx => xx.Valide == 0);
-			lstReservationPasse.Items.Clear();
-			lstReservationPasse.Items.AddRange(items: lstDemandeReservationPasse.ToArray());
+			lstReservationEnCours.DataSource = null;
+			lstReservationEnCours.DataSource = lstReservationAndDemandeReservation;
+
+			var lstDemandeReservationPasse = CGlobalCache.LstOldDemandeReservationByClient.Where(xx => xx.Valide == 0).ToList();
+			lstReservationPasse.DataSource = null;
+			lstReservationPasse.DataSource = lstDemandeReservationPasse;
 		}
 
 		private void LoadDecoration() {
@@ -78,24 +103,22 @@ namespace WindowsFormsApplication1.Dashboard {
 
 			// Select Uniq in a list !!!
 			var lstUniqLocalLivre = CGlobalCache.LstLivreByBibliotheque.GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
-			lstNewLivreLocal.Items.Clear();
-			lstNewLivreLocal.Items.AddRange(lstUniqLocalLivre.ToArray());
+			lstNewLivreLocal.DataSource = null;
+			lstNewLivreLocal.DataSource = lstUniqLocalLivre;
 
 			// Select Uniq in a list !!!
 			var bibliothequeId = CGlobalCache.SessionManager.Personne.Client.BibliothequeId;
 			var lstUniqNetworkLivre = CGlobalCache.LstLivreSelectAll.ToList().FindAll(xx => xx.BibliothequeId != bibliothequeId).GroupBy(cust => cust.RefLivre.RefLivreId).Select(grp => grp.First()).OrderByDescending(xx => xx.CreatedAt).Take(25).ToList();
-			lstNewLivreNetwork.Items.Clear();
-			lstNewLivreNetwork.Items.AddRange(lstUniqNetworkLivre.ToArray());
+			lstNewLivreNetwork.DataSource = null;
+			lstNewLivreNetwork.DataSource = lstUniqNetworkLivre.ToArray();
 		}
 
 		private void InsertDemandeReservation(Action<DemandeReservationBO> callbackAction = null) {
-			DemandeReservationBO objDemandeReservation = new DemandeReservationBO();
-			objDemandeReservation.Client = CGlobalCache.SessionManager.Personne.Client;
-			objDemandeReservation.RefLivre = _livreSelected.RefLivre;
+			var objDemandeReservation = new DemandeReservationBO {Client = CGlobalCache.SessionManager.Personne.Client, RefLivre = _livreSelected.RefLivre};
 
 			var demandeReservationIFacClient = new DemandeReservationIFACClient();
 			AsyncGuiDemandeReservationInsert insertGuiSampleDemandeReservationDelegate = demandeReservationIFacClient.InsertDemandeReservation;
-			insertGuiSampleDemandeReservationDelegate.BeginInvoke(CGlobalCache.SessionManager.Token, objDemandeReservation, (result) =>{
+			insertGuiSampleDemandeReservationDelegate.BeginInvoke(CGlobalCache.SessionManager.Token, objDemandeReservation, result =>{
 				var sampleInsertDemandeReservationDelegate = (AsyncGuiDemandeReservationInsert)((AsyncResult)result).AsyncDelegate;
 				var objDemandeReservationResult = sampleInsertDemandeReservationDelegate.EndInvoke(result);
 				
@@ -124,7 +147,7 @@ namespace WindowsFormsApplication1.Dashboard {
 		private void ConfirmReservation(DemandeReservationBO objDemandeReservation, Action<ReservationBO> callbackAction){
 			var reservationIFacClient = new ReservationIFACClient();
 			AsyncGuiReservationSelectByDemandeReservationId insertGuiSampleDemandeReservationDelegate = reservationIFacClient.SelectEnCoursValidByReservationId;
-			insertGuiSampleDemandeReservationDelegate.BeginInvoke(CGlobalCache.SessionManager.Token, objDemandeReservation.DemandeReservationId, (result) =>{
+			insertGuiSampleDemandeReservationDelegate.BeginInvoke(CGlobalCache.SessionManager.Token, objDemandeReservation.DemandeReservationId, result => {
 				var sampleInsertDemandeReservationDelegate = (AsyncGuiReservationSelectByDemandeReservationId)((AsyncResult)result).AsyncDelegate;
 				var objReservationResult = sampleInsertDemandeReservationDelegate.EndInvoke(result);
 				
@@ -144,18 +167,18 @@ namespace WindowsFormsApplication1.Dashboard {
 		private void LoadFicheLivre(DemandeReservationBO pDemandeReservation) {
 			CreateFicheLivreReservation();
 			
-			var refLivreIFac = new RefLivreIFACClient();
+			var refLivreIFac = new ReservationIFACClient();
 			
-			AsyncGuiFicheDeLivreSelectForClientById asyncExecute = refLivreIFac.SelectFicheLivreForClientByRefLivreId;
+			AsyncGuiReservationSelectByDemandeReservationId asyncExecute = refLivreIFac.SelectEnCoursValidByReservationId;
 			try {
-				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, CGlobalCache.SessionManager.Personne.Client.ClientId, pDemandeReservation.RefLivreId, xx => {
-					var samplePersDelegate = (AsyncGuiFicheDeLivreSelectForClientById)((AsyncResult)xx).AsyncDelegate;
-					_actualFicheLivre = samplePersDelegate.EndInvoke(xx);
+				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, pDemandeReservation.DemandeReservationId, xx => {
+					var samplePersDelegate = (AsyncGuiReservationSelectByDemandeReservationId)((AsyncResult)xx).AsyncDelegate;
+					var objReservationResult = samplePersDelegate.EndInvoke(xx);
 					if (_ficheDeLivreReservation == null) {
 						refLivreIFac.Close();
 						return;
 					}
-					_ficheDeLivreReservation.setFicheDeLivre(_actualFicheLivre);
+					_ficheDeLivreReservation.SetFicheDeLivre(pDemandeReservation, objReservationResult);
 					refLivreIFac.Close();
 				}, null);
 			} catch(Exception) {
@@ -173,11 +196,11 @@ namespace WindowsFormsApplication1.Dashboard {
 				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, CGlobalCache.SessionManager.Personne.Client.ClientId, pLivreBo.LivreId, xx => {
 					var samplePersDelegate = (AsyncGuiFicheDeLivreSelectForClientById)((AsyncResult)xx).AsyncDelegate;
 					_actualFicheLivre = samplePersDelegate.EndInvoke(xx);
-					if (_ficheDeLivre == null) {
+					if (_ficheDeLivre == null || _actualFicheLivre == null) {
 						livreIFac.Close();
 						return;
 					}
-					_ficheDeLivre.setFicheDeLivre(_actualFicheLivre);
+					_ficheDeLivre.SetFicheDeLivre(pLivreBo, _actualFicheLivre);
 					livreIFac.Close();
 				}, null);
 			} catch(Exception) {
@@ -193,7 +216,7 @@ namespace WindowsFormsApplication1.Dashboard {
 				return;
 			}
 			
-			_ficheDeLivre.setFicheDeLivre(pEmpruntBo);
+			_ficheDeLivre.SetFicheDeLivre(pEmpruntBo);
 
 			//_actualFicheLivre = pEmpruntBo.Livre;
 			/*var livreIFac = new LivreIFACClient();
@@ -280,7 +303,7 @@ namespace WindowsFormsApplication1.Dashboard {
 				demandeAnnulationIFac.Close();
 
 				if (objDemandeAnnulation == null){
-					MessageBox.Show("La demande n'a pas été exécutée");
+					MessageBox.Show(Resources.DashboardManager_AnnuleDemandeReservation_La_demande_n_a_pas_ete_executee);
 				}
 
 				CGlobalCache.LstNewDemandeReservationByClient.Remove(_demandeReservationSelected);
@@ -288,9 +311,11 @@ namespace WindowsFormsApplication1.Dashboard {
 				CGlobalCache.LstOldDemandeReservationByClient.Add(_demandeReservationSelected);
 				_demandeReservationSelected = null;
 
-				if (CGlobalCache.LstDemandeReservationSelectAll != null){
+				if (CGlobalCache.LstDemandeReservationSelectAll != null) {
 					CGlobalCache.LstDemandeReservationSelectAll.Remove(_demandeReservationSelected);
-					CGlobalCache.LstDemandeReservationSelectAll.Add(objDemandeAnnulation.DemandeReservation);
+					if (objDemandeAnnulation != null) {
+						CGlobalCache.LstDemandeReservationSelectAll.Add(objDemandeAnnulation.DemandeReservation);
+					}
 				}
 
 				if (callbackAction == null){
@@ -332,7 +357,7 @@ namespace WindowsFormsApplication1.Dashboard {
 			LoadReservation(sender, e);
 		}
 
-		private void LivreStatus_MouseDown(object sender, MouseEventArgs e) {
+		private void LivreStatusLocal_MouseDown(object sender, MouseEventArgs e) {
 			var listBox = (ListBox)sender;
 
 			listBox.SelectedIndex = listBox.IndexFromPoint(e.Location);
@@ -348,6 +373,21 @@ namespace WindowsFormsApplication1.Dashboard {
 				_livreSelected = (LivreBO)listBox.SelectedItem;
 				
 			}
+			if (e.Button == MouseButtons.Left) {
+				LoadFicheLivre((LivreBO)listBox.SelectedItem);
+			}
+		}
+
+		private void LivreStatusOther_MouseDown(object sender, MouseEventArgs e) {
+			var listBox = (ListBox)sender;
+
+			listBox.SelectedIndex = listBox.IndexFromPoint(e.Location);
+			if (listBox.SelectedIndex == -1) {
+				return;
+			}
+
+			CleanListBoxSelected(listBox);
+
 			if (e.Button == MouseButtons.Left) {
 				LoadFicheLivre((LivreBO)listBox.SelectedItem);
 			}
@@ -384,11 +424,11 @@ namespace WindowsFormsApplication1.Dashboard {
 			}
 		}
 
-		private void totoToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void demandeReservationToolStripMenuItem_Click(object sender, EventArgs e) {
 			if (_livreSelected == null) {
 				return;
 			}
-			InsertDemandeReservation((objDemandeReservation) => ConfirmReservation(objDemandeReservation, (objReservation) => {
+			InsertDemandeReservation(objDemandeReservation => ConfirmReservation(objDemandeReservation, objReservation => {
 				if (objReservation == null){
 					MessageBox.Show(String.Format(@"Il n'y a pas de livre disponible pour l'instant. Votre demande: {0} est enregistrée et vous serez averti dès que possible", objDemandeReservation.DemandeReservationId));
 					return;
@@ -399,6 +439,33 @@ namespace WindowsFormsApplication1.Dashboard {
 
 		private void DashboardManager_FormClosing(object sender, FormClosingEventArgs e) {
 			_frmMdi.ChildFormDecrement();
+		}
+
+		private void lstReservationEnCours_DrawItem(object sender, DrawItemEventArgs e) {
+			
+			e.DrawBackground();
+
+			var myBrush = Brushes.Black;
+
+			var font = e.Font;
+
+			var objDemandeReservation = (DemandeReservationBO)lstReservationEnCours.Items[e.Index];
+			var findReservation = CGlobalCache.LstReservationSelectEnCoursValidByClientId.LastOrDefault(xx => xx.DemandeReservationId.Equals(objDemandeReservation.DemandeReservationId));
+			
+			if (findReservation != null && findReservation.Emprunt.State == "res"){
+				myBrush = Brushes.ForestGreen;
+				font = new Font(e.Font, FontStyle.Bold);
+			}
+			/*
+			if (findReservation == null || findReservation.Emprunt.State != "res"){
+				g.FillRectangle( new SolidBrush( Color.White), e.Bounds );
+				g.DrawString(objDemandeReservation.RefLivre.Titre, e.Font, new SolidBrush( e.ForeColor ), new PointF( e.Bounds.X, e.Bounds.Y) );	
+			} else {
+				g.FillRectangle(new SolidBrush(Color.YellowGreen), e.Bounds);
+				g.DrawString(objDemandeReservation.RefLivre.Titre, new Font(e.Font, FontStyle.Bold), new SolidBrush( Color.White ), new PointF( e.Bounds.X, e.Bounds.Y) );	
+			}*/
+			e.Graphics.DrawString(lstReservationEnCours.Items[e.Index].ToString(), font, myBrush, e.Bounds, StringFormat.GenericDefault);
+			e.DrawFocusRectangle();
 		}
 
 	}

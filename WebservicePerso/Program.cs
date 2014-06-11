@@ -15,6 +15,7 @@ namespace WebservicePerso {
 			var demandeReservationServer = new HostingServerDemandeReservation();
 			var demandeAnnulationServer = new HostingServerDemandeAnnulation();
 			var reservationServer = new HostingServerReservation();
+			var itemServer = new HostingServerItem();
 			Console.WriteLine("Server Started");
 			clientServer.StartServer();
 			empruntServer.StartServer();
@@ -28,6 +29,7 @@ namespace WebservicePerso {
 			demandeReservationServer.StartServer();
 			demandeAnnulationServer.StartServer();
 			reservationServer.StartServer();
+			itemServer.StartServer();
 			Console.WriteLine("Press a key to stop the Service");
 			Console.ReadKey();
 			clientServer.StopServer();
@@ -42,6 +44,7 @@ namespace WebservicePerso {
 			demandeReservationServer.StopServer();
 			demandeAnnulationServer.StopServer();
 			reservationServer.StopServer();
+			itemServer.StopServer();
 			Console.WriteLine("Server Stopped");
 
 

@@ -27,6 +27,8 @@
 			this.dataGridDemandeReservation = new System.Windows.Forms.DataGridView();
 			this.cmbReservationToogle = new System.Windows.Forms.ComboBox();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.lblBibliotheque = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.btnEmprunter = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
 			this.btnAnnuler = new System.Windows.Forms.Button();
@@ -41,6 +43,7 @@
 			this.txtClientId = new System.Windows.Forms.TextBox();
 			this.lblClientName = new System.Windows.Forms.Label();
 			this.txtClientName = new System.Windows.Forms.TextBox();
+			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridDemandeReservation)).BeginInit();
 			this.panel2.SuspendLayout();
@@ -82,6 +85,9 @@
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel2.Controls.Add(this.cbAdministrateur);
+			this.panel2.Controls.Add(this.lblBibliotheque);
+			this.panel2.Controls.Add(this.label6);
 			this.panel2.Controls.Add(this.btnEmprunter);
 			this.panel2.Controls.Add(this.label5);
 			this.panel2.Controls.Add(this.btnAnnuler);
@@ -100,6 +106,24 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(391, 208);
 			this.panel2.TabIndex = 2;
+			// 
+			// lblBibliotheque
+			// 
+			this.lblBibliotheque.AutoSize = true;
+			this.lblBibliotheque.Location = new System.Drawing.Point(147, 36);
+			this.lblBibliotheque.Name = "lblBibliotheque";
+			this.lblBibliotheque.Size = new System.Drawing.Size(64, 13);
+			this.lblBibliotheque.TabIndex = 21;
+			this.lblBibliotheque.Text = "bibliotheque";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(112, 36);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(38, 13);
+			this.label6.TabIndex = 20;
+			this.label6.Text = "Biblio :";
 			// 
 			// btnEmprunter
 			// 
@@ -171,7 +195,7 @@
 			// picBook
 			// 
 			this.picBook.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.picBook.Location = new System.Drawing.Point(235, 7);
+			this.picBook.Location = new System.Drawing.Point(235, 5);
 			this.picBook.Name = "picBook";
 			this.picBook.Size = new System.Drawing.Size(150, 196);
 			this.picBook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -210,7 +234,7 @@
 			this.txtClientId.Location = new System.Drawing.Point(57, 33);
 			this.txtClientId.Name = "txtClientId";
 			this.txtClientId.ReadOnly = true;
-			this.txtClientId.Size = new System.Drawing.Size(85, 20);
+			this.txtClientId.Size = new System.Drawing.Size(49, 20);
 			this.txtClientId.TabIndex = 2;
 			// 
 			// lblClientName
@@ -229,6 +253,16 @@
 			this.txtClientName.ReadOnly = true;
 			this.txtClientName.Size = new System.Drawing.Size(136, 20);
 			this.txtClientName.TabIndex = 0;
+			// 
+			// cbAdministrateur
+			// 
+			this.cbAdministrateur.AutoCheck = false;
+			this.cbAdministrateur.AutoSize = true;
+			this.cbAdministrateur.Location = new System.Drawing.Point(205, 9);
+			this.cbAdministrateur.Name = "cbAdministrateur";
+			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
+			this.cbAdministrateur.TabIndex = 22;
+			this.cbAdministrateur.UseVisualStyleBackColor = true;
 			// 
 			// ReservationManagement
 			// 
@@ -270,5 +304,8 @@
 		private System.Windows.Forms.Button btnAnnuler;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button btnEmprunter;
+		private System.Windows.Forms.Label lblBibliotheque;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.CheckBox cbAdministrateur;
 	}
 }

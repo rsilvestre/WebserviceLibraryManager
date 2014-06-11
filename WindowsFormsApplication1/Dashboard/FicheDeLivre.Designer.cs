@@ -34,8 +34,10 @@
 			this.lblEmpruntStatus = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.panel3 = new System.Windows.Forms.Panel();
-			this.lblReservationStatus = new System.Windows.Forms.Label();
+			this.lblDemandeReservationStatus = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.lblReservationStatus = new System.Windows.Forms.Label();
+			this.lblReservationTitle = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -127,7 +129,7 @@
 			// 
 			this.lblEmpruntStatus.AutoSize = true;
 			this.lblEmpruntStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblEmpruntStatus.Location = new System.Drawing.Point(5, 44);
+			this.lblEmpruntStatus.Location = new System.Drawing.Point(3, 44);
 			this.lblEmpruntStatus.Name = "lblEmpruntStatus";
 			this.lblEmpruntStatus.Size = new System.Drawing.Size(56, 20);
 			this.lblEmpruntStatus.TabIndex = 20;
@@ -147,31 +149,53 @@
 			// 
 			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panel3.Controls.Add(this.lblReservationStatus);
+			this.panel3.Controls.Add(this.lblReservationTitle);
+			this.panel3.Controls.Add(this.lblDemandeReservationStatus);
 			this.panel3.Controls.Add(this.label1);
 			this.panel3.Location = new System.Drawing.Point(295, 222);
 			this.panel3.Name = "panel3";
 			this.panel3.Size = new System.Drawing.Size(286, 250);
 			this.panel3.TabIndex = 20;
 			// 
-			// lblReservationStatus
+			// lblDemandeReservationStatus
 			// 
-			this.lblReservationStatus.AutoSize = true;
-			this.lblReservationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblReservationStatus.Location = new System.Drawing.Point(3, 44);
-			this.lblReservationStatus.Name = "lblReservationStatus";
-			this.lblReservationStatus.Size = new System.Drawing.Size(56, 20);
-			this.lblReservationStatus.TabIndex = 20;
-			this.lblReservationStatus.Text = "Status";
+			this.lblDemandeReservationStatus.AutoSize = true;
+			this.lblDemandeReservationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDemandeReservationStatus.Location = new System.Drawing.Point(3, 44);
+			this.lblDemandeReservationStatus.Name = "lblDemandeReservationStatus";
+			this.lblDemandeReservationStatus.Size = new System.Drawing.Size(56, 20);
+			this.lblDemandeReservationStatus.TabIndex = 20;
+			this.lblDemandeReservationStatus.Text = "Status";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(95, 11);
+			this.label1.Location = new System.Drawing.Point(46, 11);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(94, 20);
+			this.label1.Size = new System.Drawing.Size(190, 20);
 			this.label1.TabIndex = 19;
-			this.label1.Text = "Réservation";
+			this.label1.Text = "Demande de Réservation";
+			// 
+			// lblReservationStatus
+			// 
+			this.lblReservationStatus.AutoSize = true;
+			this.lblReservationStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblReservationStatus.Location = new System.Drawing.Point(3, 117);
+			this.lblReservationStatus.Name = "lblReservationStatus";
+			this.lblReservationStatus.Size = new System.Drawing.Size(56, 20);
+			this.lblReservationStatus.TabIndex = 22;
+			this.lblReservationStatus.Text = "Status";
+			// 
+			// lblReservationTitle
+			// 
+			this.lblReservationTitle.AutoSize = true;
+			this.lblReservationTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblReservationTitle.Location = new System.Drawing.Point(86, 83);
+			this.lblReservationTitle.Name = "lblReservationTitle";
+			this.lblReservationTitle.Size = new System.Drawing.Size(94, 20);
+			this.lblReservationTitle.TabIndex = 21;
+			this.lblReservationTitle.Text = "Réservation";
 			// 
 			// FicheDeLivre
 			// 
@@ -207,7 +231,9 @@
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label lblEmpruntStatus;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lblReservationStatus;
+		private System.Windows.Forms.Label lblDemandeReservationStatus;
 		private System.Windows.Forms.Label lblBibliotheque;
+		private System.Windows.Forms.Label lblReservationStatus;
+		private System.Windows.Forms.Label lblReservationTitle;
 	}
 }

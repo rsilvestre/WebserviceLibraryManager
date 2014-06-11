@@ -7,7 +7,7 @@ using WebsIFAC;
 namespace WebsFAC {
 	public class ReservationFAC : ReservationIFAC {
 		public List<ReservationBO> SelectAll(String token) {
-			if (!Autorization.Validate(token, Autorization.Role.ADMIN)) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {

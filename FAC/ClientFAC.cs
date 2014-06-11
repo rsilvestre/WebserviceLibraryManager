@@ -7,8 +7,8 @@ using WebsIFAC;
 namespace WebsFAC
 {
     public class ClientFAC : ClientIFAC {
-		public List<ClientBO> SelectAll(String Token) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public List<ClientBO> SelectAll(String token) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {
@@ -18,8 +18,8 @@ namespace WebsFAC
 			}
 		}
 
-		public ClientBO SelectById(String Token, Int32 pId) {
-			if (!Autorization.Validate(Token, Autorization.Role.CLIENT)) {
+		public ClientBO SelectById(String token, Int32 pId) {
+			if (!Autorization.Validate(token, Autorization.Role.CLIENT)) {
 				return null;
 			}
 			try {

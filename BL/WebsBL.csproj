@@ -39,6 +39,7 @@
     <Compile Include="AdministrateurBL.cs" />
     <Compile Include="Autorization.cs" />
     <Compile Include="BibliothequeBL.cs" />
+    <Compile Include="ItemBL.cs" />
     <Compile Include="ClientBL.cs" />
     <Compile Include="DemandeAnnulationBL.cs" />
     <Compile Include="DemandeReservationBL.cs" />

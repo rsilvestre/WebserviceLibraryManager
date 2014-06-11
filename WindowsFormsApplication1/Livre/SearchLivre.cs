@@ -37,7 +37,11 @@ namespace WindowsFormsApplication1.Livre {
 			//List<LivreBO> lstLivre = CGlobalCache.LstLivreByBibliotheque.FindAll(xx => xx.RefLivre.Titre.Contains(pSearchText)).ToList();
 
 			Predicate<LivreBO> searchPredicacte = xx => xx.RefLivre.Titre.Contains(pSearchText);
-			FindByTitreResult(searchPredicacte);
+			if (cmbBibliotheque.SelectedValue.ToString() == "local"){
+				FindLocalLivreByTitreResult(searchPredicacte);
+				return;
+			}
+			FindOtherLivreByTitreResult(searchPredicacte);
 		}
 
 		/// <summary>
@@ -48,14 +52,18 @@ namespace WindowsFormsApplication1.Livre {
 			//List<LivreBO> lstLivre = CGlobalCache.LstLivreByBibliotheque.FindAll(xx => xx.RefLivre.ISBN.Contains(pSearchText)).ToList();
 			
 			Predicate<LivreBO> searchPredicacte = xx => xx.RefLivre.ISBN.Contains(pSearchText);
-			FindByTitreResult(searchPredicacte);
+			if (cmbBibliotheque.SelectedValue.ToString() == "local"){
+				FindLocalLivreByTitreResult(searchPredicacte);
+				return;
+			}
+			FindOtherLivreByTitreResult(searchPredicacte);
 		}
 
 		/// <summary>
 		/// Affichage du résultat de recherche
 		/// </summary>
 		/// <param name="pSearchPredicate"></param>
-		private void FindByTitreResult(Predicate<LivreBO> pSearchPredicate) {
+		private void FindLocalLivreByTitreResult(Predicate<LivreBO> pSearchPredicate) {
 			// Recherche dans le bibliotheque locale
 			var grpLivreLocal = CGlobalCache.LstLivreByBibliotheque.FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
 			// Recherche dans toutes les bibliothèques (locale comprise)
@@ -66,15 +74,46 @@ namespace WindowsFormsApplication1.Livre {
 			
 			// Création de la liste de résultat
 			var lstLivre = new List<dynamic>();
-			foreach (var livre in query)
-			{
+			foreach (var livre in query) {
 				//lstSearchResult.Items.Add(CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)));
 				//lstSearchResult.Items.Add(new { toto.count, CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)).Titre });
-				LivreBO objLivreAll = CGlobalCache.LstLivreSelectAll.FirstOrDefault(xx => xx.RefLivre.RefLivreId.Equals(livre.refLivreId));
+				var objLivreAll = CGlobalCache.LstLivreSelectAll.FirstOrDefault(xx => xx.RefLivre.RefLivreId.Equals(livre.refLivreId));
 				
 				// Ajout des éléments de la liste de résultat
 				if (objLivreAll != null) {
 					lstLivre.Add(new {Locale = livre.countLocal, Total = livre.countAll, objLivreAll.RefLivre.ISBN, Titre = objLivreAll.ToString()});
+				}
+			}
+
+			// Affichage du résultat de la recherche
+			dataGridSearchResult.DataSource = null;
+			dataGridSearchResult.DataSource = lstLivre;
+			dataGridSearchResult.AutoResizeColumns();
+		}
+
+		/// <summary>
+		/// Affichage du résultat de recherche
+		/// </summary>
+		/// <param name="pSearchPredicate"></param>
+		private void FindOtherLivreByTitreResult(Predicate<LivreBO> pSearchPredicate) {
+			// Recherche dans le bibliotheque locale
+			var grpLivreLocal = CGlobalCache.LstLivreByBibliotheque.FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
+			// Recherche dans toutes les bibliothèques (locale comprise)
+			var grpLivreAll = CGlobalCache.LstLivreSelectAll.ToList().FindAll(pSearchPredicate).GroupBy(xx => xx.RefLivreId).Select(group => new { refLivreId = group.Key, count = group.Count() });
+			
+			// Jointure des resultats entre la bibliothèque locale et les autres
+			//var query = grpLivreLocal.Join(grpLivreAll, livreLocal => livreLocal.refLivreId, livreAll => livreAll.refLivreId, (livre1, livre2) => new { countLocal = livre1.count, countAll = livre2.count, livre1.refLivreId});
+			
+			// Création de la liste de résultat
+			var lstLivre = new List<dynamic>();
+			foreach (var livre in grpLivreAll.Except(grpLivreLocal)) {
+				//lstSearchResult.Items.Add(CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)));
+				//lstSearchResult.Items.Add(new { toto.count, CGlobalCache.LstRefLivreSelectAll.FirstOrDefault(xx => xx.RefLivreId.Equals(toto.refLivreId)).Titre });
+				var objLivreAll = CGlobalCache.LstLivreSelectAll.FirstOrDefault(xx => xx.RefLivre.RefLivreId.Equals(livre.refLivreId));
+				
+				// Ajout des éléments de la liste de résultat
+				if (objLivreAll != null) {
+					lstLivre.Add(new {Id = livre.refLivreId, Total = livre.count, objLivreAll.RefLivre.ISBN, Titre = objLivreAll.ToString()});
 				}
 			}
 
@@ -139,9 +178,14 @@ namespace WindowsFormsApplication1.Livre {
 		}
 
 		private void SearchLivre_Load(object sender, EventArgs e) {
-			if (CGlobalCache.SessionManager.Personne != null) {
-				lblBibliotheque.Text = CGlobalCache.SessionManager.Personne.Client.Bibliotheque.BibliothequeName;
+			if (CGlobalCache.SessionManager.Personne != null){
+				var lstBibliothequeSearch = new List<dynamic>(){new{Key = CGlobalCache.SessionManager.Personne.Client.Bibliotheque.BibliothequeName, Value = "local"}, new{Key = "Toutes les bibliotheques", Value = "other"}};
+				cmbBibliotheque.DataSource = lstBibliothequeSearch;
+				cmbBibliotheque.DisplayMember = "Key";
+				cmbBibliotheque.ValueMember = "Value";
+				cmbBibliotheque.SelectedValue = "local";
 			}
+
 		}
 
 		private void dataGridSearchResult_CellClick(object sender, DataGridViewCellEventArgs e) {
@@ -150,7 +194,7 @@ namespace WindowsFormsApplication1.Livre {
 			}
 			_livreSelected = CGlobalCache.LstLivreSelectAll.FirstOrDefault(xx => xx.RefLivre.ISBN.Equals(dataGridSearchResult.Rows[e.RowIndex].Cells[2].Value));
 			dataGridSearchResult.Rows[e.RowIndex].Selected = true;
-			btnSelection.Enabled = true;
+			btnSelection.Enabled = ((String)cmbBibliotheque.SelectedValue) != "other";
 		}
 
 		private void btnSelection_Click(object sender, EventArgs e) {
@@ -170,6 +214,11 @@ namespace WindowsFormsApplication1.Livre {
 
 		private void dataGridSearchResult_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
 			dataGridSearchResult_CellClick(sender, e);
+		}
+
+		private void cmbBibliotheque_SelectedValueChanged(object sender, EventArgs e) {
+			btnSelection.Enabled = false;
+			RaiseFind();
 		}
 	}
 }

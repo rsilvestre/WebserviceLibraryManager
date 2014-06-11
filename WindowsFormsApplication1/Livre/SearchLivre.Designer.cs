@@ -31,8 +31,8 @@
 			this.txtSearch = new System.Windows.Forms.TextBox();
 			this.dataGridSearchResult = new System.Windows.Forms.DataGridView();
 			this.label1 = new System.Windows.Forms.Label();
-			this.lblBibliotheque = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
+			this.cmbBibliotheque = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridSearchResult)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -122,15 +122,6 @@
 			this.label1.TabIndex = 16;
 			this.label1.Text = "Bibliotheque : ";
 			// 
-			// lblBibliotheque
-			// 
-			this.lblBibliotheque.AutoSize = true;
-			this.lblBibliotheque.Location = new System.Drawing.Point(93, 406);
-			this.lblBibliotheque.Name = "lblBibliotheque";
-			this.lblBibliotheque.Size = new System.Drawing.Size(35, 13);
-			this.lblBibliotheque.TabIndex = 17;
-			this.lblBibliotheque.Text = "label2";
-			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -140,13 +131,23 @@
 			this.label3.TabIndex = 18;
 			this.label3.Text = "Champ de recherche : ";
 			// 
+			// cmbBibliotheque
+			// 
+			this.cmbBibliotheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbBibliotheque.FormattingEnabled = true;
+			this.cmbBibliotheque.Location = new System.Drawing.Point(103, 403);
+			this.cmbBibliotheque.Name = "cmbBibliotheque";
+			this.cmbBibliotheque.Size = new System.Drawing.Size(155, 21);
+			this.cmbBibliotheque.TabIndex = 19;
+			this.cmbBibliotheque.SelectedValueChanged += new System.EventHandler(this.cmbBibliotheque_SelectedValueChanged);
+			// 
 			// SearchLivre
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(656, 436);
+			this.Controls.Add(this.cmbBibliotheque);
 			this.Controls.Add(this.label3);
-			this.Controls.Add(this.lblBibliotheque);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.dataGridSearchResult);
 			this.Controls.Add(this.btnCancel);
@@ -176,7 +177,7 @@
 		private System.Windows.Forms.TextBox txtSearch;
 		private System.Windows.Forms.DataGridView dataGridSearchResult;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lblBibliotheque;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ComboBox cmbBibliotheque;
 	}
 }
