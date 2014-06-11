@@ -68,7 +68,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 		}
 
 		private void InitComponent() {
-			cmbBibliotheque.DataSource = CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToList();
+			cmbBibliotheque.Items.AddRange(CGlobalCache.SessionManager.Personne.Administrateur.LstBibliotheque.ToArray());
 			CGlobalCache.ActualBibliothequeChangeEventHandler += ActualBibliothequeChange;
 			CGlobalCache.LstLivreSelectAll.CollectionChanged += LstSelectAll_CollectionChanged;
 			CGlobalCache.LstDemandeReservationSelectAll.CollectionChanged += LstSelectAll_CollectionChanged;

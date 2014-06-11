@@ -25,8 +25,8 @@
 		private void InitializeComponent() {
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridDemandeReservation = new System.Windows.Forms.DataGridView();
-			this.cmbReservationToogle = new System.Windows.Forms.ComboBox();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.btnEmprunter = new System.Windows.Forms.Button();
@@ -43,7 +43,7 @@
 			this.txtClientId = new System.Windows.Forms.TextBox();
 			this.lblClientName = new System.Windows.Forms.Label();
 			this.txtClientName = new System.Windows.Forms.TextBox();
-			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
+			this.cmbReservationToogle = new System.Windows.Forms.ComboBox();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridDemandeReservation)).BeginInit();
 			this.panel2.SuspendLayout();
@@ -72,16 +72,6 @@
 			this.dataGridDemandeReservation.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDemandeReservation_CellClick);
 			this.dataGridDemandeReservation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDemandeReservation_CellDoubleClick);
 			// 
-			// cmbReservationToogle
-			// 
-			this.cmbReservationToogle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbReservationToogle.FormattingEnabled = true;
-			this.cmbReservationToogle.Location = new System.Drawing.Point(273, 3);
-			this.cmbReservationToogle.Name = "cmbReservationToogle";
-			this.cmbReservationToogle.Size = new System.Drawing.Size(121, 21);
-			this.cmbReservationToogle.TabIndex = 1;
-			this.cmbReservationToogle.SelectedIndexChanged += new System.EventHandler(this.cmbReservationToogle_SelectedIndexChanged);
-			// 
 			// panel2
 			// 
 			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -106,6 +96,16 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(391, 208);
 			this.panel2.TabIndex = 2;
+			// 
+			// cbAdministrateur
+			// 
+			this.cbAdministrateur.AutoCheck = false;
+			this.cbAdministrateur.AutoSize = true;
+			this.cbAdministrateur.Location = new System.Drawing.Point(205, 9);
+			this.cbAdministrateur.Name = "cbAdministrateur";
+			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
+			this.cbAdministrateur.TabIndex = 22;
+			this.cbAdministrateur.UseVisualStyleBackColor = true;
 			// 
 			// lblBibliotheque
 			// 
@@ -254,15 +254,15 @@
 			this.txtClientName.Size = new System.Drawing.Size(136, 20);
 			this.txtClientName.TabIndex = 0;
 			// 
-			// cbAdministrateur
+			// cmbReservationToogle
 			// 
-			this.cbAdministrateur.AutoCheck = false;
-			this.cbAdministrateur.AutoSize = true;
-			this.cbAdministrateur.Location = new System.Drawing.Point(205, 9);
-			this.cbAdministrateur.Name = "cbAdministrateur";
-			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
-			this.cbAdministrateur.TabIndex = 22;
-			this.cbAdministrateur.UseVisualStyleBackColor = true;
+			this.cmbReservationToogle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbReservationToogle.FormattingEnabled = true;
+			this.cmbReservationToogle.Location = new System.Drawing.Point(273, 3);
+			this.cmbReservationToogle.Name = "cmbReservationToogle";
+			this.cmbReservationToogle.Size = new System.Drawing.Size(121, 21);
+			this.cmbReservationToogle.TabIndex = 1;
+			this.cmbReservationToogle.SelectedIndexChanged += new System.EventHandler(this.cmbReservationToogle_SelectedIndexChanged);
 			// 
 			// ReservationManagement
 			// 
@@ -288,7 +288,6 @@
 
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.DataGridView dataGridDemandeReservation;
-		private System.Windows.Forms.ComboBox cmbReservationToogle;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtRefLivreTitre;
@@ -307,5 +306,6 @@
 		private System.Windows.Forms.Label lblBibliotheque;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.CheckBox cbAdministrateur;
+		private System.Windows.Forms.ComboBox cmbReservationToogle;
 	}
 }

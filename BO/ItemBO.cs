@@ -12,7 +12,7 @@ namespace WebsBO {
 		private Int32 _AdministrateurId;
 		private Decimal _Montant;
 		private Decimal _Amende;
-		private Decimal _Count;
+		private Decimal _Cout;
 		private DateTime _DebutDate;
 		private DateTime _CreatedAt;
 		private EmpruntBO _emprunt;
@@ -23,7 +23,7 @@ namespace WebsBO {
 
 		public ItemBO() { }
 
-		public ItemBO(Int32 pItemId, Int32 pEmpruntId, Int32 pLivreId, Int32 pActionId, Int32 pClientId, Int32 pAdministrateurId, Decimal pMontant, DateTime pCreatedAt){
+		public ItemBO(Int32 pItemId, Int32 pEmpruntId, Int32 pLivreId, Int32 pActionId, Int32 pClientId, Int32 pAdministrateurId, Decimal pMontant, Decimal pCout, Decimal pAmende, DateTime pDebutDate, DateTime pCreatedAt){
 			ItemId = pItemId;
 			EmpruntId = pEmpruntId;
 			LivreId = pLivreId;
@@ -31,6 +31,9 @@ namespace WebsBO {
 			ClientId = pClientId;
 			AdministrateurId = pAdministrateurId;
 			Montant = pMontant;
+			Cout = pCout;
+			Amende = pAmende;
+			DebutDate = pDebutDate;
 			CreatedAt = pCreatedAt;
 		}
 
@@ -77,15 +80,15 @@ namespace WebsBO {
 		}
 		
 		[DataMember(Name = "Amende")]
-		public decimal Amende {
+		public Decimal Amende {
 			get { return _Amende; }
 			set { _Amende = value; }
 		}
 		
 		[DataMember(Name = "Count")]
-		public decimal Count {
-			get { return _Count; }
-			set { _Count = value; }
+		public Decimal Cout {
+			get { return _Cout; }
+			set { _Cout = value; }
 		}
 		
 		[DataMember(Name = "DebutDate")]

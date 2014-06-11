@@ -37,6 +37,7 @@
 			this.txtReservationField = new System.Windows.Forms.TextBox();
 			this.txtClientField = new System.Windows.Forms.TextBox();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.lblBibliotheque = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.lblAlert = new System.Windows.Forms.Label();
@@ -55,9 +56,7 @@
 			this.txtClientId = new System.Windows.Forms.TextBox();
 			this.lblClientName = new System.Windows.Forms.Label();
 			this.txtClientName = new System.Windows.Forms.TextBox();
-			this.cmbReservationToogle = new System.Windows.Forms.ComboBox();
 			this.lblInfo = new System.Windows.Forms.Label();
-			this.cbAdministrateur = new System.Windows.Forms.CheckBox();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picBook)).BeginInit();
@@ -224,6 +223,16 @@
 			this.panel2.Size = new System.Drawing.Size(455, 291);
 			this.panel2.TabIndex = 10;
 			// 
+			// cbAdministrateur
+			// 
+			this.cbAdministrateur.AutoCheck = false;
+			this.cbAdministrateur.AutoSize = true;
+			this.cbAdministrateur.Location = new System.Drawing.Point(201, 10);
+			this.cbAdministrateur.Name = "cbAdministrateur";
+			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
+			this.cbAdministrateur.TabIndex = 23;
+			this.cbAdministrateur.UseVisualStyleBackColor = true;
+			// 
 			// lblBibliotheque
 			// 
 			this.lblBibliotheque.AutoSize = true;
@@ -247,7 +256,7 @@
 			this.lblAlert.AutoSize = true;
 			this.lblAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAlert.ForeColor = System.Drawing.Color.Red;
-			this.lblAlert.Location = new System.Drawing.Point(45, 233);
+			this.lblAlert.Location = new System.Drawing.Point(45, 209);
 			this.lblAlert.Name = "lblAlert";
 			this.lblAlert.Size = new System.Drawing.Size(40, 16);
 			this.lblAlert.TabIndex = 21;
@@ -390,36 +399,17 @@
 			this.txtClientName.Size = new System.Drawing.Size(136, 20);
 			this.txtClientName.TabIndex = 0;
 			// 
-			// cmbReservationToogle
-			// 
-			this.cmbReservationToogle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbReservationToogle.FormattingEnabled = true;
-			this.cmbReservationToogle.Location = new System.Drawing.Point(337, 3);
-			this.cmbReservationToogle.Name = "cmbReservationToogle";
-			this.cmbReservationToogle.Size = new System.Drawing.Size(121, 21);
-			this.cmbReservationToogle.TabIndex = 11;
-			// 
 			// lblInfo
 			// 
 			this.lblInfo.AutoSize = true;
 			this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblInfo.ForeColor = System.Drawing.Color.DodgerBlue;
-			this.lblInfo.Location = new System.Drawing.Point(21, 4);
+			this.lblInfo.Location = new System.Drawing.Point(21, 6);
 			this.lblInfo.Name = "lblInfo";
 			this.lblInfo.Size = new System.Drawing.Size(33, 16);
 			this.lblInfo.TabIndex = 12;
 			this.lblInfo.Text = "Info";
 			this.lblInfo.Visible = false;
-			// 
-			// cbAdministrateur
-			// 
-			this.cbAdministrateur.AutoCheck = false;
-			this.cbAdministrateur.AutoSize = true;
-			this.cbAdministrateur.Location = new System.Drawing.Point(201, 10);
-			this.cbAdministrateur.Name = "cbAdministrateur";
-			this.cbAdministrateur.Size = new System.Drawing.Size(15, 14);
-			this.cbAdministrateur.TabIndex = 23;
-			this.cbAdministrateur.UseVisualStyleBackColor = true;
 			// 
 			// EmpruntManagement
 			// 
@@ -427,7 +417,6 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Controls.Add(this.lblInfo);
-			this.Controls.Add(this.cmbReservationToogle);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
@@ -466,7 +455,6 @@
 		private System.Windows.Forms.TextBox txtClientId;
 		private System.Windows.Forms.Label lblClientName;
 		private System.Windows.Forms.TextBox txtClientName;
-		private System.Windows.Forms.ComboBox cmbReservationToogle;
 		private System.Windows.Forms.Button btnLivreGo;
 		private System.Windows.Forms.Button btnReservationGo;
 		private System.Windows.Forms.Button btnClientGo;

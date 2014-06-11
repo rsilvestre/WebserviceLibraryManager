@@ -67,9 +67,10 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
 			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
 			var lstResult = clientEmprunt.Select(empruntBo => empruntBo.Livre).ToList();
+			
+			cmbLivreField.DataSource = null;
 			if (!lstResult.Any()){
 				cmbLivreField.Enabled = false;
-				cmbLivreField.DataSource = null;
 				return;
 			}
 			cmbLivreField.Enabled = true;
@@ -90,9 +91,10 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			var maxActionId = empruntNumber.GroupBy(xx => xx.LivreId).Select(dd => new{LivreId = dd.Key, ActionId = dd.Max(qq => qq.ActionId)});
 			var clientEmprunt = maxActionId.Select(dataInMaxActionResult => CGlobalCache.LstEmpruntSelectAll.ToList().Find(xx => xx.ActionId == dataInMaxActionResult.ActionId && xx.LivreId == dataInMaxActionResult.LivreId)).Where(result => result != null && result.State == "emp" && result.Livre.BibliothequeId == CGlobalCache.ActualBibliotheque.BibliothequeId).ToList();
 			var lstResult = clientEmprunt.Select(empruntBo => empruntBo.Livre).ToList();
+			
+			cmbLivreField.DataSource = null;
 			if (!lstResult.Any()){
 				cmbLivreField.Enabled = false;
-				cmbLivreField.DataSource = null;
 				return;
 			}
 			cmbLivreField.Enabled = true;
@@ -170,14 +172,17 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				asyncExecute.BeginInvoke(CGlobalCache.SessionManager.Token, objEmprunt.EmpruntId, result => {
 					var samplePersDelegate = (AsyncGuiSelectPersonneFromEmpruntId)((AsyncResult)result).AsyncDelegate;
 					var objPersonneField = samplePersDelegate.EndInvoke(result);
-					if (objPersonneField != null && cmbClientField.SelectedValue!= null && objPersonneField.PersonneId != ((PersonneBO)cmbClientField.SelectedValue).PersonneId) {
+					lblInfo.Visible = false;
+					if (objPersonneField != null && (cmbClientField.SelectedValue!= null && objPersonneField.PersonneId != ((PersonneBO)cmbClientField.SelectedValue).PersonneId) || cmbClientField.SelectedValue == null) {
 						_bCmbClientFieldToogle = false;
 						var lstPersonne = new List<PersonneBO> {objPersonneField};
 						var tmpClientDatas = lstPersonne.Select(yy => new { Key = yy.PersonneMatricule + ": " + yy.ToString(), Value = yy }).ToList();
 						//tmpClientDatas.Insert(0, new { Key = "", Value = null as PersonneBO });
+						cmbClientField.DataSource = null;
 						cmbClientField.DataSource = tmpClientDatas;
 						cmbClientField.ValueMember = "Value";
 						cmbClientField.DisplayMember = "Key";
+						cmbClientField.SelectedValue = objPersonneField;
 						cmbClientField.Enabled = true;
 						_bCmbClientFieldToogle = true;
 						txtClientName.Text = objPersonneField.ToString();
@@ -296,18 +301,17 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			CGlobalCache.LstItemSelectByAministrateurId.Add(objItem);
 
 			lblAlert.Visible = true;
-			lblAlert.Text = String.Format("Retour enregistré ref: {0}\nEmprunt: {1:C}\nAmende: {2:C}\nMontant à payer: {3:C} !", resultEmprunt.EmpruntId, objItem.Count, objItem.Amende, objItem.Montant);
+			var accountString = String.Format("Retour enregistré ref: {0}\nEmprunt: {1:C}\nAmende: {2:C}\nMontant à payer: {3:C} !", resultEmprunt.EmpruntId, objItem.Cout, objItem.Amende, objItem.Montant);
+			lblAlert.Text = accountString;
+			MessageBox.Show(accountString);
 			
 			cmbClientField.DataSource = null;
 			cmbLivreField.Enabled = false;
 			cmbLivreField.DataSource = null;
 			cmbLivreField.Enabled = false;
 			
-			var selectedValue = cmbClientField.SelectedValue;
-			if (selectedValue != null) {
-				AlertToMuchBook((PersonneBO)selectedValue);
-			}
-
+			AlertToMuchBook(resultEmprunt.Personne);
+			
 			_bCmbClientFieldToogle = false;
 			lblInfo.Visible = true;
 			btnValider.Enabled = false;

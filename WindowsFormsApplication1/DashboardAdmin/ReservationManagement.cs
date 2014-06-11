@@ -46,6 +46,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				new DemandeReservationCombo("Réservations en cours", RefreshDataGridWithReservationValid),
 				new DemandeReservationCombo("Réservations dépassées", RefreshDataGridWithReservationOutdated)
 			};
+			cmbReservationToogle.DataSource = null;
 			cmbReservationToogle.DataSource = lstDemandeReservationCombo;
             cmbReservationToogle.DisplayMember = "Title";
 			cmbReservationToogle.ValueMember = "LstDemandeReservation";

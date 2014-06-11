@@ -58,6 +58,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			cmbClientField.Enabled = true;
 			var lstPersonne = new List<PersonneBO>{_objReservation.DemandeReservation.Personne};
 			var tmpClientDatas = lstPersonne.Select(yy => new { Key = yy.PersonneMatricule + ": " + yy.ToString(), Value = yy }).ToList();
+			cmbClientField.DataSource = null;
 			cmbClientField.DataSource = tmpClientDatas;
 			cmbClientField.DisplayMember = "Key";
 			cmbClientField.ValueMember = "Value";
@@ -66,6 +67,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			cmbReservationField.Enabled = true;
 			var lstReservation = new List<ReservationBO>{_objReservation};
 			var tmpReservationDatas = lstReservation.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
+			cmbReservationField.DataSource = null;
 			cmbReservationField.DataSource = tmpReservationDatas;
 			cmbReservationField.DisplayMember = "Key";
 			cmbReservationField.ValueMember = "Value";
@@ -74,6 +76,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			cmbLivreField.Enabled = true;
 			var objLivre = new List<LivreBO>{_objReservation.Emprunt.Livre};
 			var tmpLivreDatas = objLivre.Select(yy => new { Key = yy.InternalReference + ": " + yy.ToString(), Value = yy }).ToList();
+			cmbLivreField.DataSource = null;
 			cmbLivreField.DataSource = tmpLivreDatas;
 			cmbLivreField.DisplayMember = "Key";
 			cmbLivreField.ValueMember = "Value";
@@ -106,6 +109,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 						_bCmbClientFieldToogle = false;
 						var tmpClientDatas = _lstPersonneField.Select(yy => new { Key = yy.PersonneMatricule + ": " + yy.ToString(), Value = yy }).ToList();
 						tmpClientDatas.Insert(0, new { Key = "", Value = null as PersonneBO });
+						cmbClientField.DataSource = null;
 						cmbClientField.DataSource = tmpClientDatas;
 						cmbClientField.ValueMember = "Value";
 						cmbClientField.DisplayMember = "Key";
@@ -131,6 +135,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 						_bCmbClientFieldToogle = false;
 						var tmpReservationDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
 						tmpReservationDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
+						cmbReservationField.DataSource = null;
 						cmbReservationField.DataSource = tmpReservationDatas;
 						cmbReservationField.ValueMember = "Value";
 						cmbReservationField.DisplayMember = "Key";
@@ -158,6 +163,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 						_bCmbClientFieldToogle = false;
 						var tmpReservationDatas = _lstReservationField.Select(yy => new { Key = yy.ReservationId + ": " + yy.Emprunt.Livre.ToString(), Value = yy }).ToList();
 						tmpReservationDatas.Insert(0, new { Key = "", Value = null as ReservationBO });
+						cmbReservationField.DataSource = null;
 						cmbReservationField.DataSource = tmpReservationDatas;
 						cmbReservationField.ValueMember = "Value";
 						cmbReservationField.DisplayMember = "Key";
@@ -187,6 +193,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 						_bCmbClientFieldToogle = false;
 						var tmpLivreDatas = _lstLivreField.Select(yy => new { Key = yy.InternalReference + ": " + yy.ToString(), Value = yy }).ToList();
 						tmpLivreDatas.Insert(0, new { Key = "", Value = null as LivreBO });
+						cmbLivreField.DataSource = null;
 						cmbLivreField.DataSource = tmpLivreDatas;
 						cmbLivreField.ValueMember = "Value";
 						cmbLivreField.DisplayMember = "Key";
@@ -211,9 +218,9 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 			
 			var objSelectedReservation = (ReservationBO)cmbReservationField.SelectedValue;
 			//List<DemandeReservationBO> lstDemandeReservation = CGlobalCache.LstNewDemandeReservationByClient.FindAll(xx => xx.ClientId == objSelectedDemandeReservation.PersonneId).ToList();
+			cmbLivreField.DataSource = null;
 			if (objSelectedReservation != null) {
 				_bCmbClientFieldToogle = false;
-				cmbLivreField.DataSource = null;
 				//var tmpLivreDatas = lstDemandeReservation.Select(xx => new { Key = "Id: " + xx.DemandeReservationId + " Date: " + xx.CreatedAt.ToShortDateString(), Value = xx }).ToList();
 				//tmpLivreDatas.Insert(0, new { Key = "", Value = null as DemandeReservationBO });
 				cmbLivreField.DisplayMember = "Key";
@@ -221,8 +228,7 @@ namespace WindowsFormsApplication1.DashboardAdmin {
 				_bCmbClientFieldToogle = true;
 				cmbLivreField.DataSource = new List<dynamic>{new { Key = objSelectedReservation.DemandeReservation.RefLivre.Titre, Value = objSelectedReservation.Emprunt.Livre }};
 				cmbLivreField.Enabled = true;
-			} else { 
-				cmbLivreField.DataSource = null;
+			} else {
 				cmbLivreField.Enabled = false;
 			}
 		}
